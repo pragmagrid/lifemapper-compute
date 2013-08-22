@@ -1,0 +1,30 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart>
+
+
+	<description>
+	Your lifemapper roll description here
+	</description>
+
+	<copyright>
+	Copyright (c) 2000 - 2012 The Regents of the University of California.
+	All rights reserved. Rocks(r) v5.5/v6.0 www.rocksclusters.org
+	
+	</copyright>
+
+	<changelog>
+	$Log$
+	</changelog>
+
+	<package>roll-lifemapper-usersguide</package>
+
+<post>
+/usr/sbin/groupadd lmwriter
+rocks sync users
+chgrp -R lmwriter /opt/lifemapper/lm
+chmod g+ws /opt/lifemapper/lm
+
+</post>
+
+</kickstart>

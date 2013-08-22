@@ -1,0 +1,48 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart>
+
+
+	<description>
+	Your lifemapper roll description here
+	</description>
+
+	<copyright>
+	Copyright (c) 2000 - 2012 The Regents of the University of California.
+	All rights reserved. Rocks(r) v5.5/v6.0 www.rocksclusters.org
+	
+	</copyright>
+
+	<changelog>
+	$Log$
+	</changelog>
+
+	<package>proj</package>
+	<package>gdal</package>
+	<package>lifemapper-tiff</package>
+	<package>libopenmodeller</package>
+	<package>lifemapper</package>
+
+<post>
+yum --enablerepo base     install jasper
+yum --enablerepo base     install subversion
+yum --enablerepo base     install gsl-devel
+yum --enablerepo base     install screen
+yum --enablerepo rpmforge install txt2tags
+
+
+<file name="/etc/ld.so.conf.d/lifemapper.conf">
+/opt/lifemapper/lib
+</file>
+
+/sbin/ldconfig
+
+GID=`grep lmwriter: /etc/group`
+if [ "$GID" != "" ] ; then
+    chgrp -R lmwriter /opt/lifemapper/lm
+    chmod g+ws /opt/lifemapper/lm
+fi
+
+</post>
+
+</kickstart>
