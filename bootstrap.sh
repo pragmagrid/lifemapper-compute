@@ -7,6 +7,7 @@ yum --enablerepo base install jasper
 yum --enablerepo base install subversion
 yum --enablerepo base install gsl
 yum --enablerepo base install gsl-devel
+yum --enablerepo base install sqlite-devel
 yum --enablerepo rpmforge install txt2tags
 
 echo "/opt/lifemapper/lib" > /etc/ld.so.conf.d/lifemapper.conf
