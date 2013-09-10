@@ -68,12 +68,24 @@ build:
 
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)/$(INSTDIR)
-	tar xzvf $(NAME).$(TARBALL_POSTFIX) -C $(ROOT)/$(PKGROOT)/$(INSTDIR)
+	tar xzvf  $(PKGNAME).tar.gz  -C  $(ROOT)/$(PKGROOT)/$(INSTDIR) --strip=1
+	cat config.py > $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common/config.py
+
 	(					\
 		cd $(ROOT)/$(PKGROOT)/$(INSTDIR)/apps; 	\
 		ln -s /usr/java/latest/bin/java java; 	\
 		ln -s $(PKGROOT)/bin/om_model om_model; 	\
 		ln -s $(PKGROOT)/bin/om_project om_project; 	\
+	)
+
+	mkdir -p $(ROOT)/var/lm
+
+	(					\
+		cd $(ROOT)/$(PKGROOT)/$(INSTDIR); 	\
+		mv jobs/ $(ROOT)/var/lm; \
+		mv data/ $(ROOT)/var/lm; \
+		ln -s /var/lm/jobs . ; \
+		ln -s /var/lm/data . ; \
 	)
 
 clean::

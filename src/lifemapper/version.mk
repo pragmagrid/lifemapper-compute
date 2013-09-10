@@ -1,5 +1,6 @@
 PKGROOT		= /opt/lifemapper
 NAME        	= lifemapper
+PKGNAME         = lmCompute
 INSTDIR		= lm
 VERSION     	= 1.0
 RELEASE 	= 0

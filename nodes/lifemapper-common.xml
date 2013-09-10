@@ -27,7 +27,6 @@
 yum --enablerepo base     install jasper
 yum --enablerepo base     install subversion
 yum --enablerepo base     install gsl-devel
-yum --enablerepo base     install screen
 yum --enablerepo rpmforge install txt2tags
 
 
@@ -39,8 +38,8 @@ yum --enablerepo rpmforge install txt2tags
 
 GID=`grep lmwriter: /etc/group`
 if [ "$GID" != "" ] ; then
-    chgrp -R lmwriter /opt/lifemapper/lm
-    chmod g+ws /opt/lifemapper/lm
+    chgrp -R lmwriter /var/lm
+    chmod g+ws /var/lm
 fi
 
 </post>

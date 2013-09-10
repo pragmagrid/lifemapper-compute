@@ -20,10 +20,13 @@
 	<package>roll-lifemapper-usersguide</package>
 
 <post>
+yum --enablerepo base install screen
+
 /usr/sbin/groupadd lmwriter
 rocks sync users
-chgrp -R lmwriter /opt/lifemapper/lm
-chmod g+ws /opt/lifemapper/lm
+
+chgrp -R lmwriter /var/lm
+chmod g+ws /var/lm
 
 </post>
 

@@ -1,1 +1,0 @@
-java -mx1024m -jar maxent.jar
