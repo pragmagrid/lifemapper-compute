@@ -1,0 +1,4 @@
+#!/bin/bash
+
+@PYBIN@ @LMHOME@/lm/code/common/controller.py
+

@@ -1,0 +1,141 @@
+"""
+@summary: Simple script that submits jobs to a cluster via SGE's qsub
+@author: CJ Grady
+@version: 1.0
+@status: alpha
+
+@license: gpl2
+@copyright: Copyright (C) 2013, University of Kansas Center for Research
+
+          Lifemapper Project, lifemapper [at] ku [dot] edu, 
+          Biodiversity Institute,
+          1345 Jayhawk Boulevard, Lawrence, Kansas, 66045, USA
+   
+          This program is free software; you can redistribute it and/or modify 
+          it under the terms of the GNU General Public License as published by 
+          the Free Software Foundation; either version 2 of the License, or (at 
+          your option) any later version.
+  
+          This program is distributed in the hope that it will be useful, but 
+          WITHOUT ANY WARRANTY; without even the implied warranty of 
+          MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+          General Public License for more details.
+  
+          You should have received a copy of the GNU General Public License 
+          along with this program; if not, write to the Free Software 
+          Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 
+          02110-1301, USA.
+"""
+import os
+from time import sleep
+
+from common.jobClient import LmJobClient, RemoteKillException
+
+# =============================================================================
+# =                           Configuration Options                           =
+# =============================================================================
+KILL_FILE = "submitter.die"
+QSTAT_CMD = "qstat"
+QSUB_CMD = "qsub -S /bin/bash -v PYTHONPATH=@LMHOME@/lm/code -j y -o /dev/null runLmJob.sh"
+#QSUB_CMD = "qsub -S /bin/bash -v PYTHONPATH=/var/lm/code -j y -o output/ runLmJob.sh"
+
+DEFAULT_QUEUE_SIZE = 20
+SLEEP_TIME = 30 # Number of seconds to sleep between polls
+
+# Controller sleep constants
+# Note: Occurs when there are no available jobs
+CONTROLLER_SLEEP_TIME = 600
+AVAILABLE_JOBS_CHECK_INTERVAL = 20 # Check every this many times through job submission loop
+
+# How often to check the client version
+VERSION_CHECK_INTERVAL = 2880 # Once a day (2 intervals a minute * 60 minutes an hour * 24 hours a day)
+
+# .............................................................................
+def checkAvailableJobs():
+   """
+   @summary: Checks to see if there are any available jobs for computation
+   @return: Boolean indicating if there are available jobs
+   """
+   try:
+      cl = LmJobClient()
+      return cl.availableJobs()
+   except Exception, e:
+      print "Request for available jobs failed: %s" % str(e)
+      return False
+
+# .............................................................................
+def checkClientVersion():
+   """
+   @summary: Checks that the version of the client is not out of date
+   """
+   cl = LmJobClient()
+   try:
+      cl.checkVersion()
+   except RemoteKillException, e:
+      print "Client out of date, stopping..."
+      raise e
+
+# .............................................................................
+def numQstatProcesses():
+   """
+   @summary: Determines the number of processes running via qstat
+   """
+   res = os.popen(QSTAT_CMD)
+   numLines = res.readlines()
+   numProc = len(numLines)-2 if len(numLines) > 2 else 0
+   res.close()
+   return numProc
+
+# .............................................................................
+def run(queueSize=DEFAULT_QUEUE_SIZE):
+   """
+   @summary: Runs the job submitter
+   @param queueSize: The number of processes to keep in the queue
+   @param jobsPerProcess: The number of jobs to run per process
+   """
+   if os.path.exists(KILL_FILE):
+      os.remove(KILL_FILE)
+   
+   n = 1 # Number of times through job submission loop for available jobs
+   v = 1 # Number of times through job submission loop for version
+   checkClientVersion() # Check client version on start
+   
+   while not os.path.exists(KILL_FILE):
+      if v >= VERSION_CHECK_INTERVAL:
+         v = 1
+         checkClientVersion()
+      else:
+         v = v + 1
+
+      if n >= AVAILABLE_JOBS_CHECK_INTERVAL:
+         if not checkAvailableJobs():
+            print "No available jobs, extended sleep"
+            sleep(CONTROLLER_SLEEP_TIME)
+         else:
+            n = 1
+      else:
+         n = n + 1
+         numToSubmit = queueSize - numQstatProcesses()
+         print "Need to submit {0} processes".format(numToSubmit)
+         if numToSubmit < 0:
+            numToSubmit = 0
+         for i in range(numToSubmit):
+            print "Submitting job"
+            res = os.popen(QSUB_CMD)
+            res.close()
+         # Sleep
+         print "Sleep"
+         sleep(SLEEP_TIME)
+
+   print "Done"
+   
+# .............................................................................
+if __name__ == "__main__":
+   import sys
+   try:
+      queueSize = int(sys.argv[1])
+   except:
+      queueSize = DEFAULT_QUEUE_SIZE
+   
+   run(queueSize=queueSize)
+   

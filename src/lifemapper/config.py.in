@@ -42,10 +42,10 @@ LOCAL_MACHINE_ID = "" # Identifier that is meaningful to you for this machine
 # =                         Environment Configuration                        =
 # ============================================================================
 # Location of plugins directory
-PLUGINS_DIR = "/opt/lifemapper/lm/code/plugins"
+PLUGINS_DIR = "@LMHOME@/lm/code/plugins"
 
 # Application directory
-APP_PATH = "/opt/lifemapper/bin/"
+APP_PATH = "@LMHOME@/bin/"
 
 # Place to store job input data
 JOB_DATA_PATH = "/var/lm/data/"
@@ -54,12 +54,12 @@ JOB_DATA_PATH = "/var/lm/data/"
 JOB_OUTPUT_PATH = "/var/lm/jobs/"
 
 # User jobs, fill this in to only process a certain user's jobs
-LM_USER_JOB = 'pragma'
+LM_USER_JOB = '@LMUSER@'
 
 # ----------------------------------------------------------------------------
 # ============================================================================
 # =                              Common Commands                             =
 # ============================================================================
 # Note, these commands will be called as is, if they need to full path, add it
-GDALINFO_CMD = "/opt/lifemapper/bin/gdalinfo"
+GDALINFO_CMD = "@LMHOME@/bin/gdalinfo"
 # ----------------------------------------------------------------------------

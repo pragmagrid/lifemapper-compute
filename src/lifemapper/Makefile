@@ -61,16 +61,31 @@ REDHAT.ROOT = $(CURDIR)/../../
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
 
+SEDSPEC += \
+	-e 's%@LMHOME@%$(PKGROOT)%g' \
+	-e 's%@LMUSER@%$(LMUSER)%g' \
+	-e 's%@PYBIN@%$(PYBIN)%g'
 
-build:
-	echo build
+SCRIPTS = runLmJob.sh jobSubmitter.py config.py
+
+runLmJob.sh: runLmJob.sh.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+jobSubmitter.py: jobSubmitter.py.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+config.py: config.py.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+build: jobSubmitter.py runLmJob.sh config.py
 	
 
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)/$(INSTDIR)
 	tar xzvf  $(PKGNAME).tar.gz  -C  $(ROOT)/$(PKGROOT)/$(INSTDIR) --strip=1
 	cat config.py > $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common/config.py
-
+	cat runLmJob.sh > $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts/runLmJob.sh 
+	cat jobSubmitter.py > $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts/jobSubmitter.py 
 	(					\
 		cd $(ROOT)/$(PKGROOT)/$(INSTDIR)/apps; 	\
 		ln -s /usr/java/latest/bin/java java; 	\
@@ -89,3 +104,5 @@ install::
 	)
 
 clean::
+	rm -rf $(SCRIPTS)
+	rm -rf $(PKGNAME)
