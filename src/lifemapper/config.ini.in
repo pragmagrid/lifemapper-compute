@@ -1,0 +1,35 @@
+; Lifemapper configuration file for lmCompute
+
+[contact]
+INSTITUTION_NAME: 
+ADMIN_NAME: 
+ADMIN_EMAIL: 
+LOCAL_MACHINE_ID: 
+
+[environment]
+PLUGINS_DIR: @LMHOME@/lm/code/plugins
+APP_PATH:  @LMHOME@/bin/
+JOB_DATA_PATH: @LMDISK@/data/
+JOB_OUTPUT_PATH: @LMDISK@/jobs/
+LM_USER_JOB: '@LMUSER@'
+
+[commands]
+GDALINFO_CMD: @LMHOME@/bin/gdalinfo
+
+; Plugins
+[openModeller]
+DEFAULT_LOG_LEVEL: debug
+OM_MODEL_CMD: om_model
+OM_PROJECT_CMD: om_project
+OM_VERSION: 1.3.0
+
+[maxent]
+JAVA_CMD: java -cp
+ME_CMD: maxent.jar
+MDL_TOOL: density.MaxEnt
+PRJ_TOOL: density.Project
+ME_VERSION: 3.3.3k
+
+[options]
+Store Log Files: true
+Log Storage Location: @LMDISK@/jobs

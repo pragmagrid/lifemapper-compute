@@ -64,9 +64,10 @@ include Rules.mk
 SEDSPEC += \
 	-e 's%@LMHOME@%$(PKGROOT)%g' \
 	-e 's%@LMUSER@%$(LMUSER)%g' \
+	-e 's%@LMDISK@%$(LMDISK)%g' \
 	-e 's%@PYBIN@%$(PYBIN)%g'
 
-SCRIPTS = runLmJob.sh jobSubmitter.py config.py
+SCRIPTS = runLmJob.sh jobSubmitter.py config.ini config.py layerSeeder.py
 
 runLmJob.sh: runLmJob.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -77,15 +78,22 @@ jobSubmitter.py: jobSubmitter.py.in
 config.py: config.py.in
 	$(SED) $(SEDSPEC) $^ > $@
 
-build: jobSubmitter.py runLmJob.sh config.py
-	
+config.ini: config.ini.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+layerSeeder.py: layerSeeder.py.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+build: $(SCRIPTS)
 
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)/$(INSTDIR)
 	tar xzvf  $(PKGNAME).tar.gz  -C  $(ROOT)/$(PKGROOT)/$(INSTDIR) --strip=1
-	cat config.py > $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common/config.py
-	cat runLmJob.sh > $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts/runLmJob.sh 
-	cat jobSubmitter.py > $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts/jobSubmitter.py 
+	install -m 664 config.ini  $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common
+	install -m 644 config.py  $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common
+	install -m 755 runLmJob.sh  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
+	install -m 755 jobSubmitter.py  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
+	install -m 755 layerSeeder.py  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
 	(					\
 		cd $(ROOT)/$(PKGROOT)/$(INSTDIR)/apps; 	\
 		ln -s /usr/java/latest/bin/java java; 	\
@@ -93,16 +101,14 @@ install::
 		ln -s $(PKGROOT)/bin/om_project om_project; 	\
 	)
 
-	mkdir -p $(ROOT)/var/lm
-
+	mkdir -p $(ROOT)/$(LMDISK)
 	(					\
 		cd $(ROOT)/$(PKGROOT)/$(INSTDIR); 	\
-		mv jobs/ $(ROOT)/var/lm; \
-		mv data/ $(ROOT)/var/lm; \
-		ln -s /var/lm/jobs . ; \
-		ln -s /var/lm/data . ; \
+		mv jobs/ $(ROOT)/$(LMDISK); \
+		mv data/ $(ROOT)/$(LMDISK); \
+		mv output/ $(ROOT)/$(LMDISK); \
 	)
 
 clean::
 	rm -rf $(SCRIPTS)
-	rm -rf $(PKGNAME)
+	rm -rf $(PKGNAME)-master

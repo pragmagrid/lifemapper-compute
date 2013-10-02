@@ -26,7 +26,7 @@ yum --enablerepo base install screen
 rocks sync users
 
 chgrp -R lmwriter /var/lm
-chmod g+ws /var/lm
+chmod -R g+ws /var/lm
 
 </post>
 

@@ -39,7 +39,9 @@ yum --enablerepo rpmforge install txt2tags
 GID=`grep lmwriter: /etc/group`
 if [ "$GID" != "" ] ; then
     chgrp -R lmwriter /var/lm
-    chmod g+ws /var/lm
+    chmod -R g+ws /var/lm
+    chgrp  lmwriter /opt/lifemapper/lm/code/common/config.ini
+    chmod g+ws /opt/lifemapper/lm/code/common/config.ini
 fi
 
 </post>
