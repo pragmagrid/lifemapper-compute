@@ -8,10 +8,10 @@ LOCAL_MACHINE_ID:
 
 [environment]
 PLUGINS_DIR: @LMHOME@/lm/code/plugins
-APP_PATH:  @LMHOME@/bin/
+APP_PATH:  @LMHOME@/lm/apps/
 JOB_DATA_PATH: @LMDISK@/data/
 JOB_OUTPUT_PATH: @LMDISK@/jobs/
-LM_USER_JOB: '@LMUSER@'
+LM_USER_JOB: @LMUSER@
 
 [commands]
 GDALINFO_CMD: @LMHOME@/bin/gdalinfo

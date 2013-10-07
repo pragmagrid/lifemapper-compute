@@ -1,5 +1,5 @@
 PKGROOT		= /opt/lifemapper
-LMDISK          = /var/lm
+LMDISK          = /share/lm
 NAME        	= lifemapper
 PKGNAME         = lmCompute
 INSTDIR		= lm

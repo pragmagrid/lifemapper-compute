@@ -25,8 +25,21 @@ yum --enablerepo base install screen
 /usr/sbin/groupadd lmwriter
 rocks sync users
 
-chgrp -R lmwriter /var/lm
-chmod -R g+ws /var/lm
+mkdir -p /state/partition1/lm
+mkdir -p /state/partition1/lm/jobs
+mkdir -p /state/partition1/lm/data/layers
+mkdir -p /state/partition1/lm/tests/jobs
+/bin/cp -p -r /opt/lifemapper/lm/tests/* /state/partition1/lm/tests
+chgrp -R lmwriter /state/partition1/lm
+chmod -R g+ws /state/partition1/lm
+
+<file name="/etc/auto.share" mode="append">
+lm &Kickstart_PrivateHostname;:/export/&amp;
+</file>
+
+/etc/init.d/autofs restart
+/opt/rocks/bin/rocks sync users
+/opt/rocks/bin/rocks run host compute "service autofs restart"
 
 </post>
 

@@ -67,9 +67,12 @@ SEDSPEC += \
 	-e 's%@LMDISK@%$(LMDISK)%g' \
 	-e 's%@PYBIN@%$(PYBIN)%g'
 
-SCRIPTS = runLmJob.sh jobSubmitter.py config.ini config.py layerSeeder.py
+SCRIPTS = runLmJob.sh runTestJob.sh jobSubmitter.py config.ini config-test.ini config.py layerSeeder.py testEnv.py
 
 runLmJob.sh: runLmJob.sh.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+runTestJob.sh: runTestJob.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 jobSubmitter.py: jobSubmitter.py.in
@@ -81,7 +84,13 @@ config.py: config.py.in
 config.ini: config.ini.in
 	$(SED) $(SEDSPEC) $^ > $@
 
+config-test.ini: config-test.ini.in
+	$(SED) $(SEDSPEC) $^ > $@
+
 layerSeeder.py: layerSeeder.py.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+testEnv.py: testEnv.py.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 build: $(SCRIPTS)
@@ -90,10 +99,14 @@ install::
 	mkdir -p $(ROOT)/$(PKGROOT)/$(INSTDIR)
 	tar xzvf  $(PKGNAME).tar.gz  -C  $(ROOT)/$(PKGROOT)/$(INSTDIR) --strip=1
 	install -m 664 config.ini  $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common
+	install -m 664 config-test.ini  $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common
 	install -m 644 config.py  $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common
 	install -m 755 runLmJob.sh  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
+	install -m 755 runTestJob.sh  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
 	install -m 755 jobSubmitter.py  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
 	install -m 755 layerSeeder.py  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
+	install -m 755 testEnv.py $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/environment
+
 	(					\
 		cd $(ROOT)/$(PKGROOT)/$(INSTDIR)/apps; 	\
 		ln -s /usr/java/latest/bin/java java; 	\
@@ -101,13 +114,16 @@ install::
 		ln -s $(PKGROOT)/bin/om_project om_project; 	\
 	)
 
-	mkdir -p $(ROOT)/$(LMDISK)
-	(					\
-		cd $(ROOT)/$(PKGROOT)/$(INSTDIR); 	\
-		mv jobs/ $(ROOT)/$(LMDISK); \
-		mv data/ $(ROOT)/$(LMDISK); \
-		mv output/ $(ROOT)/$(LMDISK); \
-	)
+	#mkdir -p $(ROOT)/$(LMDISK)
+	#mkdir -p $(ROOT)/$(LMDISK)/jobs
+	#mkdir -p $(ROOT)/$(LMDISK)/data
+	#mkdir -p $(ROOT)/$(LMDISK)/output
+	#(					\
+	#	cd $(ROOT)/$(PKGROOT)/$(INSTDIR); 	\
+	#	mv jobs/ $(ROOT)/$(LMDISK); \
+	#	mv data/ $(ROOT)/$(LMDISK); \
+	#	mv output/ $(ROOT)/$(LMDISK); \
+	#)
 
 clean::
 	rm -rf $(SCRIPTS)

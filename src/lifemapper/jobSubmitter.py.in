@@ -36,7 +36,7 @@ from common.jobClient import LmJobClient, RemoteKillException
 # =============================================================================
 KILL_FILE = "submitter.die"
 QSTAT_CMD = "qstat"
-QSUB_CMD = "qsub -S /bin/bash -v PYTHONPATH=@LMHOME@/lm/code -j y -o -o /dev/null @LMHOME@/lm/scripts/runLmJob.sh"
+QSUB_CMD = "qsub -S /bin/bash -v PYTHONPATH=@LMHOME@/lm/code -j y -o @LMDISK@/jobs @LMHOME@/lm/scripts/runLmJob.sh"
 
 DEFAULT_QUEUE_SIZE = 20
 SLEEP_TIME = 30 # Number of seconds to sleep between polls
