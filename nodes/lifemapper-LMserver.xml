@@ -1,0 +1,52 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart>
+
+
+	<description>
+	Your lifemapper roll description here
+	</description>
+
+	<copyright>
+	Copyright (c) 2000 - 2012 The Regents of the University of California.
+	All rights reserved. Rocks(r) v5.5/v6.0 www.rocksclusters.org
+	
+	</copyright>
+
+	<changelog>
+	$Log$
+	</changelog>
+
+	<package>roll-lifemapper-usersguide</package>
+	<package>mysql</package>
+	<package>mysql-devel</package>
+	<package>libxslt</package>
+	<package>lifemapper-spatialindex</package>
+	<package>lifemapper-mod_python</package>
+
+<post>
+
+<file name="/etc/ld.so.conf.d/lifemapper-server.conf">
+/opt/lifemapper/lib
+/usr/java/latest/jre/lib/amd64
+/usr/java/latest/jre/lib/amd64/server
+/opt/python/lib
+</file>
+
+yum --enablerepo base     install giflib-devel.x86_64
+yum --enablerepo base     install byacc.x86_64
+yum --enablerepo base     install readline-devel.x86_64
+yum --enablerepo base     install subversion.x86_64
+yum --enablerepo rpmforge install hdf4 hdf4-devel 
+yum --enablerepo rpmforge install hdf5 hdf5-devel
+yum --enablerepo base install cmake
+
+yum --enablerepo base update openssl
+yum install postgresql91
+yum install postgresql91-devel
+yum --enablerepo epel install json-c.x86_64
+yum install postgis2_91
+
+</post>
+
+</kickstart>

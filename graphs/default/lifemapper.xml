@@ -18,8 +18,15 @@
 	$Log$
 	</changelog>
 
+	<!-- for LMcompute -->
 	<edge from="server" to="lifemapper-server"/>
 	<edge from="server" to="lifemapper-common"/>
 	<edge from="client" to="lifemapper-common"/>
+
+	<!-- for LMserver only -->
+        <edge from="server" to="lifemapper-LMserver" cond="lmserver"/>
+
+	<!-- for LMweb only -->
+        <edge from="server" to="lifemapper-LMweb" cond="lmweb"/>
 
 </graph>
