@@ -17,15 +17,16 @@
 	$Log$
 	</changelog>
 
-	<package>proj</package>
-	<package>gdal</package>
+	<package>lifemapper-proj</package>
+	<package>lifemapper-gdal</package>
 	<package>lifemapper-tiff</package>
-	<package>libopenmodeller</package>
-	<package>lifemapper</package>
+	<package>lifemapper-openmodeller</package>
+	<package>lifemapper-lmcompute</package>
 
 <post>
 yum --enablerepo base     install jasper
 yum --enablerepo base     install subversion
+yum --enablerepo base     install gsl
 yum --enablerepo base     install gsl-devel
 yum --enablerepo rpmforge install txt2tags
 
