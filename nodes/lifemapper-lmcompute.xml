@@ -22,11 +22,12 @@
 <post>
 yum --enablerepo base install screen
 
-/usr/sbin/groupadd lmwriter
+/usr/sbin/groupadd -g 502 lmwriter
 rocks sync users
 
 mkdir -p /state/partition1/lm
 mkdir -p /state/partition1/lm/jobs
+mkdir -p /state/partition1/lm/logs
 mkdir -p /state/partition1/lm/data/layers
 mkdir -p /state/partition1/lm/tests/jobs
 /bin/cp -p -r /opt/lifemapper/lm/tests/* /state/partition1/lm/tests
