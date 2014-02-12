@@ -1,5 +1,5 @@
 PKGROOT		= /opt/lifemapper
-NAME        	= libopenmodeller
+NAME        	= lifemapper-openmodeller
 NAME_SRC    	= libopenmodeller-src
 VERSION     	= 1.3.0
 RELEASE 	= 0
