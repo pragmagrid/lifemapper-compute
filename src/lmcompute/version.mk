@@ -1,6 +1,6 @@
 PKGROOT		= /opt/lifemapper
 LMDISK          = /share/lm
-NAME        	= lifemapper
+NAME        	= lifemapper-lmcompute
 PKGNAME         = lmCompute
 INSTDIR		= lm
 VERSION     	= 1.0
