@@ -31,10 +31,12 @@
 	<package>bitstream-vera-sans-fonts</package>
 
 	<!-- packages build from source -->
+	<package>lifemapper-proj</package>
 	<package>lifemapper-geos</package>
 	<package>lifemapper-gdal</package>
 	<package>lifemapper-tiff</package>
 	<package>lifemapper-mod_python</package>
+
 	<package>opt-setuptools</package>
 	<package>opt-numexpr</package>
 	<package>opt-cython</package>
@@ -42,7 +44,6 @@
 	<package>opt-egenix-mx-base</package>
 	<package>opt-psycopg2</package>
 	<package>opt-faulthandler</package>
-	<package>proj</package>
 
 	<package>roll-lifemapper-usersguide</package>
 
@@ -72,6 +73,23 @@ yum install postgis2_91
 
 yum --enablerepo epel fribidi
 yum install mapserver
+
+GID=`grep lmwriter: /etc/group`
+if [ "$GID" == "" ] ; then
+    /usr/sbin/groupadd -g 502 lmwriter
+fi
+
+/usr/sbin/groupadd -g 501 lmreader
+rocks sync users
+
+mkdir -p /state/partition/lm/logs
+chgrp -R lmwriter /state/partition1/lm
+chmod -R g+ws /state/partition1/lm
+
+
+</file>
+
+
 </post>
 
 </kickstart>
