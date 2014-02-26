@@ -28,6 +28,9 @@
 #yum install postgis2_91
 #yum --enablerepo epel fribidi
 #yum install mapserver
+
+/sbin/sysctl -w vm.overcommit_memory=2
+
 </post>
 
 </kickstart>
