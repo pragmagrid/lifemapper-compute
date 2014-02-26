@@ -25,6 +25,14 @@
 
 <post>
 
+mkdir -p /var/lib/lm
+mkdir -p /var/lib/lm/sessions
+mkdir -p /var/lib/lm/luceneIndex
+mkdir -p /var/lib/lm/.python-eggs
+chgrp -R lmwriter /var/lib/lm
+chmod -R g+ws     /var/lib/lm
+
+
 </post>
 
 </kickstart>
