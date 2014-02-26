@@ -27,4 +27,8 @@ compile_and_install cython
 compile_and_install numexpr 
 yum --enablerepo rpmforge install hdf5 hdf5-devel
 
+# for building psycopg
+compile_and_install gdal
+/sbin/ldconfig
+yum install postgresql91
 
