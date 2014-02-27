@@ -18,25 +18,8 @@
 	$Log$
 	</changelog>
 
-	<!-- for lmcompute (frontend and compute nodes) -->
 	<edge from="server" to="lifemapper-lmcompute"/>
 	<edge from="server" to="lifemapper-lmcompute-base"/>
 	<edge from="client" to="lifemapper-lmcompute-base"/>
-
-	<!-- for lmserver -->
-        <edge from="server" to="lifemapper-lmserver" cond="lmserver"/>
-        <edge from="server" to="lifemapper-server-base" cond="lmserver"/>
-
-        <order head="lifemapper-server-base">
-                <tail>lifemapper-lmserver</tail>
-        </order>
-
-	<!-- for lmweb -->
-        <edge from="server" to="lifemapper-lmweb" cond="lmweb"/>
-        <edge from="server" to="lifemapper-server-base" cond="lmserver"/>
-
-        <order head="lifemapper-server-base">
-                <tail>lifemapper-lmweb</tail>
-        </order>
 
 </graph>

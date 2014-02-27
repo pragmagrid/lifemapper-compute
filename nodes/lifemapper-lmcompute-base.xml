@@ -4,7 +4,8 @@
 
 
 	<description>
-	Your lifemapper roll description here
+	Lifemapper roll (lmcompute part)
+	Install on the compute nodes of the lmcompute cluster	
 	</description>
 
 	<copyright>
