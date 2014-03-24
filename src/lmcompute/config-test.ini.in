@@ -7,17 +7,19 @@ ADMIN_EMAIL: test@test.com
 LOCAL_MACHINE_ID: 
 
 [environment]
-PLUGINS_DIR: @LMHOME@/lm/code/plugins 
-APP_PATH: @LMHOME@/lm/apps/
+PLUGINS_DIR: @LMHOME@/src/plugins 
+APP_PATH: @LMHOME@/apps/
 JOB_DATA_PATH: @LMDISK@/tests/data/ 
 JOB_OUTPUT_PATH: @LMDISK@/tests/jobs/ 
 LM_USER_JOB: @LMUSER@
+PYTHON_CMD: @PYBIN@
+TEMPORARY_FILE_PATH: /tmp
 
 Sample Jobs Path: @LMDISK@/tests/sampleJobs
 Sample Layers Path: @LMDISK@/tests/data/layers/testLayers.txt
 
 [commands]
-GDALINFO_CMD: @LMHOME@/bin/gdalinfo
+GDALINFO_CMD: @LMBASE@/bin/gdalinfo
 
 ; Plugins
 [openModeller]
@@ -36,3 +38,8 @@ ME_VERSION: 3.3.3k
 [options]
 Store Log Files: True
 Log Storage Location: @LMDISK@/tests/jobs
+
+[metrics]
+Metrics Storage Directory: @LMDISK@/metrics
+Store Metrics: True
+

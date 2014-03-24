@@ -50,7 +50,7 @@ class Config(object):
    @summary: Lifemapper configuration object will read config.ini and store 
                 values
    """
-   def __init__(self, fn='@LMHOME@/lm/code/common/config.ini'):
+   def __init__(self, fn='@LMHOME@/config/config.ini'):
       self.fn = fn
       self.config = ConfigParser.ConfigParser()
       self.config.read(self.fn)

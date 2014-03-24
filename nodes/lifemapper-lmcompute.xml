@@ -28,6 +28,8 @@ rocks sync users
 
 mkdir -p /state/partition1/lm
 mkdir -p /state/partition1/lm/jobs
+mkdir -p /state/partition1/lm/metrics
+mkdir -p /state/partition1/lm/temp
 mkdir -p /state/partition1/lm/logs
 mkdir -p /state/partition1/lm/data/layers
 mkdir -p /state/partition1/lm/tests/jobs

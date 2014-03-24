@@ -5,7 +5,7 @@
 @status: beta
 
 @license: gpl2
-@copyright: Copyright (C) 2013, University of Kansas Center for Research
+@copyright: Copyright (C) 2014, University of Kansas Center for Research
 
           Lifemapper Project, lifemapper [at] ku [dot] edu, 
           Biodiversity Institute,
@@ -28,11 +28,12 @@
 """
 import os
 from random import choice
+import uuid
 
-from environment.environmentMethods import _EnvironmentMethods
-from common.config import Config
-from common.layerManager import LayerManager
-from common.lmXml import deserialize, fromstring
+from LmCompute.environment.environmentMethods import _EnvironmentMethods
+from LmCompute.common.config import Config
+from LmCompute.common.layerManager import LayerManager
+from LmCompute.common.lmXml import deserialize, fromstring
 
 # .............................................................................
 class TestEnv(_EnvironmentMethods):
@@ -44,7 +45,8 @@ class TestEnv(_EnvironmentMethods):
       """
       @summary: Constructor
       """
-      self.config = Config(fn='@LMHOME@/lm/code/common/config-test.ini')
+      self.config = Config(fn='@LMHOME@/config/config-test.ini')
+
       self._initialize()
       
    def _initialize(self):
@@ -57,7 +59,7 @@ class TestEnv(_EnvironmentMethods):
          lyrMgr = LayerManager(self.getJobDataPath())
          seedLayers = []
          f = open(self.config.get('environment', 'Sample Layers Path'))
-         seedLayers = [tuple(line.rstrip('\n').split(', ')) for line in f.readlines()]
+         seedLayers = [tuple(line.split(', ')) for line in f.readlines()]
          f.close()
          for lyrUrl, fn in seedLayers:
             lyrMgr.seedLayer(lyrUrl, os.path.join(lyrBasePath, fn))
@@ -101,6 +103,35 @@ class TestEnv(_EnvironmentMethods):
       return self.config.get('environment', 'JOB_OUTPUT_PATH')
    
    # ..................................
+   def getPluginsPath(self):
+      """
+      @summary: Gets the path to the plugins directory
+      @return: The base path for Lifemapper compute plugins
+      @rtype: String
+      """
+      return self.config.get('environment', 'PLUGINS_DIR')
+   
+   # ..................................
+   def getPythonCmd(self):
+      """
+      @summary: Gets the command to run python for this machine
+      @return: Path to the python executable
+      @rtype: String
+      """
+      return self.config.get('environment', 'PYTHON_CMD')
+
+   # ..................................
+   def getTemporaryFilename(self, extension, base=None):
+      """
+      @summary: Gets a filename for a temporary file
+      @return: A temporary filename
+      @rtype: String
+      """
+      if base is None:
+         base = self.config.get('environment', 'TEMPORARY_FILE_PATH')
+      return os.path.join(base, "%s.%s" % (uuid.uuid4(), extension))
+   
+   # ..................................
    def postJob(self, jobType, jobId, content, contentType, component):
       """
       @summary: Posts (part of) a job via the environment
@@ -115,7 +146,7 @@ class TestEnv(_EnvironmentMethods):
       return None
    
    # ..................................
-   def requestJob(self, validTypes=[1, 2, 3, 4], parameters={}):
+   def requestJob(self, validTypes=[110, 120, 210, 220, 310, 405], parameters={}):
       """
       @summary: Requests a job to run
       @param validTypes: A list of the job types this environment can process
@@ -125,14 +156,18 @@ class TestEnv(_EnvironmentMethods):
       """
       jt = choice(validTypes)
       sampleJobsPath = self.config.get('environment', 'Sample Jobs Path')
-      if jt in [1]:
+      if jt in [210]:
          jobXmlFn = os.path.join(sampleJobsPath, 'omModel.xml')
-      elif jt in [2]:
+      elif jt in [220]:
          jobXmlFn = os.path.join(sampleJobsPath, 'omProjection.xml')
-      elif jt in [3]:
+      elif jt in [110]:
          jobXmlFn = os.path.join(sampleJobsPath, 'meModel.xml')
-      elif jt in [4]:
+      elif jt in [120]:
          jobXmlFn = os.path.join(sampleJobsPath, 'meProjection.xml')
+      elif jt in [310]:
+         jobXmlFn = os.path.join(sampleJobsPath, 'radIntersect.xml')
+      elif jt in [405]:
+         jobXmlFn = os.path.join(sampleJobsPath, 'gbifPoints.xml')
       else:
          raise Exception, "Unknown job type requested"
       job = deserialize(fromstring(open(jobXmlFn).read()))

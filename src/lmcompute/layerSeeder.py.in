@@ -6,7 +6,7 @@
 @status: alpha
 
 @license: gpl2
-@copyright: Copyright (C) 2013, University of Kansas Center for Research
+@copyright: Copyright (C) 2014, University of Kansas Center for Research
 
           Lifemapper Project, lifemapper [at] ku [dot] edu, 
           Biodiversity Institute,
@@ -29,7 +29,7 @@
 """
 import sys
 
-from common.layerManager import LayerManager
+from LmCompute.common.layerManager import LayerManager
 
 DATA_DIR = "@LMDISK@/data/"
 

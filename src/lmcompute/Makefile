@@ -63,11 +63,13 @@ include Rules.mk
 
 SEDSPEC += \
 	-e 's%@LMHOME@%$(PKGROOT)%g' \
+	-e 's%@LMBASE@%$(LMBASE)%g' \
 	-e 's%@LMUSER@%$(LMUSER)%g' \
 	-e 's%@LMDISK@%$(LMDISK)%g' \
 	-e 's%@PYBIN@%$(PYBIN)%g'
 
-SCRIPTS = runLmJob.sh runTestJob.sh jobSubmitter.py config.ini config-test.ini config.py layerSeeder.py testEnv.py
+#SCRIPTS = runLmJob.sh runTestJob.sh jobSubmitter.py config.ini config-test.ini config.py layerSeeder.py testEnv.py
+SCRIPTS =  config.ini config-test.ini layerSeeder.py testEnv.py lmcompute.sh lmcompute.csh
 
 runLmJob.sh: runLmJob.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -93,26 +95,45 @@ layerSeeder.py: layerSeeder.py.in
 testEnv.py: testEnv.py.in
 	$(SED) $(SEDSPEC) $^ > $@
 
+lmcompute.sh: lmcompute.sh.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+lmcompute.csh: lmcompute.csh.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+
 build: $(SCRIPTS)
 
 install::
-	mkdir -p $(ROOT)/$(PKGROOT)/$(INSTDIR)
-	tar xzvf  $(PKGNAME).tar.gz  -C  $(ROOT)/$(PKGROOT)/$(INSTDIR) --strip=1
-	install -m 664 config.ini  $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common
-	install -m 664 config-test.ini  $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common
-	install -m 644 config.py  $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common
-	install -m 755 runLmJob.sh  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
-	install -m 755 runTestJob.sh  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
-	install -m 755 jobSubmitter.py  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
-	install -m 755 layerSeeder.py  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
-	install -m 755 testEnv.py $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/environment
+
+	#mkdir -p $(ROOT)/$(PKGROOT)/$(INSTDIR)
+	#tar xzvf  $(PKGNAME).tar.gz  -C  $(ROOT)/$(PKGROOT)/$(INSTDIR) --strip=1
+	#install -m 664 config.ini  $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common
+	#install -m 664 config-test.ini  $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common
+	#install -m 644 config.py  $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/common
+	#install -m 755 runLmJob.sh  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
+	#install -m 755 runTestJob.sh  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
+	#install -m 755 jobSubmitter.py  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
+	#install -m 755 layerSeeder.py  $(ROOT)/$(PKGROOT)/$(INSTDIR)/scripts
+	#install -m 755 testEnv.py $(ROOT)/$(PKGROOT)/$(INSTDIR)/code/environment
+
+	mkdir -p $(ROOT)/$(PKGROOT)
+	tar xzvf  $(PKGNAME)-$(DIST).tar.gz  -C  $(ROOT)/$(PKGROOT) --strip=1
+	install -m 664 config.ini  $(ROOT)/$(PKGROOT)/config
+	install -m 664 config-test.ini  $(ROOT)/$(PKGROOT)/config
+	install -m 755 layerSeeder.py  $(ROOT)/$(PKGROOT)/src/scripts
+	install -m 755 testEnv.py $(ROOT)/$(PKGROOT)/src/environment
 
 	(					\
-		cd $(ROOT)/$(PKGROOT)/$(INSTDIR)/apps; 	\
+		cd $(ROOT)/$(PKGROOT)/apps; 	\
 		ln -s /usr/java/latest/bin/java java; 	\
-		ln -s $(PKGROOT)/bin/om_model om_model; 	\
-		ln -s $(PKGROOT)/bin/om_project om_project; 	\
+		ln -s $(LMBASE)/bin/om_model om_model; 	\
+		ln -s $(LMBASE)/bin/om_project om_project; 	\
 	)
+
+	mkdir -p $(ROOT)/etc/profile.d
+	install -m 755 lmcompute.sh $(ROOT)/etc/profile.d
+	install -m 755 lmcompute.csh $(ROOT)/etc/profile.d
 
 	#mkdir -p $(ROOT)/$(LMDISK)
 	#mkdir -p $(ROOT)/$(LMDISK)/jobs
