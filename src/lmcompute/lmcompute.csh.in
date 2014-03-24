@@ -1,0 +1,15 @@
+# lifemapper roll: lmcompute
+
+setenv LM_CONFIG_PATH @LMHOME@/config
+setenv LM_JOB_SUBMITTER_CONFIG @LMHOME@/config/kuClusterSubmitterConfig.ini
+setenv LM_NODE_CODE_LOCATION @LMHOME@
+setenv LM_SCRIPTS_PATH @LMHOME@/src/scripts/
+setenv NODE_PYTHON /opt/python/bin/python2.7
+setenv PYTHON /opt/python/bin/python2.7
+
+set LMCOMPUTE=@LMHOME@
+echo ${PYTHONPATH} | /bin/grep -q ${LMCOMPUTE}
+if ( $? != 0) then
+    setenv PYTHONPATH "${PYTHONPATH}:${LMCOMPUTE}"
+endif
+
