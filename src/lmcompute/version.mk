@@ -11,7 +11,7 @@ TARBALL_POSTFIX	= tar.gz
 PYBIN           = /opt/python/bin/python2.7
 LMUSER          = pragma,lm2
 
-DIST            = 20140314
+DIST            = 20140327
 
 RPM.EXTRAS = %define __os_install_post %{nil}
 

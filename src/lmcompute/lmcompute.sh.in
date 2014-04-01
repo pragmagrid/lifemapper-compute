@@ -1,9 +1,9 @@
 # lifemapper roll: lmcompute
 
-export LM_CONFIG_PATH=@LMHOME@/config
-export LM_JOB_SUBMITTER_CONFIG=@LMHOME@/config/kuClusterSubmitterConfig.ini
+export LM_CONFIG_PATH=@LMHOME@/config/config.ini
+export LM_JOB_SUBMITTER_CONFIG=@LMHOME@/config/submitterConfig.ini
 export LM_NODE_CODE_LOCATION=@LMHOME@
-export LM_SCRIPTS_PATH=@LMHOME@/src/scripts/
+export LM_SCRIPTS_PATH=@LMHOME@/scripts/
 export NODE_PYTHON=/opt/python/bin/python2.7
 export PYTHON=/opt/python/bin/python2.7
 

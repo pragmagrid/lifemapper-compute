@@ -1,0 +1,101 @@
+; Lifemapper Job Submitter Configuration file
+; Author: CJ Grady
+; Version: 2.0
+
+; -----------------------------------------------------------------------------
+[DEFAULT]
+; -----------------------------------------------------------------------------
+; These are options that are used in multiple parts of the configuration file
+;
+; LOG_PATH - The location to write log files if enabled
+; SCRIPTS_PATH - The location of assorted Lifemapper job related scripts
+; JOB_SCRIPT - Each job will run this script
+; -----------------------------------------------------------------------------
+ 
+LOG_PATH: @LMDISK@/logs        
+SCRIPTS_PATH: @LMHOME@/scripts 
+JOB_SCRIPT: %(SCRIPTS_PATH)s/lmJobScript.sh
+
+; -----------------------------------------------------------------------------
+[options]
+; -----------------------------------------------------------------------------
+; These are options for configuring the job submission script
+; 
+; KILL_FILE - If this file exists, the job submitter will stop
+; QUEUE_SIZE - The number of jobs to have running at once
+; SLEEP_TIME - The number of seconds to sleep between polls
+; CONTROLLER_SLEEP_TIME - Sleep for this many seconds when there are not enough 
+;                            jobs to run
+; AVAILABLE_JOBS_CHECK_INTERVAL - Check every this many intervals to see if 
+;                                    there are jobs available
+; NUM_JOBS_THRESHOLD - There must be this many jobs ready to run, else the 
+;                         submitter will sleep
+; VERSION_CHECK_INTERVAL - Check every this many intervals to see if the job
+;                             client is up to date
+; LOGGING - Should the jobs leave a log file
+; -----------------------------------------------------------------------------
+
+KILL_FILE: %(LOG_PATH)s/submitter.die
+QUEUE_SIZE: 100
+SLEEP_TIME: 30 
+
+CONTROLLER_SLEEP_TIME: 600 
+AVAILABLE_JOBS_CHECK_INTERVAL: 2
+NUM_JOBS_THRESHOLD: 50
+
+VERSION_CHECK_INTERVAL = 2880 ; Once a day 
+LOGGING: True
+
+; -----------------------------------------------------------------------------
+[job submit]
+; -----------------------------------------------------------------------------
+; These are configuration options related to job submission, ultimately, CMD 
+;    and CMD_NO_LOG are the ones used by the script
+;
+; CMD - The command to run to submit a job with logging
+; CMD_NO_LOG - The command to run to submit a job without logging
+;
+; Helpers:
+; QSUB - The command to use to call qsub
+; -----------------------------------------------------------------------------
+
+; CMD: %(QSUB)s -o %(LOG_PATH)s -j oe -l %(RESOURCES)s %(JOB_SCRIPT)s
+; CMD_NO_LOG: %(QSUB)s -o /dev/null -j oe -l %(RESOURCES)s %(JOB_SCRIPT)s
+CMD should be:  %(QSUB)s -o %(LOG_PATH)s -j y %(JOB_SCRIPT)s
+CMD_NO_LOG: %(QSUB)s -o /dev/null -j y %(JOB_SCRIPT)s
+
+
+QSUB: qsub 
+
+; -----------------------------------------------------------------------------
+[number of running jobs]
+; -----------------------------------------------------------------------------
+; These are configuration options related to determining the number of running 
+;    jobs.  CMD is the only one called by the job submitter
+;
+; CMD - The command to run to determine how many jobs are running
+; 
+; Helpers:
+; QSTAT - The command to use to call qstat
+; QSTAT_CMD - The call (with arguments) to qstat to get a list of running jobs
+; OVERHEAD_LINES - The number of extra lines in the qstat response that are not
+;                     jobs
+; AWK - The command to use to call awk
+; AWK_CMD - The call with arguments to awk to get the number of running jobs
+; -----------------------------------------------------------------------------
+
+CMD: %(QSTAT_CMD)s | %(AWK_CMD)s
+
+QSTAT: qstat 
+; QSTAT_CMD: %(QSTAT)s -s r -u %(USER)s'
+QSTAT_CMD: %(QSTAT)s -u %(USER)s
+OVERHEAD_LINES: 2 
+AWK: awk
+AWK_CMD: "%(AWK)s 'BEGIN {lines=0}
+                  NR {++lines}
+                  END {if (lines > %(OVERHEAD_LINES)s)
+                          {print lines-%(OVERHEAD_LINES)s}
+                       else
+                          {print 0}
+                      }'"
+                      

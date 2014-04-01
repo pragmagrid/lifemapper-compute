@@ -69,19 +69,7 @@ SEDSPEC += \
 	-e 's%@PYBIN@%$(PYBIN)%g'
 
 #SCRIPTS = runLmJob.sh runTestJob.sh jobSubmitter.py config.ini config-test.ini config.py layerSeeder.py testEnv.py
-SCRIPTS =  config.ini config-test.ini layerSeeder.py testEnv.py lmcompute.sh lmcompute.csh
-
-runLmJob.sh: runLmJob.sh.in
-	$(SED) $(SEDSPEC) $^ > $@
-
-runTestJob.sh: runTestJob.sh.in
-	$(SED) $(SEDSPEC) $^ > $@
-
-jobSubmitter.py: jobSubmitter.py.in
-	$(SED) $(SEDSPEC) $^ > $@
-
-config.py: config.py.in
-	$(SED) $(SEDSPEC) $^ > $@
+SCRIPTS =  config.ini config-test.ini submitterConfig.ini layerSeeder.py  lmcompute.sh lmcompute.csh 
 
 config.ini: config.ini.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -89,10 +77,10 @@ config.ini: config.ini.in
 config-test.ini: config-test.ini.in
 	$(SED) $(SEDSPEC) $^ > $@
 
-layerSeeder.py: layerSeeder.py.in
+submitterConfig.ini: submitterConfig.ini.in
 	$(SED) $(SEDSPEC) $^ > $@
 
-testEnv.py: testEnv.py.in
+layerSeeder.py: layerSeeder.py.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 lmcompute.sh: lmcompute.sh.in
@@ -100,7 +88,6 @@ lmcompute.sh: lmcompute.sh.in
 
 lmcompute.csh: lmcompute.csh.in
 	$(SED) $(SEDSPEC) $^ > $@
-
 
 build: $(SCRIPTS)
 
@@ -121,8 +108,8 @@ install::
 	tar xzvf  $(PKGNAME)-$(DIST).tar.gz  -C  $(ROOT)/$(PKGROOT) --strip=1
 	install -m 664 config.ini  $(ROOT)/$(PKGROOT)/config
 	install -m 664 config-test.ini  $(ROOT)/$(PKGROOT)/config
-	install -m 755 layerSeeder.py  $(ROOT)/$(PKGROOT)/src/scripts
-	install -m 755 testEnv.py $(ROOT)/$(PKGROOT)/src/environment
+	install -m 664 submitterConfig.ini  $(ROOT)/$(PKGROOT)/config
+	install -m 755 layerSeeder.py  $(ROOT)/$(PKGROOT)/scripts
 
 	(					\
 		cd $(ROOT)/$(PKGROOT)/apps; 	\

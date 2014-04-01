@@ -1,6 +1,0 @@
-#!/bin/bash
-
-echo SGE Job Id: $JOB_ID
-
-@PYBIN@ @LMHOME@/lm/code/common/controller.py test
-
