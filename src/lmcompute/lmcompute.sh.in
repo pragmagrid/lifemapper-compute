@@ -7,7 +7,7 @@ export LM_SCRIPTS_PATH=@LMHOME@/scripts/
 export NODE_PYTHON=/opt/python/bin/python2.7
 export PYTHON=/opt/python/bin/python2.7
 
-LMCOMPUTE=@LMHOME@
+LMCOMPUTE=@LMBASE@
 if ! echo ${PYTHONPATH} | /bin/grep -q ${LMCOMPUTE} ; then
     export PYTHONPATH=${PYTHONPATH}:${LMCOMPUTE}
 fi

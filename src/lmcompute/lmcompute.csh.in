@@ -7,7 +7,7 @@ setenv LM_SCRIPTS_PATH @LMHOME@/scripts/
 setenv NODE_PYTHON /opt/python/bin/python2.7
 setenv PYTHON /opt/python/bin/python2.7
 
-set LMCOMPUTE=@LMHOME@
+set LMCOMPUTE=@LMBASE@
 echo ${PYTHONPATH} | /bin/grep -q ${LMCOMPUTE}
 if ( $? != 0) then
     setenv PYTHONPATH "${PYTHONPATH}:${LMCOMPUTE}"
