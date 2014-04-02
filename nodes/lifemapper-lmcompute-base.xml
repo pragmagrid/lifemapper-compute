@@ -44,8 +44,8 @@ yum --enablerepo rpmforge install txt2tags
 
 GID=`grep lmwriter: /etc/group`
 if [ "$GID" != "" ] ; then
-    chgrp  lmwriter /opt/lifemapper/lm/code/common/config*.ini
-    chmod g+ws /opt/lifemapper/lm/code/common/config*.ini
+    chgrp  lmwriter /opt/lifemapper/LmCompute/config/config*.ini
+    chmod g+ws /opt/lifemapper/LmCompute/config/config*.ini
 fi
 
 rm -rf /etc/rc.d/rocksconfig.d/post-99-lifemapper
