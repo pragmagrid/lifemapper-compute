@@ -36,7 +36,7 @@ JOB_SCRIPT: %(SCRIPTS_PATH)s/lmJobScript.sh
 ; -----------------------------------------------------------------------------
 
 KILL_FILE: %(LOG_PATH)s/submitter.die
-QUEUE_SIZE: 100
+QUEUE_SIZE: 16
 SLEEP_TIME: 30 
 
 CONTROLLER_SLEEP_TIME: 600 
@@ -61,8 +61,8 @@ LOGGING: True
 
 ; CMD: %(QSUB)s -o %(LOG_PATH)s -j oe -l %(RESOURCES)s %(JOB_SCRIPT)s
 ; CMD_NO_LOG: %(QSUB)s -o /dev/null -j oe -l %(RESOURCES)s %(JOB_SCRIPT)s
-CMD should be:  %(QSUB)s -o %(LOG_PATH)s -j y %(JOB_SCRIPT)s
-CMD_NO_LOG: %(QSUB)s -o /dev/null -j y %(JOB_SCRIPT)s
+CMD:  %(QSUB)s -S /bin/bash -o %(LOG_PATH)s -j y %(JOB_SCRIPT)s
+CMD_NO_LOG: %(QSUB)s -S /bin/bash -o /dev/null -j y %(JOB_SCRIPT)s
 
 
 QSUB: qsub 
@@ -91,11 +91,6 @@ QSTAT: qstat
 QSTAT_CMD: %(QSTAT)s -u %(USER)s
 OVERHEAD_LINES: 2 
 AWK: awk
-AWK_CMD: "%(AWK)s 'BEGIN {lines=0}
-                  NR {++lines}
-                  END {if (lines > %(OVERHEAD_LINES)s)
-                          {print lines-%(OVERHEAD_LINES)s}
-                       else
-                          {print 0}
-                      }'"
+AWK_CMD: %(AWK)s 'BEGIN {lines=0} NR {++lines} END {if (lines > %(OVERHEAD_LINES)s) {print lines-%(OVERHEAD_LINES)s} else {print 0} }'
+
                       
