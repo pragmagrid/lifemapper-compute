@@ -3,9 +3,10 @@
 . /opt/rocks/share/devel/src/roll/etc/bootstrap-functions.sh
 
 # download needed RPMS
+yum --enablerepo base install cmake.x86_64;
+yum --enablerepo base install subversion.x86_64;
+
 (cd src/RPMS; 
-yumdownloader --resolve --enablerepo base cmake.x86_64; \
-yumdownloader --resolve --enablerepo base subversion.x86_64; \
 yumdownloader --resolve --enablerepo base screen.x86_64; \
 yumdownloader --resolve --enablerepo base gsl.x86_64; \
 yumdownloader --resolve --enablerepo base gsl-devel.x86_64; \
