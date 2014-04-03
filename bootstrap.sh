@@ -2,13 +2,17 @@
 
 . /opt/rocks/share/devel/src/roll/etc/bootstrap-functions.sh
 
-yum --enablerepo base install cmake
-yum --enablerepo base install jasper
-yum --enablerepo base install subversion
-yum --enablerepo base install gsl
-yum --enablerepo base install gsl-devel
-yum --enablerepo base install sqlite-devel
-yum --enablerepo rpmforge install txt2tags
+# download needed RPMS
+(cd src/RPMS; 
+yumdownloader --resolve --enablerepo base cmake.x86_64; \
+yumdownloader --resolve --enablerepo base subversion.x86_64; \
+yumdownloader --resolve --enablerepo base screen.x86_64; \
+yumdownloader --resolve --enablerepo base gsl.x86_64; \
+yumdownloader --resolve --enablerepo base gsl-devel.x86_64; \
+yumdownloader --resolve --enablerepo base sqlite-devel.x86_64; \
+yumdownloader --resolve --enablerepo rpmforge hdf4-devel.x86_64; \
+yumdownloader --resolve --enablerepo rpmforge hdf5-devel.x86_64; \
+)
 
 echo "/opt/lifemapper/lib" > /etc/ld.so.conf.d/lifemapper.conf
 

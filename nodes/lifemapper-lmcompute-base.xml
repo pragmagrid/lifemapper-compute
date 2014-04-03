@@ -23,14 +23,15 @@
 	<package>lifemapper-tiff</package>
 	<package>lifemapper-openmodeller</package>
 	<package>lifemapper-lmcompute</package>
+	<package>gsl</package>
+	<package>gsl-devel</package>
+	<package>hdf4</package>
+	<package>hdf4-devel</package>
+	<package>hdf5</package>
+	<package>hdf5-devel</package>
+	<package>sqlite-devel</package>
 
 <post>
-yum --enablerepo base     install jasper
-yum --enablerepo base     install subversion
-yum --enablerepo base     install gsl
-yum --enablerepo base     install gsl-devel
-yum --enablerepo rpmforge install txt2tags
-
 
 <file name="/etc/ld.so.conf.d/lifemapper.conf">
 /opt/lifemapper/lib
