@@ -28,5 +28,12 @@ This is a temp  distro creation till we get a versioned tarball from KU:
 
 **TODO**
 
-  * establish queue size on the server and update submitterConfig.ini. Need on frontend only
-  * find what other files/packages after refactoring need to be on fe or computes 
+  * establish QUEUE_SIZE on the server and update submitterConfig.ini. Need on frontend only
+  * find what other files/packages after refactoring need to be on FE or computes 
+  * running jobs from KU server on compute results in : 
+      Could not import: (310, rad.intersect.intersectRunner, IntersectRunner) -- No module named rtree 
+      Could not import: (331, rad.randomize.randomizeRunners, RandomizeSwapRunner) -- No module named pysal 
+      Could not import: (332, rad.randomize.randomizeRunners, RandomizeSplotchRunner) -- No module named pysal 
+    these are frm rad pugin. 
+  * manual settting LM_JOB_SERVER in /LmCompute/common/lmConstants.py. Need to change
+
