@@ -26,3 +26,7 @@ This is a temp  distro creation till we get a versioned tarball from KU:
     tar czvf lifemapper.tar.gz lifemapper  
     rm -rf lifemapper lmCompute.tar.gz  
 
+**TODO**
+
+  * establish queue size on the server and update submitterConfig.ini. Need on frontend only
+  * find what other files/packages after refactoring need to be on fe or computes 
