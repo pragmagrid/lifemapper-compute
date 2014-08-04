@@ -1,0 +1,8 @@
+NAME = opt-scipy
+VERSION = 0.14.0
+ARCHIVENAME = scipy
+RELEASE = 0
+
+LAPACKVER = 3.5.0
+
+RPM.EXTRAS = "AutoReq: no"

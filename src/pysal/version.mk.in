@@ -1,0 +1,4 @@
+NAME = opt-pysal
+VERSION = 1.7.0
+ARCHIVENAME = PySAL
+RELEASE = 0
