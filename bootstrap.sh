@@ -23,3 +23,7 @@ compile_and_install lifemapper-tiff
 
 compile_and_install gdal
 /sbin/ldconfig
+
+echo "You will need to checkout lmcopmpute src form Lifemapper SVN:"
+echo "    cd src/lmcompute"
+echo "    make prep "
