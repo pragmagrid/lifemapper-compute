@@ -87,8 +87,8 @@ build: alllibs
 	tar zxf $(SOURCE).tar.gz
 	/bin/cp patch-files/site.cfg $(SOURCE)
 	(\
-	    export BLAS=$(PWD)/patch-files/librefblas.a; \
-	    export LAPACK=$(PWD)/patch-files/liblapack.a; \
+	    export BLAS=$(PWD)/lapack-$(LAPACKVER)/BLAS/SRC/librefblas.a; \
+	    export LAPACK=$(PWD)/lapack-$(LAPACKVER)/liblapack.a; \
 	    cd $(SOURCE);   \
 	    $(PY.PATH) setup.py config --noisy $(SETUPOPTS) \
 			build_clib  -g $(SETUPOPTS) \
@@ -97,8 +97,8 @@ build: alllibs
 
 install::
 	(\
-	    export BLAS=$(PWD)/patch-files/librefblas.a; \
-	    export LAPACK=$(PWD)/patch-files/liblapack.a; \
+	    export BLAS=$(PWD)/lapack-$(LAPACKVER)/BLAS/SRC/librefblas.a; \
+	    export LAPACK=$(PWD)/lapack-$(LAPACKVER)/liblapack.a; \
 	    cd $(SOURCE);   \
 	    $(PY.PATH) setup.py $@ --root=$(ROOT)/; \
 	)
