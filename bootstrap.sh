@@ -24,6 +24,14 @@ compile_and_install lifemapper-tiff
 compile_and_install gdal
 /sbin/ldconfig
 
+# for pysal
+compile setuptools
+install opt-setuptools
+
+# for pysal
+compile scipy
+install opt-scipy
+
 echo "You will need to checkout src from Lifemapper SVN:"
 echo "    cd src/lmcompute"
 echo "    make prep "
