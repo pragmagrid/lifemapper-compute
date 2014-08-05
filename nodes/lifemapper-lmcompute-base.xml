@@ -4,8 +4,8 @@
 
 
 	<description>
-	Lifemapper roll (lmcompute part)
-	Install on the compute nodes of the lmcompute cluster	
+	Lifemapper roll (lmcompute)
+	Install on the frontend and compute nodes of the lmcompute cluster	
 	</description>
 
 	<copyright>
