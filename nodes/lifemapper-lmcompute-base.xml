@@ -23,6 +23,8 @@
 	<package>lifemapper-tiff</package>
 	<package>lifemapper-openmodeller</package>
 	<package>lifemapper-lmcompute</package>
+	<package>lifemapper-spatialindex</package>
+
 	<package>gsl</package>
 	<package>gsl-devel</package>
 	<package>hdf4</package>
@@ -30,6 +32,10 @@
 	<package>hdf5</package>
 	<package>hdf5-devel</package>
 	<package>sqlite-devel</package>
+
+	<package>opt-pysal</package>
+	<package>opt-rtree</package>
+	<package>opt-scipy</package>
 
 <post>
 
