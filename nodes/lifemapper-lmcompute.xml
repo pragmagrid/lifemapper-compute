@@ -4,8 +4,8 @@
 
 
 	<description>
-	Lifemapper roll (lmcompute part)
-	Frontend install. Create user, exported dirs
+	Lifemapper roll (lmcompute)
+	Install on the frontend of the lmcompute cluster. 
 	</description>
 
 	<copyright>
