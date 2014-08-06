@@ -28,6 +28,11 @@ compile_and_install gdal
 compile setuptools
 install opt-setuptools
 
+# for rtree
+compile spatialindex
+install lifemapper-spatialindex
+/sbin/ldconfig
+
 # for pysal
 compile scipy
 install opt-scipy
