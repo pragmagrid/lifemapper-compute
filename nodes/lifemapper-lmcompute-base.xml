@@ -36,6 +36,7 @@
 	<package>opt-pysal</package>
 	<package>opt-rtree</package>
 	<package>opt-scipy</package>
+	<package>opt-setuptools</package>
 
 <post>
 
