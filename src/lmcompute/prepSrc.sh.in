@@ -40,7 +40,7 @@ create_distro () {
   if [ -d $SRC ]; then
       # create lmcompute src distro
       echo "Creating lmcompute src archive from svn checkout"
-      tar czf lifemapper-lmcompute-@VERSION@.tar.gz $SRC/LmCompute $SRC/LmCommon 
+      tar czf lifemapper-lmcompute-@VERSION@.tar.gz $SRC/LmCompute $SRC/LmCommon  $SRC/__init__.py
   else
       echo "SVN checkout directory $SRC is not present"
   fi
