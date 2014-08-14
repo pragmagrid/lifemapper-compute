@@ -1,6 +1,7 @@
 # lifemapper roll: lmcompute
 
 setenv LM_CONFIG_PATH @LMHOME@/config/config.ini
+setenv LIFEMAPPER_CONFIG_FILE @LMHOME@/config/config.ini
 setenv LM_JOB_SUBMITTER_CONFIG @LMHOME@/config/submitterConfig.ini
 setenv LM_NODE_CODE_LOCATION @LMHOME@
 setenv LM_SCRIPTS_PATH @LMHOME@/scripts/
