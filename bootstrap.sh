@@ -11,7 +11,9 @@ yumdownloader --resolve --enablerepo base screen.x86_64; \
 yumdownloader --resolve --enablerepo base gsl.x86_64; \
 yumdownloader --resolve --enablerepo base gsl-devel.x86_64; \
 yumdownloader --resolve --enablerepo base sqlite-devel.x86_64; \
+yumdownloader --resolve --enablerepo rpmforge hdf4.x86_64; \
 yumdownloader --resolve --enablerepo rpmforge hdf4-devel.x86_64; \
+yumdownloader --resolve --enablerepo rpmforge hdf5.x86_64; \
 yumdownloader --resolve --enablerepo rpmforge hdf5-devel.x86_64; \
 )
 
@@ -36,6 +38,9 @@ install lifemapper-spatialindex
 # for pysal
 compile scipy
 install opt-lifemapper-scipy
+
+# for gdal
+yum --enablerepo rpmforge install hdf5 hdf5-devel
 
 echo "You will need to checkout src from Lifemapper SVN:"
 echo "    cd src/lmcompute"
