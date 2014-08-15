@@ -80,7 +80,8 @@ SCRIPTS = \
 	submitterConfig.ini \
 	layerSeeder.py \
 	lmcompute.sh \
-	lmcompute.csh 
+	lmcompute.csh  \
+	confSysvals
 
 
 config.ini: $(ARCHIVENAME)/LmCompute/config/config.ini.in
@@ -94,6 +95,9 @@ submitterConfig.ini: $(ARCHIVENAME)/LmCompute/config/submitterConfig.ini.in
 
 layerSeeder.py: $(ARCHIVENAME)/LmCompute/scripts/layerSeeder.py.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
+
+confSysvals: confSysvals.in
+	$(SED) $(SEDSPEC) $^ > $@
 
 lmcompute.sh: lmcompute.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -115,7 +119,7 @@ build:
 
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
-	mv $(ARCHIVENAME)/Lm*  $(ROOT)/$(PKGROOT) 
+	mv $(ARCHIVENAME)/*  $(ROOT)/$(PKGROOT) 
 
 	(					\
 		cd $(ROOT)/$(LMHOME)/apps; 	\
@@ -123,6 +127,9 @@ install::
 		ln -s $(PKGROOT)/bin/om_model om_model; 	\
 		ln -s $(PKGROOT)/bin/om_project om_project; 	\
 	)
+
+	mkdir -p $(ROOT)/$(PKGROOT)/bin
+	install -m 755 confSysvals $(ROOT)/$(PKGROOT)/bin
 
 	mkdir -p $(ROOT)/etc/profile.d
 	install -m 755 lmcompute.sh $(ROOT)/etc/profile.d

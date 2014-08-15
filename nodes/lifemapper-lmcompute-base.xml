@@ -33,10 +33,10 @@
 	<package>hdf5-devel</package>
 	<package>sqlite-devel</package>
 
-	<package>opt-pysal</package>
-	<package>opt-rtree</package>
-	<package>opt-scipy</package>
-	<package>opt-setuptools</package>
+	<package>opt-lifemapper-pysal</package>
+	<package>opt-lifemapper-rtree</package>
+	<package>opt-lifemapper-scipy</package>
+	<package>opt-lifemapper-setuptools</package>
 
 <post>
 
@@ -55,6 +55,9 @@ if [ "$GID" != "" ] ; then
     chgrp  lmwriter /opt/lifemapper/LmCompute/config/config*.ini
     chmod g+ws /opt/lifemapper/LmCompute/config/config*.ini
 fi
+
+/sbin/ldconfig
+/opt/lifemapper/bin/confSysvals
 
 rm -rf /etc/rc.d/rocksconfig.d/post-99-lifemapper
 </file>
