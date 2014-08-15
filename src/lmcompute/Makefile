@@ -83,18 +83,21 @@ SCRIPTS = \
 	lmcompute.csh  \
 	confSysvals
 
-
 config.ini: $(ARCHIVENAME)/LmCompute/config/config.ini.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/config/$@
+	$(SED) -i '/\[system\]/,$$d' $(ARCHIVENAME)/LmCompute/config/$@
 
 config-test.ini: $(ARCHIVENAME)/LmCompute/config/config-test.ini.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/config/$@
+	$(SED) -i '/\[system\]/,$$d' $(ARCHIVENAME)/LmCompute/config/$@
 
 submitterConfig.ini: $(ARCHIVENAME)/LmCompute/config/submitterConfig.ini.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/config/$@
+	$(SED) -i '/\[system\]/,$$d' $(ARCHIVENAME)/LmCompute/config/$@
 
 layerSeeder.py: $(ARCHIVENAME)/LmCompute/scripts/layerSeeder.py.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
+	$(SED) -i '/\[system\]/,$$d' $(ARCHIVENAME)/LmCompute/scripts/$@
 
 confSysvals: confSysvals.in
 	$(SED) $(SEDSPEC) $^ > $@
