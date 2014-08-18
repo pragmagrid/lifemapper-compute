@@ -35,10 +35,10 @@ The packages are a part of the roll source (or downloaded by bootstrap.sh).
 
 #. **sources**  ::   
 
-   wget http://download.osgeo.org/proj/proj-4.8.0.tar.gz  
-   wget http://download.osgeo.org/libtiff/tiff-4.0.3.tar.gz  
-   wget http://sourceforge.net/projects/openmodeller/files/openModeller/1.3.0/libopenmodeller-src-1.3.0.tar.gz/download  
-   wget http://download.osgeo.org/gdal/gdal-1.9.2.tar.gz  
+   wget http://download.osgeo.org/proj/proj-4.8.0.tar.gz    
+   wget http://download.osgeo.org/libtiff/tiff-4.0.3.tar.gz   
+   wget http://sourceforge.net/projects/openmodeller/files/openModeller/1.3.0/libopenmodeller-src-1.3.0.tar.gz/download   
+   wget http://download.osgeo.org/gdal/gdal-1.9.2.tar.gz   
 
 #. **lmcompute source**   ::
 
