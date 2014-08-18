@@ -26,7 +26,7 @@ compile_and_install lifemapper-tiff
 compile_and_install gdal
 /sbin/ldconfig
 
-# for pysal
+# for pysal, rtree
 compile setuptools
 install opt-lifemapper-setuptools
 
