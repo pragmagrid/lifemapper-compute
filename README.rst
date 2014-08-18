@@ -177,20 +177,10 @@ TODO
 
 #. correct permissions for /share/lm/data/layers/layers.db file
 
+#.establish QUEUE_SIZE on the server frontend
 
+#. manual settting LM_JOB_SERVER in LmCompute/common/lmConstants.py. Need to change
 
-
-
-**TODO**
-  * establish QUEUE_SIZE on the server and update submitterConfig.ini. Need on frontend only
-  * find what other files/packages after refactoring need to be on FE or computes 
-  * running jobs from KU server on compute results in errors from rad plugin: 
-
-          Could not import: (310, rad.intersect.intersectRunner, IntersectRunner) -- No module named rtree 
-          Could not import: (331, rad.randomize.randomizeRunners, RandomizeSwapRunner) -- No module named pysal 
-          Could not import: (332, rad.randomize.randomizeRunners, RandomizeSplotchRunner) -- No module named pysal 
-          
-  * manual settting LM_JOB_SERVER in /LmCompute/common/lmConstants.py. Need to change
 
 Running lmcompute jobs
 -----------------------
@@ -198,16 +188,18 @@ Running lmcompute jobs
 The jobs are run on the frontend via a job submitter script.
 The scirpt requests the jobs from the LM server and sends them to the compute nodes of the cluster.
 
-  * The environment is set via /etc/init.d/lmcompute.sh
-  * Need to set a correct jobs server LM_JOB_SERVER  specified in /opt/lifemapper/LmCompute/common/lmConstants.py
-  * Start lm jobs via the following script:
+* The environment is set via /etc/init.d/lmcompute.sh
+
+* Need to set a correct jobs server LM_JOB_SERVER  specified in /opt/lifemapper/LmCompute/common/lmConstants.py
+
+* Start lm jobs via the following script: ::  
 
         #!/bin/bash  
         rm -rf /share/lm/logs/submitter.die  
         screen  
         bash $LM_SCRIPTS_PATH/startLifemapper.sh  
 
-* Stop jobs via the following script:
+* Stop jobs via the following script: :: 
 
         #!/bin/bash
         touch /share/lm/logs/submitter.die
