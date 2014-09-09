@@ -5,13 +5,19 @@ SOURCES/
 BUILD/
 SPECS/
 
-_os
 _arch
+_distribution
+_os
 .rpmmacros
+
+disk1/
+lifemapper-*.iso
 
 # ignore version* files
 rocks-version.mk
 rocks-version-common.mk
+roll-lifemapper.*
+roll-profile.mk
 
 # ignore python files
 python.mk
