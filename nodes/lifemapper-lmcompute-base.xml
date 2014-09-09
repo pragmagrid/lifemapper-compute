@@ -38,6 +38,10 @@
 	<package>opt-lifemapper-scipy</package>
 	<package>opt-lifemapper-setuptools</package>
 
+	<package>opt-lifemapper-dateutil</package>
+	<package>opt-lifemapper-pyparsing</package>
+	<package>opt-lifemapper-matplotlib</package>
+
 <post>
 
 <file name="/etc/ld.so.conf.d/lifemapper.conf">
