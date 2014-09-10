@@ -2,9 +2,9 @@
 
 setenv LM_CONFIG_PATH @LMHOME@/config/config.ini
 setenv LIFEMAPPER_CONFIG_FILE @LMHOME@/config/config.ini
-setenv LM_JOB_SUBMITTER_CONFIG @LMHOME@/config/submitterConfig.ini
-setenv LM_NODE_CODE_LOCATION @LMHOME@
-setenv LM_SCRIPTS_PATH @LMHOME@/scripts/
+setenv LM_JOB_SUBMITTER_CONFIG @LMHOME@/LmCompute/config/submitterConfig.ini
+setenv LM_NODE_CODE_LOCATION @LMHOME@/LmCompute
+setenv LM_SCRIPTS_PATH @LMHOME@/LmCompute/scripts/
 setenv NODE_PYTHON /opt/python/bin/python2.7
 setenv PYTHON /opt/python/bin/python2.7
 

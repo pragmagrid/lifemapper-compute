@@ -54,7 +54,6 @@
 # 
 # @Copyright@
 #
-# $Log$
 
 REDHAT.ROOT = $(CURDIR)/../../
 
@@ -64,8 +63,6 @@ include Rules.mk
 version.mk:
 	cat ../version.mk version.mk.in > version.mk
 
-PY.PATH = /opt/python/bin/$(PYTHONVER)
-
 SEDSPEC += \
 	-e 's%@PKGROOT@%$(PKGROOT)%g' \
 	-e 's%@LMHOME@%$(LMHOME)%g' \
@@ -74,54 +71,36 @@ SEDSPEC += \
 	-e 's%@PYBIN@%$(PY.PATH)%g' \
 	-e 's%@VERSION@%$(VERSION)%g'
 
-SCRIPTS = \
-	config.ini \
-	config-test.ini \
-	submitterConfig.ini \
-	layerSeeder.py 
+PROFILES = \
+	lmcompute.sh \
+	lmcompute.csh 
 
-config.ini: $(ARCHIVENAME)/config/config.ini.in
-	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/config/$@
-	$(SED) -i '/\[system\]/,$$d' $(ARCHIVENAME)/config/$@
+PROGS = \
+	updateIP-lmcompute \
+	confSysvals \
 
-config-test.ini: $(ARCHIVENAME)/LmCompute/config/config-test.ini.in
-	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/config/$@
-	$(SED) -i '/\[system\]/,$$d' $(ARCHIVENAME)/LmCompute/config/$@
-
-submitterConfig.ini: $(ARCHIVENAME)/LmCompute/config/submitterConfig.ini.in
-	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/config/$@
-	$(SED) -i '/\[system\]/,$$d' $(ARCHIVENAME)/LmCompute/config/$@
-
-layerSeeder.py: $(ARCHIVENAME)/LmCompute/scripts/layerSeeder.py.in
-	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
-	$(SED) -i '/\[system\]/,$$d' $(ARCHIVENAME)/LmCompute/scripts/$@
-
-prepSrc.sh: prepSrc.sh.in 
-	make version.mk
+lmcompute.sh: lmcompute.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
-	chmod 755 $@
 
-prep: prepSrc.sh
-	./prepSrc.sh
+lmcompute.csh: lmcompute.csh.in
+	$(SED) $(SEDSPEC) $^ > $@
 
-build: 
-	tar xzvf $(NAME)-$(VERSION).tar.gz  
-	# concat 2 config files
-	cat $(ARCHIVENAME)/LmCompute/config/config.ini.in >> $(ARCHIVENAME)/config/config.ini.in
-	make $(SCRIPTS)
+updateIP-lmcompute: updateIP-lmcompute.in
+	$(SED) $(SEDSPEC) $^ > $@
 
+confSysvals: confSysvals.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+build: $(PROFILES) $(PROGS) 
+	
 install::
-	mkdir -p $(ROOT)/$(PKGROOT)
-	mv $(ARCHIVENAME)/*  $(ROOT)/$(PKGROOT) 
 
-	(					\
-		cd $(ROOT)/$(LMHOME)/apps; 	\
-		ln -s /usr/java/latest/bin/java java; 	\
-		ln -s $(PKGROOT)/bin/om_model om_model; 	\
-		ln -s $(PKGROOT)/bin/om_project om_project; 	\
-	)
+	mkdir -p $(ROOT)/etc/profile.d
+	install -m 755 $(PROFILES) $(ROOT)/etc/profile.d
+
+	mkdir -p $(ROOT)/$(PKGROOT)/rocks/bin
+	install -m 755 $(PROGS) $(ROOT)/$(PKGROOT)/rocks/bin
+	install -m 755 initLMcompute $(ROOT)/$(PKGROOT)/rocks/bin
 
 clean::
-	rm -rf $(SCRIPTS) 
-	rm -rf version.mk prepSrc.sh
-	rm -rf $(ARCHIVENAME)
+	rm -rf version.mk $(PROFILES) $(PROGS) 

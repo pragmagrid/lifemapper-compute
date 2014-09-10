@@ -1,0 +1,65 @@
+#!/bin/bash 
+#
+# Update @LMHOME@/config/config.ini file with correct ip info  
+#
+
+
+usage () 
+{
+    echo "Usage: $0"
+    echo "This script updates IPs in @LMHOME@/config/config.ini file from"
+    echo "the values set in rocks attributes LM_dbserver and LM_webserver."
+    echo "If attributes are not set then the server public IP is used"
+
+}
+
+setDefaults () {
+    Error=0
+}
+
+getAddress () {
+    # public host address
+    Addr=`/opt/rocks/bin/rocks list host attr localhost | grep Kickstart_PublicHostname | awk '{print $3}'`
+
+    # check for attribute for lifemapper dbserver 
+    AddrDbserver=`/opt/rocks/bin/rocks list host attr frontend | grep LM_dbserver | awk '{print $3}'`
+    if [ "$AddrDbserver" = "true" ] ; then
+        AddrDbserver=$Addr
+    fi
+
+    if [ "$AddrDbserver" = "" ] ; then
+	Error=1
+    fi
+
+    # check for attribute for lifemapper webserver 
+    AddrWebserver=`/opt/rocks/bin/rocks list host attr frontend | grep LM_webserver | awk '{print $3}'`
+    if [ "$AddrWebserver" = "true" ] ; then
+        AddrWebserver=$Addr
+    fi
+
+    if [ "$AddrWebserver" = "" ] ; then
+	Error=1
+    fi
+}
+
+updateAddress () {
+    if [ "$Error" = "1" ]; then
+        echo "ERROR: LM_dbserver or LM_webserver attribute is not set"
+	echo "Set both attributes on the frontend and rerun  $0"
+	exit 1
+    fi
+
+    infile=@LMHOME@/config/config.ini
+    sed -i "s%@PUBLIC_FQDN@%$AddrWebserver%g" $infile 
+    sed -i "s%@WEB_FQDN@%$AddrWebserver%g" $infile 
+    sed -i "s%@DB_FQDN@%$AddrDbserver%g" $infile 
+}
+
+#### Main ####
+if [ $# -ne 0 ]; then
+    usage
+    exit 0
+fi 
+
+getAddress
+updateAddress

@@ -1,0 +1,45 @@
+#!/bin/bash
+#
+# This script updates Lifemapper configuration file config/config.ini
+# Run by the roll install process on all nodes of lmcompute cluster
+
+usage () 
+{
+    echo "Usage: $0"
+    echo "This script is run during the roll install it will:"
+    echo "     - update config/config.ini file with values from LMdbserver and LM_webserver attributes "
+    echo "     - add [machine] section to config/config.ini  "
+    echo "   "
+}
+
+# update permissions on config files
+updatePerms () {
+    GID=`grep lmwriter: /etc/group`
+    if [ "$GID" != "" ] ; then
+        chgrp  lmwriter /opt/lifemapper/LmCompute/config/config*.ini
+        chmod g+ws /opt/lifemapper/LmCompute/config/config*.ini
+        chgrp  lmwriter /opt/lifemapper/config/config*.ini
+        chmod g+ws /opt/lifemapper/config/config*.ini
+    fi
+}
+
+# update linker paths
+runLdconfig () {
+    /sbin/ldconfig
+}
+
+# update config/config.ini
+updateConfig () {
+    /opt/lifemapper/rocks/bin/confSysvals
+    /opt/lifemapper/rocks/bin/updateIP-lmcompute
+}
+
+#### Main #####
+if [ $# -ne 0 ]; then
+    usage
+    exit 0
+fi
+
+updatePerms
+runLdconfig
+updateConfig 

@@ -42,6 +42,7 @@
 	<package>opt-lifemapper-pyparsing</package>
 	<package>opt-lifemapper-matplotlib</package>
 
+	<package>rocks-lmcompute</package>
 <post>
 
 <file name="/etc/ld.so.conf.d/lifemapper.conf">
@@ -52,20 +53,12 @@
 
 <file name="/etc/rc.d/rocksconfig.d/post-99-lifemapper" perms="0700">
 #!/bin/bash
-#
+# do LM initializaton
 
-GID=`grep lmwriter: /etc/group`
-if [ "$GID" != "" ] ; then
-    chgrp  lmwriter /opt/lifemapper/LmCompute/config/config*.ini
-    chmod g+ws /opt/lifemapper/LmCompute/config/config*.ini
-fi
-
-/sbin/ldconfig
-/opt/lifemapper/bin/confSysvals
-
+/opt/lifemapper/rocks/bin/initLMcompute
 rm -rf /etc/rc.d/rocksconfig.d/post-99-lifemapper
-</file>
 
+</file>
 
 </post>
 
