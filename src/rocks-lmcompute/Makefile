@@ -60,6 +60,8 @@ REDHAT.ROOT = $(CURDIR)/../../
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
 
+PY.PATH = /opt/python/bin/$(PYTHONVER)
+
 version.mk:
 	cat ../version.mk version.mk.in > version.mk
 
