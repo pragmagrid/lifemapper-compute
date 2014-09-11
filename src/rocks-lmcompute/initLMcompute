@@ -30,8 +30,19 @@ runLdconfig () {
 
 # update config/config.ini
 updateConfig () {
-    /opt/lifemapper/rocks/bin/confSysvals
+    /opt/lifemapper/rocks/bin/confSysvals  
     /opt/lifemapper/rocks/bin/updateIP-lmcompute
+}
+
+# source Lifemapper env
+setEnv () {
+    PROF=/etc/profile.d/lmcompute.sh
+    if [ -f $PROF ] ; then
+	 . $PROF 
+    else
+    	echo "ERROR: file $PROF not found" 
+    	exit
+    fi
 }
 
 #### Main #####
@@ -40,11 +51,8 @@ if [ $# -ne 0 ]; then
     exit 0
 fi
 
-# source Lifemapper env
-PROF=/etc/profile.d/lmcompute.sh
-[ -f $PROF ] && . $PROF || echo "ERROR: file $PROF not found" && exit
-
 # run all updates
+setEnv
 updatePerms
 runLdconfig
 updateConfig 
