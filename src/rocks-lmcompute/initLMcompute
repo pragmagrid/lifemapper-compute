@@ -40,6 +40,11 @@ if [ $# -ne 0 ]; then
     exit 0
 fi
 
+# source Lifemapper env
+PROF=/etc/profile.d/lmcompute.sh
+[ -f $PROF ] && . $PROF || echo "ERROR: file $PROF not found" && exit
+
+# run all updates
 updatePerms
 runLdconfig
 updateConfig 
