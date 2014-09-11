@@ -97,7 +97,7 @@ confSysvals: confSysvals.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 lifemapper.conf: lifemapper.conf.in
-        $(SED) $(SEDSPEC) $^ > $@
+	$(SED) $(SEDSPEC) $^ > $@
 
 build: $(SCRIPTS) $(PROFILES) $(PROGS) 
 	
@@ -111,7 +111,7 @@ install::
 	install -m 755 initLMcompute $(ROOT)/$(PKGROOT)/rocks/bin
 
 	mkdir -p $(ROOT)/etc/ld.so.conf.d
-	install -m 644 lifemapper-server.conf $(ROOT)/etc/ld.so.conf.d
+	install -m 644 lifemapper.conf $(ROOT)/etc/ld.so.conf.d
 
 clean::
 	rm -rf version.mk $(SCRIPTS) $(PROFILES) $(PROGS) 
