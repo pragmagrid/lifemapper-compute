@@ -117,6 +117,18 @@ or (2) to the existing frontend.
 
 #. During the frontend install choose python roll, it is a prerequisite for lifemapper roll.
 
+#. After the frontend is up set the attributes to point to LmWebserver and LmDbServer, 
+   either FQDN or IP can be used: ::  
+
+       # /opt/rocks/bin/rocks add host attr localhost LM_webserver value=111.222.333.444
+       # /opt/rocks/bin/rocks add host attr localhost LM_dbserverr value=my.host.domain 
+
+   Run command : :: 
+
+       # /opt/lifemapperrocks/bin/initLMcompute 
+
+#. Install compute nodes 
+
 2 Adding a roll to a live frontend
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -134,6 +146,11 @@ Execute all commands from top level lifemapper-server/ ::
    # bash add-roll.sh  > add-roll.out 2>&1
 
 After the  last command  is finished, examine the add-roll.out file for errors
+Set the attributes to point to LmWebserver and LmDbServer, either FQDN or IP can be used: ::  
+
+   # /opt/rocks/bin/rocks add host attr localhost LM_webserver value=111.222.333.444
+   # /opt/rocks/bin/rocks add host attr localhost LM_dbserverr value=my.host.domain 
+
 and then reboot your frontend: ::
 
    # reboot
@@ -174,10 +191,12 @@ TODO
 ---------
 
 #. automate or create a command that will specify wich server to use for lmjobs
+   this is done via initLMcompute script now. 
+   Verify  initLMcompute  on new frontend. 
 
 #. correct permissions for /share/lm/data/layers/layers.db file
 
-#.establish QUEUE_SIZE on the server frontend
+#. establish QUEUE_SIZE on the server frontend
 
 #. manual settting LM_JOB_SERVER in LmCompute/common/lmConstants.py. Need to change
 
