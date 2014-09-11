@@ -45,16 +45,13 @@
 	<package>rocks-lmcompute</package>
 <post>
 
-<file name="/etc/ld.so.conf.d/lifemapper.conf">
-/opt/lifemapper/lib
-</file>
-
 /sbin/ldconfig
 
 <file name="/etc/rc.d/rocksconfig.d/post-99-lifemapper" perms="0700">
 #!/bin/bash
 # do LM initializaton
 
+/sbin/ldconfig
 /opt/lifemapper/rocks/bin/initLMcompute
 rm -rf /etc/rc.d/rocksconfig.d/post-99-lifemapper
 

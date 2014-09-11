@@ -77,6 +77,9 @@ PROFILES = \
 	lmcompute.sh \
 	lmcompute.csh 
 
+SCRIPTS = \
+	lifemapper.conf
+
 PROGS = \
 	updateIP-lmcompute \
 	confSysvals \
@@ -93,7 +96,10 @@ updateIP-lmcompute: updateIP-lmcompute.in
 confSysvals: confSysvals.in
 	$(SED) $(SEDSPEC) $^ > $@
 
-build: $(PROFILES) $(PROGS) 
+lifemapper.conf: lifemapper.conf.in
+        $(SED) $(SEDSPEC) $^ > $@
+
+build: $(SCRIPTS) $(PROFILES) $(PROGS) 
 	
 install::
 
@@ -104,5 +110,8 @@ install::
 	install -m 755 $(PROGS) $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 initLMcompute $(ROOT)/$(PKGROOT)/rocks/bin
 
+	mkdir -p $(ROOT)/etc/ld.so.conf.d
+	install -m 644 lifemapper-server.conf $(ROOT)/etc/ld.so.conf.d
+
 clean::
-	rm -rf version.mk $(PROFILES) $(PROGS) 
+	rm -rf version.mk $(SCRIPTS) $(PROFILES) $(PROGS) 
