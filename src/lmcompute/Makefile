@@ -76,25 +76,27 @@ SEDSPEC += \
 
 SCRIPTS = \
 	config.ini \
+	config2.ini \
 	config-test.ini \
 	submitterConfig.ini \
 	layerSeeder.py 
 
 config.ini: $(ARCHIVENAME)/config/config.ini.in
-	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/config/$@
-	$(SED) -i '/\[system\]/,$$d' $(ARCHIVENAME)/config/$@
+	$(SED) -i $(SEDSPEC) $^ 
+	cat $^ > $(ARCHIVENAME)/config/$@
+
+config2.ini: $(ARCHIVENAME)/LmCompute/config/config.ini.in
+	$(SED) -i $(SEDSPEC) $^ 
+	cat $^ > $(ARCHIVENAME)/LmCompute/config/config.ini
 
 config-test.ini: $(ARCHIVENAME)/LmCompute/config/config-test.ini.in
-	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/config/$@
-	$(SED) -i '/\[system\]/,$$d' $(ARCHIVENAME)/LmCompute/config/$@
+	$(SED)  $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/config/$@
 
 submitterConfig.ini: $(ARCHIVENAME)/LmCompute/config/submitterConfig.ini.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/config/$@
-	$(SED) -i '/\[system\]/,$$d' $(ARCHIVENAME)/LmCompute/config/$@
 
 layerSeeder.py: $(ARCHIVENAME)/LmCompute/scripts/layerSeeder.py.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
-	$(SED) -i '/\[system\]/,$$d' $(ARCHIVENAME)/LmCompute/scripts/$@
 
 prepSrc.sh: prepSrc.sh.in 
 	make version.mk
