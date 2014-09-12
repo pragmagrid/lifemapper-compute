@@ -2,8 +2,6 @@
 #
 # Update @LMHOME@/config/config.ini file with correct ip info  
 #
-
-
 usage () 
 {
     echo "Usage: $0"
@@ -42,6 +40,18 @@ getAddress () {
     fi
 }
 
+updateConfFile () {
+    infile=$1.in
+    outfile=$1
+    if [ -f $infile ]; then
+        sed  "s%@PUBLIC_FQDN@%$AddrWebserver%g;\
+              s%@WEB_FQDN@%$AddrWebserver%g; \
+              s%@DB_FQDN@%$AddrDbserver%g" $infile > $outfile
+    else
+       echo "ERROR: File $infile does not exist"
+    fi
+}
+
 updateAddress () {
     if [ "$Error" = "1" ]; then
         echo "ERROR: LM_dbserver or LM_webserver attribute is not set"
@@ -49,10 +59,21 @@ updateAddress () {
 	exit 1
     fi
 
-    infile=@LMHOME@/config/config.ini
-    sed -i "s%@PUBLIC_FQDN@%$AddrWebserver%g" $infile 
-    sed -i "s%@WEB_FQDN@%$AddrWebserver%g" $infile 
-    sed -i "s%@DB_FQDN@%$AddrDbserver%g" $infile 
+    updateConfFile @LMHOME@/LmCompute/config/config.ini
+    updateConfFile @LMHOME@/config/config.ini
+    @LMHOME@/rocks/bin/confSysvals 
+}
+
+# update permissions on config files
+updatePerms () {
+    GID=`grep lmwriter: /etc/group`
+    if [ "$GID" != "" ] ; then
+        chgrp  lmwriter /opt/lifemapper/LmCompute/config/config*.ini*
+        chmod g+ws /opt/lifemapper/LmCompute/config/config*.ini*
+
+        chgrp  lmwriter /opt/lifemapper/config/config*.ini*
+        chmod g+ws /opt/lifemapper/config/config*.ini*
+    fi
 }
 
 #### Main ####
@@ -63,3 +84,4 @@ fi
 
 getAddress
 updateAddress
+updatePerms

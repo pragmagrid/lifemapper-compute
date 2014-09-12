@@ -16,10 +16,11 @@ usage ()
 updatePerms () {
     GID=`grep lmwriter: /etc/group`
     if [ "$GID" != "" ] ; then
-        chgrp  lmwriter /opt/lifemapper/LmCompute/config/config*.ini
-        chmod g+ws /opt/lifemapper/LmCompute/config/config*.ini
-        chgrp  lmwriter /opt/lifemapper/config/config*.ini
-        chmod g+ws /opt/lifemapper/config/config*.ini
+        chgrp  lmwriter /opt/lifemapper/LmCompute/config/config*.ini*
+        chmod g+ws /opt/lifemapper/LmCompute/config/config*.ini*
+
+        chgrp  lmwriter /opt/lifemapper/config/config*.ini*
+        chmod g+ws /opt/lifemapper/config/config*.ini*
     fi
 }
 
@@ -30,7 +31,6 @@ runLdconfig () {
 
 # update config/config.ini
 updateConfig () {
-    /opt/lifemapper/rocks/bin/confSysvals  
     /opt/lifemapper/rocks/bin/updateIP-lmcompute
 }
 
@@ -53,6 +53,6 @@ fi
 
 # run all updates
 setEnv
-updatePerms
 runLdconfig
 updateConfig 
+updatePerms
