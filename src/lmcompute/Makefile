@@ -67,12 +67,17 @@ version.mk:
 PY.PATH = /opt/python/bin/$(PYTHONVER)
 
 SEDSPEC += \
-	-e 's%@PKGROOT@%$(PKGROOT)%g' \
-	-e 's%@LMHOME@%$(LMHOME)%g' \
-	-e 's%@LMUSER@%$(LMUSER)%g' \
-	-e 's%@LMDISK@%$(LMDISK)%g' \
-	-e 's%@PYBIN@%$(PY.PATH)%g' \
-	-e 's%@VERSION@%$(VERSION)%g'
+        -e 's%@PKGROOT@%$(PKGROOT)%g' \
+        -e 's%@PYBIN@%$(PY.PATH)%g' \
+        -e 's%@DATADIR@%$(DATADIR)%g' \
+        -e 's%@LMDISK@%$(LMDISK)%g' \
+        -e 's%@LMHOME@%$(LMHOME)%g' \
+        -e 's%@LMWEB@%$(LMWEB)%g' \
+        -e 's%@LMUSER@%$(LMUSER)%g' \
+        -e 's%@SMTPSERVER@%$(SMTPSERVER)%g' \
+        -e 's%@SMTPSENDER@%$(SMTPSENDER)%g' \
+        -e 's%@TEMPDIR@%$(TEMPDIR)%g'  \
+        -e 's%@VERSION@%$(VERSION)%g'
 
 SCRIPTS = \
 	config.ini \
@@ -90,7 +95,8 @@ config2.ini: $(ARCHIVENAME)/LmCompute/config/config.ini.in
 	cat $^ > $(ARCHIVENAME)/LmCompute/config/config.ini
 
 config-test.ini: $(ARCHIVENAME)/LmCompute/config/config-test.ini.in
-	$(SED)  $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/config/$@
+	$(SED) -i $(SEDSPEC) $^ 
+	cat $^ > $(ARCHIVENAME)/LmCompute/config/$@
 
 submitterConfig.ini: $(ARCHIVENAME)/LmCompute/config/submitterConfig.ini.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/config/$@
@@ -108,8 +114,6 @@ prep: prepSrc.sh
 
 build: 
 	tar xzvf $(NAME)-$(VERSION).tar.gz  
-	# concat 2 config files
-	cat $(ARCHIVENAME)/LmCompute/config/config.ini.in >> $(ARCHIVENAME)/config/config.ini.in
 	make $(SCRIPTS)
 
 install::
