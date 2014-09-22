@@ -40,6 +40,16 @@ mkdir -p /state/partition1/lm/test
 chgrp -R lmwriter /state/partition1/lm
 chmod -R g+ws /state/partition1/lm
 
+# these commands do the same changes as lifemapper-server roll
+# need if both rolls are on the same server
+/bin/chgrp lmwriter /opt/lifemapper
+/bin/chmod g+ws /opt/lifemapper
+
+for item in "config" "Lm*" "__init__.py*" ; do
+    /bin/chgrp -R lmwriter /opt/lifemapper/$item
+    /bin/chmod -R g+ws /opt/lifemapper/$item
+done
+
 <file name="/etc/auto.share" mode="append">
 lm &Kickstart_PrivateHostname;:/export/&amp;
 </file>
