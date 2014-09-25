@@ -23,6 +23,16 @@ compile_and_install proj
 compile_and_install lifemapper-tiff
 /sbin/ldconfig
 
+# meed for gdal
+compile geos
+install lifemapper-geos
+/sbin/ldconfig
+
+# meed for modules
+compile gdal
+install lifemapper-gdal
+/sbin/ldconfig
+
 compile_and_install gdal
 /sbin/ldconfig
 

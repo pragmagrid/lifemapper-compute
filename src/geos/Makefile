@@ -56,31 +56,28 @@
 #
 # $Log$
 
-PKGROOT	        = /opt/lifemapper
-
 REDHAT.ROOT = $(CURDIR)/../../
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
 
-PY.PATH = /opt/python/bin/python2.7
+version.mk:
+	cat ../version.mk version.mk.in > version.mk
 
 build:
-	gunzip -c $(ARCHIVENAME)-$(VERSION).$(TARBALL_POSTFIX) | $(TAR) -xf -
-	cd patch-files && find . -type f | grep -v CVS | cpio -pduv ..
-	( 							\
-		cd $(ARCHIVENAME)-$(VERSION);				\
-		export PYTHON=$(PY.PATH);             		\
-		./configure --with-python --with-ogr --with-geos=yes --prefix=$(PKGROOT);	\
-		$(MAKE);					\
+	tar xjvf $(ARCHIVENAME)-$(VERSION).$(TARBALL_POSTFIX) 
+	(\
+	    cd $(ARCHIVENAME)-$(VERSION);                          \
+	    ./configure --prefix=$(PKGROOT);        \
+	    $(MAKE);                                        \
 	)
 	
+
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
-	(							\
-		cd $(ARCHIVENAME)-$(VERSION);				\
-		export PYTHON=$(PY.PATH);             		\
-		$(MAKE) prefix=$(ROOT)/$(PKGROOT) ROOT=$(ROOT)/ install; \
+	(					\
+	    cd $(ARCHIVENAME)-$(VERSION);                          \
+	    $(MAKE) prefix=$(ROOT)/$(PKGROOT) install;\
 	)
 
 clean::
-	rm -rf $(ARCHIVENAME)-$(VERSION)
+	rm -rf $(ARCHIVENAME)-$(VERSION) version.mk
