@@ -61,6 +61,7 @@ Required rolls must be added at the same time when the  lifemapper-server roll i
 See ``Adding a roll`` section for details.
 
 :**python**:    Python roll provides python2.7 and numpy
+:**sge**:    SGE roll provides batch-queuing system for distributed resource management. 
 
 
 Building a roll
