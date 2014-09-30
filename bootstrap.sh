@@ -19,8 +19,14 @@ yumdownloader --resolve --enablerepo rpmforge hdf5-devel.x86_64; \
 
 echo "/opt/lifemapper/lib" > /etc/ld.so.conf.d/lifemapper.conf
 
-compile_and_install proj
-compile_and_install lifemapper-tiff
+# install proj
+compile proj
+install lifemapper-proj
+/sbin/ldconfig
+
+# install tiff
+compile tiff
+install lifemapper-tiff
 /sbin/ldconfig
 
 # meed for gdal
@@ -31,9 +37,6 @@ install lifemapper-geos
 # meed for modules
 compile gdal
 install lifemapper-gdal
-/sbin/ldconfig
-
-compile_and_install gdal
 /sbin/ldconfig
 
 # for pysal, rtree

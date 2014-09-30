@@ -19,6 +19,7 @@
 	</changelog>
 
 	<package>lifemapper-proj</package>
+	<package>lifemapper-geos</package>
 	<package>lifemapper-gdal</package>
 	<package>lifemapper-tiff</package>
 	<package>lifemapper-openmodeller</package>
