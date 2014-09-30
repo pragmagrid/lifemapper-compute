@@ -118,14 +118,9 @@ build:
 
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
+	mkdir -p $(ROOT)/$(PKGROOT)/bin
+	mv $(ARCHIVENAME)/LmCompute/apps/maxent*  $(ROOT)/$(PKGROOT)/bin
 	mv $(ARCHIVENAME)/*  $(ROOT)/$(PKGROOT) 
-
-	(					\
-		cd $(ROOT)/$(LMHOME)/apps; 	\
-		ln -s /usr/java/latest/bin/java java; 	\
-		ln -s $(PKGROOT)/bin/om_model om_model; 	\
-		ln -s $(PKGROOT)/bin/om_project om_project; 	\
-	)
 
 clean::
 	rm -rf $(SCRIPTS) 
