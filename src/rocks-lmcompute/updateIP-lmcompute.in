@@ -61,6 +61,7 @@ updateAddress () {
 
     updateConfFile @LMHOME@/LmCompute/config/config.ini
     updateConfFile @LMHOME@/config/config.ini
+    . /etc/profile.d/lmcompute.sh
     @LMHOME@/rocks/bin/confSysvals 
 }
 
