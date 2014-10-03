@@ -84,6 +84,7 @@ SCRIPTS = \
 	config2.ini \
 	config-test.ini \
 	submitterConfig.ini \
+	lmJobScript.sh \
 	layerSeeder.py 
 
 config.ini: $(ARCHIVENAME)/config/config.ini.in
@@ -102,6 +103,9 @@ submitterConfig.ini: $(ARCHIVENAME)/LmCompute/config/submitterConfig.ini.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/config/$@
 
 layerSeeder.py: $(ARCHIVENAME)/LmCompute/scripts/layerSeeder.py.in
+	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
+
+lmJobScript.sh: $(ARCHIVENAME)/LmCompute/scripts/lmJobScript.sh.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
 
 prepSrc.sh: prepSrc.sh.in 
