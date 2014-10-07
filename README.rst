@@ -1,6 +1,6 @@
 .. hightlight:: rest
 
-LifeMapper roll
+Lifemapper roll
 ===============
 .. contents::
 
