@@ -57,8 +57,7 @@ by the bootstrap.sh
 Required Rolls
 ~~~~~~~~~~~~~~~
 
-Required rolls must be added at the same time when the  lifemapper-server roll is isntalled.
-See ``Adding a roll`` section for details.
+These rolls must be installed for lifemapper roll to work  properly.
 
 :**python**:    Python roll provides python2.7 and numpy
 :**sge**:    SGE roll provides batch-queuing system for distributed resource management. 
@@ -113,10 +112,10 @@ or (2) to the existing frontend.
    a central server. This procesdure is documented in the section ``Frontend 
    Central Server`` of `Rocks Users Guide <http://central6.rocksclusters.org/roll-documentation/base/6.1.1/>`_.
 
-#. During the frontend install choose the lifemapper-server roll from the list of available rolls
-   when you see ``Select Your Rolls`` screen.
+#. During the frontend install choose the lifemapper roll from the list of available rolls
+   when you see ``Select Your Rolls`` screen. 
 
-#. During the frontend install choose python roll, it is a prerequisite for lifemapper roll.
+#. During the frontend install choose python  and sge rolls, they are a prerequisite for lifemapper roll.
 
 #. After the frontend is up set the attributes to point to LmWebserver and LmDbServer, 
    either FQDN or IP can be used: ::  
@@ -137,7 +136,7 @@ A roll can be added to the existing frontend.
 Make sure that the python roll is installed (can be downloaded from
 `Rocks Downloads <http://www.rocksclusters.org/wordpress/?page_id=80>`_ )
 
-Execute all commands from top level lifemapper-server/ ::
+Execute all commands from top level lifemapper/ ::
 
    # rocks add roll lifemapper-6.1-0.x86_64.disk1.iso   
    # rocks enable roll lifemapper
