@@ -185,42 +185,41 @@ Using a Roll
 -----------------
 
 After the roll is installed, the cluster is ready to run lifemapper jobs.  
-Currently, KU is setup as a default jobs server. See TODO 
 
+#. Test the installation.
 
-TODO
----------
+   Execute the followng commands as a user that belongs to group ``lmwriter``:  ::
 
-#. automate or create a command that will specify wich server to use for lmjobs
-   this is done via initLMcompute script now. 
-   Verify  initLMcompute  on new frontend. 
+    $ python2.7 /opt/lifemapper/LmCompute/plugins/sdm/gbif/testConfig.py
+    $ python2.7 /opt/lifemapper/LmCompute/plugins/sdm/maxent/testConfig.py
+    $ python2.7 /opt/lifemapper/LmCompute/plugins/sdm/openModeller/testConfig.py
+   
 
-#. correct permissions for /share/lm/data/layers/layers.db file
+#. Running lmcompute jobs
 
-#. establish QUEUE_SIZE on the server frontend
+   The jobs are run on the frontend via a job submitter script.
+   The scirpt requests the jobs from the LM server and sends them to the compute nodes of the cluster.
 
-#. manual settting LM_JOB_SERVER in LmCompute/common/lmConstants.py. Need to change
-
-
-Running lmcompute jobs
------------------------
-
-The jobs are run on the frontend via a job submitter script.
-The scirpt requests the jobs from the LM server and sends them to the compute nodes of the cluster.
-
-* The environment is set via /etc/init.d/lmcompute.sh
-
-* Need to set a correct jobs server LM_JOB_SERVER  specified in /opt/lifemapper/LmCompute/common/lmConstants.py
-
-* Start lm jobs via the following script: ::  
+   * Start lm jobs via the following script: ::  
 
         #!/bin/bash  
         rm -rf /share/lm/logs/submitter.die  
         screen  
         bash $LM_SCRIPTS_PATH/startLifemapper.sh  
 
-* Stop jobs via the following script: :: 
+   * Stop jobs via the following script: :: 
 
         #!/bin/bash
         touch /share/lm/logs/submitter.die
+
+
+TODO
+---------
+
+#. automate or create a command that will specify wich server to use for lmjobs
+   this is done via initLMcompute script now.  LM_JOB_SERVER  specified in /opt/lifemapper/config/config.ini
+
+#. correct permissions for /share/lm/data/layers/layers.db file
+
+#. establish QUEUE_SIZE on the server frontend
 
