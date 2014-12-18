@@ -1,6 +1,6 @@
 NAME        	= lifemapper-lmcompute
 ARCHIVENAME     = components
-VERSION     	= 5379
+VERSION     	= 5577
 RELEASE 	= 0
 TARBALL_POSTFIX	= tar.gz
 

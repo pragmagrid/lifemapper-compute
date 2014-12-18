@@ -33,12 +33,12 @@ compile tiff
 install lifemapper-tiff
 /sbin/ldconfig
 
-# meed for gdal
+# need for gdal
 compile geos
 install lifemapper-geos
 /sbin/ldconfig
 
-# meed for modules
+# need for modules
 compile gdal
 install lifemapper-gdal
 /sbin/ldconfig
