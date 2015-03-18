@@ -36,8 +36,8 @@ del-opt-python () {
 }
 
 del-directories () {
-   echo "Removing /opt/lifemapper-compute"
-   rm -rf /opt/lifemapper-compute
+   echo "Removing /opt/lifemapper"
+   rm -rf /opt/lifemapper
 
    echo "Removing data directories"
    rm -rf /state/partition1/lm
