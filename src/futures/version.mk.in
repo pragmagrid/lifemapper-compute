@@ -1,5 +1,5 @@
 PKGROOT		= /opt/lifemapper
-NAME        	= lifemapper-futures
+NAME        	= opt-lifemapper-futures
 ARCHIVENAME     = futures
 VERSION     	= 2.2.0
 RELEASE 	= 0

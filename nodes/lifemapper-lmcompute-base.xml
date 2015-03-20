@@ -42,6 +42,7 @@
 	<package>opt-lifemapper-dateutil</package>
 	<package>opt-lifemapper-pyparsing</package>
 	<package>opt-lifemapper-matplotlib</package>
+	<package>opt-lifemapper-futures</package>
 
 	<package>rocks-lmcompute</package>
 <post>
