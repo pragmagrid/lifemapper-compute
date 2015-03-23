@@ -15,8 +15,8 @@ usage ()
 ### define varibles
 SetDefaults () {
     # script to seed layers
-    SEEDERSCRIPT=@LMHOME@/LmCompute/scripts/layerSeeder.py
-
+    SEEDER_SCRIPT=@LMHOME@/LmCompute/scripts/layerSeeder.py
+    SEEDER_ARGFILE=@LMHOME@/LmCompute/scripts/layerPairs.csv
     LOG=/tmp/`/bin/basename $0`.log
     touch $LOG
     TimeStamp "# Start"
@@ -29,10 +29,10 @@ TimeStamp () {
 ### read the identifiers and relative path of layer files
 SeedLayers () {
     if [ -f $SEEDERSCRIPT ] ; then
-        echo "Running $SEEDERSCRIPT ..." | tee -a $LOG
-        /opt/python/bin/@PYTHONVER@ $SEEDERSCRIPT 2>&1 | tee -a $LOG
+        echo "Running $SEEDER_SCRIPT ..." | tee -a $LOG
+        /opt/python/bin/@PYTHONVER@ $SEEDER_SCRIPT $SEEDER_ARGFILE 2>&1 | tee -a $LOG
     else
-        echo "Error: $SEEDERSCRIPT does not exist " | tee -a $LOG
+        echo "Error: Missing $SEEDER_SCRIPT or $SEEDER_ARGFILE " | tee -a $LOG
         exit 1
     fi
 }
