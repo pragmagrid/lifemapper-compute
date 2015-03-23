@@ -28,11 +28,11 @@ TimeStamp () {
 
 ### read the identifiers and relative path of layer files
 SeedLayers () {
-    if [ -f $SEEDERSCRIPT ] ; then
+    if [ -f $SEEDER_SCRIPT ] ; then
         echo "Running $SEEDER_SCRIPT ..." | tee -a $LOG
         /opt/python/bin/@PYTHONVER@ $SEEDER_SCRIPT $SEEDER_ARGFILE 2>&1 | tee -a $LOG
     else
-        echo "Error: Missing $SEEDER_SCRIPT or $SEEDER_ARGFILE " | tee -a $LOG
+        echo "Error: Missing $SEEDER_SCRIPT " | tee -a $LOG
         exit 1
     fi
 }
