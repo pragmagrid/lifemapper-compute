@@ -121,7 +121,7 @@ or (2) to the existing frontend.
    either FQDN or IP can be used: ::  
 
        # /opt/rocks/bin/rocks add host attr localhost LM_webserver value=111.222.333.444
-       # /opt/rocks/bin/rocks add host attr localhost LM_dbserverr value=my.host.domain 
+       # /opt/rocks/bin/rocks add host attr localhost LM_dbserver value=my.host.domain 
 
    Run command : :: 
 
@@ -149,7 +149,7 @@ After the  last command  is finished, examine the add-roll.out file for errors
 Set the attributes to point to LmWebserver and LmDbServer, either FQDN or IP can be used: ::  
 
    # /opt/rocks/bin/rocks add host attr localhost LM_webserver value=111.222.333.444
-   # /opt/rocks/bin/rocks add host attr localhost LM_dbserverr value=my.host.domain 
+   # /opt/rocks/bin/rocks add host attr localhost LM_dbserver value=my.host.domain 
 
 and then reboot your frontend: ::
 
@@ -164,7 +164,7 @@ After the frontend boots up you can rebuild the compute nodes ::
 Where installed roll components are
 ------------------------------------
 
-#. Created group ``lmwriter``
+#. Created user and group ``lmwriter``
 
 #. **/opt/lifemapper** - prerequisites and lifemapper code
 
