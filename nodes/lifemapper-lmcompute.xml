@@ -36,6 +36,7 @@ mkdir -p /state/partition1/lm/logs
 mkdir -p /state/partition1/lm/data/layers
 mkdir -p /state/partition1/lm/test
 
+# Nadya: these need to be shared between frontend and nodes; where? 
 mkdir -p /state/partition1/lm/jobRequests
 mkdir -p /state/partition1/lm/holdJobs
 mkdir -p /state/partition1/lm/pushJobs
