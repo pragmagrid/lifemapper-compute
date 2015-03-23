@@ -23,9 +23,13 @@
 
 <post>
 
-GID=`grep lmwriter: /etc/group`
-if [ "$GID" == "" ] ; then
-    /usr/sbin/groupadd lmwriter
+ID=`/bin/egrep -i "^lmwriter" /etc/group`
+if [ "$ID" == "" ] ; then
+    # adding lmwriter user with group
+    /usr/sbin/useradd -c "Lifemapper user" lmwriter
+else
+    # adding lmwriter user, group already exists
+    /usr/sbin/useradd -c "Lifemapper user" -g lmwriter lmwriter
 fi
 
 mkdir -p /state/partition1/lm

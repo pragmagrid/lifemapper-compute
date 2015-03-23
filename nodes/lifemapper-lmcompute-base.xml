@@ -49,15 +49,6 @@
 
 /sbin/ldconfig
 
-ID=`/bin/egrep -i "^lmwriter" /etc/group`
-if [ "$ID" == "" ] ; then
-    # adding lmwriter user
-    /usr/sbin/useradd -c "Lifemapper user" lmwriter
-else
-    # adding lmwriter user, group already exists (from lifemapper roll)
-    /usr/sbin/useradd -c "Lifemapper user" -g lmwriter lmwriter
-fi
-
 
 <file name="/etc/rc.d/rocksconfig.d/post-99-lifemapper" perms="0700">
 #!/bin/bash
