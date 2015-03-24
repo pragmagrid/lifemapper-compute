@@ -109,6 +109,10 @@ install::
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 $(PROGS) $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 initLMcompute $(ROOT)/$(PKGROOT)/rocks/bin
+	install -m 755 addMount addVine $(ROOT)/$(PKGROOT)/rocks/bin
+
+	mkdir -p $(ROOT)/$(PKGROOT)/rocks/etc
+	install -m 644 mountinfo $(ROOT)/$(PKGROOT)/rocks/etc
 
 	mkdir -p $(ROOT)/etc/ld.so.conf.d
 	install -m 644 lifemapper.conf $(ROOT)/etc/ld.so.conf.d
