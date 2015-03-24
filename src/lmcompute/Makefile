@@ -81,15 +81,11 @@ SEDSPEC += \
 
 SCRIPTS = \
 	config.ini \
-	lmJobScript.sh \
-	layerSeeder.py 
+	lmJobScript.sh 
 
 config.ini: $(ARCHIVENAME)/config/config.ini.in
 	$(SED) -i $(SEDSPEC) $^ 
 	cat $^ > $(ARCHIVENAME)/config/$@
-
-layerSeeder.py: $(ARCHIVENAME)/LmCompute/scripts/layerSeeder.py.in
-	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
 
 lmJobScript.sh: $(ARCHIVENAME)/LmCompute/scripts/lmJobScript.sh.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
