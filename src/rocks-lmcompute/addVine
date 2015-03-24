@@ -5,6 +5,7 @@ yum install vine2
 
 echo "# Lifemapper special data mount" >> /etc/rc.local
 echo "if [ -d /opt/vine2 ] ; then" >> /etc/rc.local
+echo "    . /etc/profile.d/java.sh" >> /etc/rc.local
 echo "    /opt/vine2/bin/cmds/register.sh -t -n 74" >> /etc/rc.local
 echo "    /opt/vine2/bin/vine.sh start" >> /etc/rc.local
 echo "fi" >> /etc/rc.local
