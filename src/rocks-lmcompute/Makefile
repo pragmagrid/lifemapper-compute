@@ -82,7 +82,7 @@ SCRIPTS = \
 
 PROGS = \
 	updateIP-lmcompute \
-	confSysvals \
+	confSysvals
 
 lmcompute.sh: lmcompute.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -97,6 +97,9 @@ confSysvals: confSysvals.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 lifemapper.conf: lifemapper.conf.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+seedLayers: seedLayers.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 build: $(SCRIPTS) $(PROFILES) $(PROGS) 
