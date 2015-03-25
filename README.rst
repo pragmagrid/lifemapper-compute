@@ -187,12 +187,9 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 
 #. Test the installation.
 
-   Execute the followng commands as a user that belongs to group ``lmwriter``:  ::
+   Execute the followng commands as ``lmwriter`` user:  ::
 
-    $ python2.7 /opt/lifemapper/LmCompute/plugins/sdm/gbif/testConfig.py
-    $ python2.7 /opt/lifemapper/LmCompute/plugins/sdm/maxent/testConfig.py
-    $ python2.7 /opt/lifemapper/LmCompute/plugins/sdm/openModeller/testConfig.py
-   
+    $ python2.7 [to be determined]
 
 #. Running lmcompute jobs
 
