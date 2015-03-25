@@ -82,7 +82,8 @@ SCRIPTS = \
 
 PROGS = \
 	updateIP-lmcompute \
-	confSysvals
+	confSysvals \
+	seedLayers
 
 lmcompute.sh: lmcompute.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -113,7 +114,6 @@ install::
 	install -m 755 $(PROGS) $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 initLMcompute $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 addMount addVine $(ROOT)/$(PKGROOT)/rocks/bin
-	install -m 755 seedLayers $(ROOT)/$(PKGROOT)/rocks/bin
 
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks/etc
 	install -m 644 mountinfo $(ROOT)/$(PKGROOT)/rocks/etc
