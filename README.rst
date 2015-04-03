@@ -219,3 +219,13 @@ TODO
 
 #. establish QUEUE_SIZE on the server frontend
 
+#. Vine - needed for mounting satellite data using overlay network. This is a temp workaround.
+   Vine is created as a package:  :: 
+
+      wget http://vine.acis.ufl.edu/vine/lib/vine2.tgz -P /tmp
+      tar ozxf /tmp/vine2.tgz -C /opt
+      rocks create package /opt/vine2 vine2
+
+   To install vine see rocks-lmcompute/: addVine, mountinfo. 
+   Create mount points using rocks-lmcompute/addMount.
+
