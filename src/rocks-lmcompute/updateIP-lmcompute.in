@@ -40,11 +40,12 @@ getAddress () {
     fi
 }
 
+### changed line 48 from  "s%@PUBLIC_FQDN@%$AddrWebserver%g;\
 updateConfFile () {
     infile=$1.in
     outfile=$1
     if [ -f $infile ]; then
-        sed  "s%@PUBLIC_FQDN@%$AddrWebserver%g;\
+        sed  "s%@PUBLIC_FQDN@%$Addr%g;\
               s%@WEB_FQDN@%$AddrWebserver%g; \
               s%@DB_FQDN@%$AddrDbserver%g" $infile > $outfile
     else

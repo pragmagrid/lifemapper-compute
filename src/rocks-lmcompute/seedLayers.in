@@ -30,7 +30,7 @@ TimeStamp () {
 SeedLayers () {
     if [ -f $SEEDER_SCRIPT ] ; then
         echo "Running $SEEDER_SCRIPT ..." | tee -a $LOG
-        /opt/python/bin/@PYTHONVER@ $SEEDER_SCRIPT $SEEDER_ARGFILE 2>&1 | tee -a $LOG
+        @PYBIN@ $SEEDER_SCRIPT $SEEDER_ARGFILE 2>&1 | tee -a $LOG
     else
         echo "Error: Missing $SEEDER_SCRIPT " | tee -a $LOG
         exit 1
