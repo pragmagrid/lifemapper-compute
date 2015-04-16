@@ -78,6 +78,7 @@ SEDSPEC += \
         -e 's%@SMTPSENDER@%$(SMTPSENDER)%g' \
         -e 's%@TEMPDIR@%$(TEMPDIR)%g'  \
         -e 's%@VERSION@%$(VERSION)%g'
+        -e 's%@LMSERVER_FQDN@%$(LMSERVER_FQDN)%g'
 
 SCRIPTS = \
 	config.ini \
