@@ -83,7 +83,8 @@ SCRIPTS = \
 PROGS = \
 	updateIP-lmcompute \
 	confSysvals \
-	seedLayers
+	seedLayers \
+	installCronJobs
 
 lmcompute.sh: lmcompute.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -103,6 +104,9 @@ lifemapper.conf: lifemapper.conf.in
 seedLayers: seedLayers.in
 	$(SED) $(SEDSPEC) $^ > $@
 
+installCronJobs: installCronJobs.in
+	$(SED) $(SEDSPEC) $^ > $@
+
 build: $(SCRIPTS) $(PROFILES) $(PROGS) 
 	
 install::
@@ -114,6 +118,7 @@ install::
 	install -m 755 $(PROGS) $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 initLMcompute $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 addMount addVine $(ROOT)/$(PKGROOT)/rocks/bin
+	install -m 755 installCronJobs $(ROOT)/$(PKGROOT)/rocks/bin
 
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks/etc
 	install -m 644 mountinfo $(ROOT)/$(PKGROOT)/rocks/etc

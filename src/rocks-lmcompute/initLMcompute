@@ -9,6 +9,7 @@ usage ()
     echo "This script is run during the roll install it will:"
     echo "     - update config/config.ini file with values from LMdbserver and LM_webserver attributes "
     echo "     - add [machine] section to config/config.ini  "
+    echo "     - add maintenance scripts to /etc/cron.daily/ directory  "
     echo "   "
 }
 
@@ -29,6 +30,11 @@ runLdconfig () {
 # update config/config.ini
 updateConfig () {
     /opt/lifemapper/rocks/bin/updateIP-lmcompute
+}
+
+# install cron jobs for daily execution
+installCronJobs () {
+    /opt/lifemapper/rocks/bin/installCronJobs
 }
 
 # source Lifemapper env
@@ -52,4 +58,5 @@ fi
 setEnv
 runLdconfig
 updateConfig 
+installCronJobs
 updatePerms

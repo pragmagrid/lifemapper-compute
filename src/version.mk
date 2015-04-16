@@ -11,4 +11,3 @@ LMUSER        = pragma
 UNIXSOCKET    = /var/run/postgresql
 SMTPSERVER    = localhost
 SMTPSENDER    = no-reply-lifemapper@@PUBLIC_FQDN@
-LMSERVER_FQDN = 129.237.201.59
