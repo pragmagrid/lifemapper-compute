@@ -187,34 +187,47 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 
 #. Test the installation.
 
-   Execute the followng commands as ``lmwriter`` user:  ::
+   Login to a node, then execute the followng commands as ``lmwriter`` user:  ::
 
-    $ python2.7 [to be determined]
+    compute-0$ python2.7 /opt/lifemapper/LmCompute/scripts/testJobsOnNode.py  2>&1 > /tmp/testJobsOnNode.log
+    
+#. Seed any layers already present on LmCompute instance, by first uncompressing 
+   a package of layers under @LMDISK@/data/layers/seeded.  Next, populate the local
+   Sqlite database by running the seedLayers script  ::
+
+    $ rocks/bin/seedLayers 
+      Running /opt/lifemapper/LmCompute/scripts/layerSeeder.py ...
 
 #. Running lmcompute jobs
 
    The jobs are run on the frontend via a job submitter script.
-   The scirpt requests the jobs from the LM server and sends them to the compute nodes of the cluster.
+   The script requests the jobs from the LM server and sends them to the compute nodes of the cluster.
+   Execute the following commands as ``lmwriter`` user:  ::
 
    * Start lm jobs via the following script: ::  
 
-        #!/bin/bash  
-        rm -rf /share/lm/logs/submitter.die  
-        screen  
-        bash $LM_SCRIPTS_PATH/startLifemapper.sh  
+        # python2.7 /opt/lifemapper/LmCompute/scripts/jobMediator.py start
 
    * Stop jobs via the following script: :: 
 
-        #!/bin/bash
-        touch /share/lm/logs/submitter.die
+        # python2.7 /opt/lifemapper/LmCompute/scripts/jobMediator.py stop
 
 
 TODO
 ---------
 
-#. automate or create a command that will specify wich server to use for lmjobs
+#. automate or create a command that will specify which server to use for lmjobs
    this is done via initLMcompute script now.  LM_JOB_SERVER  specified in /opt/lifemapper/config/config.ini
 
+#. Add instructions for creating a layer package for local installation on 
+   LmCompute, of input data with metadata cataloged in LmServer which will be 
+   sending jobs to this LmCompute instance.  This will include cataloging with 
+   a unique identifier, and creating a 'layerPairs.csv' comma-delimited file 
+   consisting of lines of the identifier and corresponding relative file location 
+   (in the layer package) 
+   
+#. Check that rocks-lmcompute/installCronJobs is handled properly in roll build and install 
+    
 #. correct permissions for /share/lm/data/layers/layers.db file
 
 #. establish QUEUE_SIZE on the server frontend
