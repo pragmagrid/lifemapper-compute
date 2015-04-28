@@ -99,6 +99,29 @@ executing the command at the top level of the roll source tree ::
 The resulting ISO file lifemapper-*.iso is the roll that can be added to the
 frontend.
 
+Debugging a roll
+-----------------
+
+When need to update only a few packages that have changed one can rebuild only the RPMs
+for changed packages and use the rest of the RPMS from the previous build. 
+For example, only  rebuilding lmserver RPM will involve: ::   
+  
+   # cd src/lmcompute
+   # make clean
+   # update version.mk.in with new revision number to check out from SVN
+   # make prep
+   # make rpm
+
+Install the resulting RPM with: ::   
+
+   # rpm -el lifemapper
+   # rpm -i  path-to-new-lifemapper.rpm
+   # /opt/lifemapper/rocks/bin/updateIP-lmcompute
+
+The ``updateIP-lmcompute`` is needed for this specfic RPM because  a newly 
+installed config.ini file needs template IP addressees updated. 
+
+
 Adding a roll
 --------------
 The roll (ISO file) can be added (1) during the initial installation of the cluster (frontend)

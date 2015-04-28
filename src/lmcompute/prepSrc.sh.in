@@ -48,7 +48,11 @@ create_distro () {
   if [ -d $SRC ]; then
       # create lmcompute src distro
       echo "Creating lmcompute src archive from svn checkout"
-      tar czf lifemapper-lmcompute-@VERSION@.tar.gz  $SRC/config $SRC/LmCompute $SRC/LmCommon
+      tar czf lifemapper-lmcompute-@VERSION@.tar.gz $SRC/* \
+          --exclude=LmClient \
+          --exclude=LmDbServer \
+          --exclude=LmServerCommon \
+          --exclude=LmWebServer      
   else
       echo "SVN checkout directory $SRC is not present"
   fi
