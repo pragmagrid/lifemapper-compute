@@ -130,7 +130,18 @@ or (2) to the existing frontend.
 
 1 Adding a roll to a new server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#. Add the updated python roll that Nadya prepared to the frontend: ::
 
+       # rocks add roll python*iso clean=1
+       # (cd /export/rocks/install; rocks create distro)
+
+#. To upgrade your frontend
+       # rpm --nodeps -ev opt-python-27 opt-python-3
+       # yum install opt-python-27 opt-python-3
+
+#. and then re-install compute nodes or run the previous 2 commands on all compute nodes 
+
+ 
 #. Add roll ISO to your existing frontend that is configured to be
    a central server. This procesdure is documented in the section ``Frontend 
    Central Server`` of `Rocks Users Guide <http://central6.rocksclusters.org/roll-documentation/base/6.1.1/>`_.
