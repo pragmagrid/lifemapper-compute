@@ -83,13 +83,12 @@ SCRIPTS = \
 	lifemapper.conf
 	
 LMAPPS = \
-	maintenance-cleanup-jobs-rocks
-	maintenance-aggregate-logs
-	maintenance-free-memory-rocks
-	lmJobScript
-	lmMaxent
+	maintenance-cleanup-jobs-rocks \
+	maintenance-aggregate-logs \
+	maintenance-free-memory-rocks \
+	lmJobScript \
+	lmMaxent \
 	maxent.bat
-	
 
 PROGS = \
 	updateIP-lmcompute \
