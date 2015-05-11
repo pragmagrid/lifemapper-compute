@@ -40,3 +40,5 @@ src/lmcompute/*.tar.gz
 # ignore subversion
 .subversion/
 
+/.project
+/.pydevproject

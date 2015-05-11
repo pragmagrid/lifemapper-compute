@@ -11,3 +11,4 @@ LMUSER        = pragma
 UNIXSOCKET    = /var/run/postgresql
 SMTPSERVER    = localhost
 SMTPSENDER    = no-reply-lifemapper@@PUBLIC_FQDN@
+JAVABIN       = /usr/java/latest/bin/java
