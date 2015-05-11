@@ -76,7 +76,7 @@ and RPMS that are prerequisites for other packages during the roll build stage: 
 
    # ./bootstrap.sh  
 
-When the scirpt finishes, it prints the next step instruction to get the lifemapper source ::  
+When the script finishes, it prints the next step instruction to get the lifemapper source ::  
 
    # cd src/lmcompute/
    # make prep
@@ -172,8 +172,8 @@ Make sure that the python roll is installed (can be downloaded from
 
 Execute all commands from top level lifemapper/ ::
 
-   # rocks add roll lifemapper-6.1-0.x86_64.disk1.iso   
-   # rocks enable roll lifemapper
+   # rocks add roll lifemapper-compute-6.1-0.x86_64.disk1.iso   
+   # rocks enable roll lifemapper-compute
    # (cd /export/rocks/install; rocks create distro)  
    # yum clean all
    # rocks run roll lifemapper > add-roll.sh  

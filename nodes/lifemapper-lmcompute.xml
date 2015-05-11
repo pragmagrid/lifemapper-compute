@@ -37,6 +37,7 @@ mkdir -p /state/partition1/lm/jobs
 mkdir -p /state/partition1/lm/metrics
 mkdir -p /state/partition1/lm/temp
 mkdir -p /state/partition1/lm/logs
+mkdir -p /state/partition1/lm/dailyLogs
 mkdir -p /state/partition1/lm/data/layers
 mkdir -p /state/partition1/lm/test
 
