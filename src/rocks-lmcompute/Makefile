@@ -61,6 +61,8 @@ REDHAT.ROOT = $(CURDIR)/../../
 include Rules.mk
 
 PY.PATH = /opt/python/bin/$(PYTHONVER)
+MAINTENANCE.PATH = $(PKGROOT)/LmCompute/scripts
+APPS.PATH = $(PKGROOT)/LmCompute/apps
 
 version.mk:
 	cat ../version.mk version.mk.in > version.mk
@@ -79,6 +81,15 @@ PROFILES = \
 
 SCRIPTS = \
 	lifemapper.conf
+	
+LMAPPS = \
+	maintenance-cleanup-jobs-rocks
+	maintenance-aggregate-logs
+	maintenance-free-memory-rocks
+	lmJobScript
+	lmMaxent
+	maxent.bat
+	
 
 PROGS = \
 	updateIP-lmcompute \
@@ -107,7 +118,25 @@ seedLayers: seedLayers.in
 installCronJobs: installCronJobs.in
 	$(SED) $(SEDSPEC) $^ > $@
 
-build: $(SCRIPTS) $(PROFILES) $(PROGS) 
+maintenance-aggregate-logs: $(MAINTENANCE.PATH)/maintenance-aggregate-logs.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+maintenance-cleanup-jobs-rocks: $(MAINTENANCE.PATH)/maintenance-cleanup-jobs-rocks.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+maintenance-free-memory-rocks: $(MAINTENANCE.PATH)/maintenance-cleanup-jobs-rocks.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+lmJobScript: $(MAINTENANCE.PATH)/lmJobScript.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+lmMaxent: $(APPS.PATH)/maxent.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+maxent.bat: $(APPS.PATH)/maxent.bat.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+build: $(SCRIPTS) $(PROFILES) $(PROGS) $(LMAPPS)
 	
 install::
 
@@ -119,6 +148,7 @@ install::
 	install -m 755 initLMcompute $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 addMount addVine $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 installCronJobs $(ROOT)/$(PKGROOT)/rocks/bin
+	install -m 755 $(LMAPPS) $(ROOT)/$(PKGROOT)/rocks/bin
 
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks/etc
 	install -m 644 mountinfo $(ROOT)/$(PKGROOT)/rocks/etc
@@ -128,4 +158,4 @@ install::
 	install -m 644 lifemapper.conf $(ROOT)/etc/ld.so.conf.d
 
 clean::
-	rm -rf version.mk $(SCRIPTS) $(PROFILES) $(PROGS) 
+	rm -rf version.mk $(SCRIPTS) $(PROFILES) $(PROGS) $(LMAPPS)
