@@ -83,13 +83,13 @@ SEDSPEC += \
 
 SCRIPTS = \
 	config.ini \
-	lmJobScript.sh 
+	lmJobScript
 
 config.ini: $(ARCHIVENAME)/config/config.ini.in
 	$(SED) -i $(SEDSPEC) $^ 
 	cat $^ > $(ARCHIVENAME)/config/$@
 
-lmJobScript.sh: $(ARCHIVENAME)/LmCompute/scripts/lmJobScript.sh.in
+lmJobScript: $(ARCHIVENAME)/LmCompute/scripts/lmJobScript.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
 
 prepSrc.sh: prepSrc.sh.in 
