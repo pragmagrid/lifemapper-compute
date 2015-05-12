@@ -82,8 +82,11 @@ SEDSPEC += \
 	     -e 's%@JAVABIN@%$(JAVABIN)%g'
 
 SCRIPTS = \
-	config.ini \
-	lmJobScript
+	lmJobScript \
+	maintenance-aggregate-logs \
+	maintenance-cleanup-jobs-rocks \
+	maintenance-free-memory-rocks \
+	lmMaxent
 
 config.ini: $(ARCHIVENAME)/config/config.ini.in
 	$(SED) -i $(SEDSPEC) $^ 
@@ -91,6 +94,22 @@ config.ini: $(ARCHIVENAME)/config/config.ini.in
 
 lmJobScript: $(ARCHIVENAME)/LmCompute/scripts/lmJobScript.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
+
+maintenance-aggregate-logs: $(ARCHIVENAME)/LmCompute/scripts/maintenance-aggregate-logs.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+maintenance-cleanup-jobs-rocks: $(ARCHIVENAME)/LmCompute/scripts/maintenance-cleanup-jobs-rocks.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+maintenance-free-memory-rocks: $(ARCHIVENAME)/LmCompute/scripts/maintenance-cleanup-jobs-rocks.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+lmMaxent: $(ARCHIVENAME)/LmCompute/apps/lmMaxent.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+maxent.bat: $(ARCHIVENAME)/LmCompute/apps/maxent.bat.in
+	$(SED) $(SEDSPEC) $^ > $@
+
 
 prepSrc.sh: prepSrc.sh.in 
 	make version.mk
@@ -102,12 +121,14 @@ prep: prepSrc.sh
 
 build: 
 	tar xzvf $(NAME)-$(VERSION).tar.gz  
+	make config.ini
 	make $(SCRIPTS)
 
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
 	mkdir -p $(ROOT)/$(PKGROOT)/bin
-	mv $(ARCHIVENAME)/LmCompute/apps/maxent*  $(ROOT)/$(PKGROOT)/bin
+	mv $(ARCHIVENAME)/LmCompute/apps/maxent.bat  $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(SCRIPTS) $(ROOT)/$(PKGROOT)/bin
 	mv $(ARCHIVENAME)/*  $(ROOT)/$(PKGROOT) 
 
 clean::
