@@ -157,9 +157,13 @@ or (2) to the existing frontend.
        # /opt/rocks/bin/rocks add host attr localhost LM_webserver value=111.222.333.444
        # /opt/rocks/bin/rocks add host attr localhost LM_dbserver value=my.host.domain 
 
-   Run command : :: 
+#. Check with  : :: 
 
-       # /opt/lifemapperrocks/bin/initLMcompute 
+       # /opt/rocks/bin/rocks list host attr | grep LM_ 
+
+#. Run command : :: 
+
+       # /opt/lifemapper/rocks/bin/initLMcompute 
 
 #. Install compute nodes 
 
@@ -176,7 +180,7 @@ Execute all commands from top level lifemapper/ ::
    # rocks enable roll lifemapper-compute
    # (cd /export/rocks/install; rocks create distro)  
    # yum clean all
-   # rocks run roll lifemapper > add-roll.sh  
+   # rocks run roll lifemapper-compute > add-roll.sh  
    # bash add-roll.sh  > add-roll.out 2>&1
 
 After the  last command  is finished, examine the add-roll.out file for errors

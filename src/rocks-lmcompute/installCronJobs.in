@@ -27,9 +27,9 @@ TimeStamp () {
 # install cron jobs
 installDailyTasks () {
     install @LMHOME@/config/securityUpdates.sh ${CRON_DIR}
-    install ${TASK_DIR}/maintenance-aggregate-logs.sh  ${CRON_DIR}
-    install ${TASK_DIR}/maintenance-cleanup-jobs-rocks.sh  ${CRON_DIR}
-    install ${TASK_DIR}/maintenance-free-memory-rocks.sh  ${CRON_DIR}    
+    install ${TASK_DIR}/maintenance-aggregate-logs  ${CRON_DIR}
+    install ${TASK_DIR}/maintenance-cleanup-jobs-rocks  ${CRON_DIR}
+    install ${TASK_DIR}/maintenance-free-memory-rocks  ${CRON_DIR}    
     echo "Installed tasks to ${CRON_DIR} ..." | tee -a $LOG
 }
 
