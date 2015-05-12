@@ -96,19 +96,19 @@ lmJobScript: $(ARCHIVENAME)/LmCompute/scripts/lmJobScript.in
 	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
 
 maintenance-aggregate-logs: $(ARCHIVENAME)/LmCompute/scripts/maintenance-aggregate-logs.in
-	$(SED) $(SEDSPEC) $^ > $@
+	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
 
 maintenance-cleanup-jobs-rocks: $(ARCHIVENAME)/LmCompute/scripts/maintenance-cleanup-jobs-rocks.in
-	$(SED) $(SEDSPEC) $^ > $@
+	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
 
 maintenance-free-memory-rocks: $(ARCHIVENAME)/LmCompute/scripts/maintenance-cleanup-jobs-rocks.in
-	$(SED) $(SEDSPEC) $^ > $@
+	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/scripts/$@
 
 lmMaxent: $(ARCHIVENAME)/LmCompute/apps/lmMaxent.in
-	$(SED) $(SEDSPEC) $^ > $@
+	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/apps/$@
 
 maxent.bat: $(ARCHIVENAME)/LmCompute/apps/maxent.bat.in
-	$(SED) $(SEDSPEC) $^ > $@
+	$(SED) $(SEDSPEC) $^ > $(ARCHIVENAME)/LmCompute/apps/$@
 
 
 prepSrc.sh: prepSrc.sh.in 
@@ -127,8 +127,12 @@ build:
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
 	mkdir -p $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(ARCHIVENAME)/LmCompute/scripts/lmJobScript $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(ARCHIVENAME)/LmCompute/scripts/maintenance-aggregate-logs $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(ARCHIVENAME)/LmCompute/scripts/maintenance-cleanup-jobs-rocks $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(ARCHIVENAME)/LmCompute/scripts/maintenance-cleanup-jobs-rocks $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(ARCHIVENAME)/LmCompute/apps/lmMaxent $(ROOT)/$(PKGROOT)/bin
 	mv $(ARCHIVENAME)/LmCompute/apps/maxent.bat  $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(SCRIPTS) $(ROOT)/$(PKGROOT)/bin
 	mv $(ARCHIVENAME)/*  $(ROOT)/$(PKGROOT) 
 
 clean::
