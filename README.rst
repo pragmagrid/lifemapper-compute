@@ -161,7 +161,8 @@ or (2) to the existing frontend.
 
        # /opt/rocks/bin/rocks list host attr | grep LM_ 
 
-#. Run command : :: 
+#. Run command (only on new install, for live frontends, this happens on reboot 
+   in /etc/rc.d/rocksconfig.d/post-99-lifemapper): :: 
 
        # /opt/lifemapper/rocks/bin/initLMcompute 
 
@@ -174,7 +175,7 @@ A roll can be added to the existing frontend.
 Make sure that the python roll is installed (can be downloaded from
 `Rocks Downloads <http://www.rocksclusters.org/wordpress/?page_id=80>`_ )
 
-Execute all commands from top level lifemapper/ ::
+#. Execute all commands from top level lifemapper/ ::
 
    # rocks add roll lifemapper-compute-6.1-0.x86_64.disk1.iso   
    # rocks enable roll lifemapper-compute
@@ -183,18 +184,18 @@ Execute all commands from top level lifemapper/ ::
    # rocks run roll lifemapper-compute > add-roll.sh  
    # bash add-roll.sh  > add-roll.out 2>&1
 
-After the  last command  is finished, examine the add-roll.out file for errors
-Set the attributes to point to LmWebserver and LmDbServer, either FQDN or IP can be used: ::  
+#. After the  last command  is finished, examine the add-roll.out file for errors
+   Set the attributes to point to LmWebserver and LmDbServer, either FQDN or IP can be used: ::  
 
    # /opt/rocks/bin/rocks add host attr localhost LM_webserver value=111.222.333.444
    # /opt/rocks/bin/rocks add host attr localhost LM_dbserver value=my.host.domain 
 
-and then reboot your frontend: ::
+#. and then reboot your frontend to run a few initialization commands 
+   (/etc/rc.d/rocksconfig.d/post-99-lifemapper, created by add-roll.sh): ::
 
    # reboot
 
-The reboot is needed to run a few initialization commands.
-After the frontend boots up you can rebuild the compute nodes ::  
+#. After the frontend boots up you can rebuild the compute nodes ::  
 
    # rocks set host boot compute action=install
    # rocks run host compute reboot 
@@ -225,15 +226,16 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 
 #. Test the installation.
 
-   Login to a node, then execute the followng commands as ``lmwriter`` user:  ::
+   As 'lmwriter' user on the frontend, execute the following command to run the 
+   test script on all nodes:  ::
 
-    compute-0$ python2.7 /opt/lifemapper/LmCompute/scripts/testJobsOnNode.py  2>&1 > /tmp/testJobsOnNode.log
+    lmwriter$ rocks run host $PYTHON /opt/lifemapper/LmCompute/scripts/testJobsOnNode.py  2>&1 > /tmp/testJobsOnNode.log
     
 #. Seed any layers already present on LmCompute instance, by first uncompressing 
    a package of layers under @LMDISK@/data/layers/seeded.  Next, populate the local
    Sqlite database by running the seedLayers script  ::
 
-    $ rocks/bin/seedLayers 
+    lmwriter$ rocks/bin/seedLayers 
       Running /opt/lifemapper/LmCompute/scripts/layerSeeder.py ...
 
 #. Running lmcompute jobs
@@ -244,11 +246,11 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 
    * Start lm jobs via the following script: ::  
 
-        # python2.7 /opt/lifemapper/LmCompute/scripts/jobMediator.py start
+        lmwriter$ $PYTHON /opt/lifemapper/LmCompute/scripts/jobMediator.py start
 
    * Stop jobs via the following script: :: 
 
-        # python2.7 /opt/lifemapper/LmCompute/scripts/jobMediator.py stop
+        lmwriter$ $PYTHON /opt/lifemapper/LmCompute/scripts/jobMediator.py stop
 
 
 TODO

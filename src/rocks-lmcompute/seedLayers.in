@@ -16,7 +16,7 @@ usage ()
 SetDefaults () {
     # script to seed layers
     SEEDER_SCRIPT=@LMHOME@/LmCompute/scripts/layerSeeder.py
-    SEEDER_ARGFILE=@LMHOME@/rocks/etc/layerPairs.csv
+    SEEDER_ARGFILE=@LMHOME@/rocks/etc/@SCENARIO_PACKAGE@.csv
     LOG=/tmp/`/bin/basename $0`.log
     touch $LOG
     TimeStamp "# Start"

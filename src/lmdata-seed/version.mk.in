@@ -1,0 +1,7 @@
+NAME        	= lifemapper-seed-data
+ARCHIVENAME    = seeddata
+SEED_DIR       = layers
+
+VERSION     	= 1.0
+RELEASE 	= 0
+ZIPFILE_POSTFIX	= zip

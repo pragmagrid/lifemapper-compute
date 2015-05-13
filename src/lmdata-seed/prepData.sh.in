@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Purpose: Fetch climate data for seeding named in SCENARIO_PACKAGE  
+
+create_seeded_data () {
+  echo "Fetch climate data for seeding"
+  LMURL="http://lifemapper.org/dl"
+  curl -L "$LMURL/@SCENARIO_PACKAGE@.@ZIPFILE_POSTFIX@" -o ../lmdata-seed/@SCENARIO_PACKAGE@.@ZIPFILE_POSTFIX@
+}
+
+### main ###
+create_seeded_data
