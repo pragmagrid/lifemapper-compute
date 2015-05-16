@@ -79,7 +79,9 @@ SEDSPEC += \
         -e 's%@TEMPDIR@%$(TEMPDIR)%g'  \
         -e 's%@VERSION@%$(VERSION)%g'  \
         -e 's%@LMSERVER_FQDN@%$(LMSERVER_FQDN)%g'  \
-	-e 's%@JAVABIN@%$(JAVABIN)%g'
+        -e 's%@JAVABIN@%$(JAVABIN)%g' \
+        -e 's%@JOB_SUBMITTER_TYPE@%$(JOB_SUBMITTER_TYPE)%g'  \
+        -e 's%@JOB_CAPACITY@%$(JOB_CAPACITY)%g'
 
 SCRIPTS = \
 	lmJobScript \

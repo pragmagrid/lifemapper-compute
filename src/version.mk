@@ -12,5 +12,9 @@ SMTPSERVER    = localhost
 SMTPSENDER    = no-reply-lifemapper@@PUBLIC_FQDN@
 JAVABIN       = /usr/java/latest/bin/java
 
-LMUSER                = idigbio
-SCENARIO_PACKAGE      = WC_AR5_5min
+LMUSER              = idigbio
+SCENARIO_PACKAGE    = WC_AR5_5min
+
+# Options are local or cluster
+JOB_SUBMITTER_TYPE  = cluster
+JOB_CAPACITY		  = 50

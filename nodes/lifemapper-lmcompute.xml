@@ -59,6 +59,7 @@ for item in "config" "Lm*" "__init__.py*" ; do
     /bin/chmod -R g+ws /opt/lifemapper/$item
 done
 
+# Mounts /export/lm to /share/lm
 <file name="/etc/auto.share" mode="append">
 lm &Kickstart_PrivateHostname;:/export/&amp;
 </file>
