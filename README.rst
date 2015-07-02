@@ -6,7 +6,7 @@ Lifemapper roll
 
 Introduction
 ---------------
-This roll installs lmcompute part of Lifemapper on a cluster. 
+This roll installs lmcompute part of Lifemapper on a cluster.  This is Aimee's test commit.
 
 Installing lmCompute
 ---------------------
