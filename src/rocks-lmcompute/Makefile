@@ -122,7 +122,6 @@ install::
 
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks/etc
 	install -m 644 mountinfo $(ROOT)/$(PKGROOT)/rocks/etc
-	install -m 644 layerPairs.csv $(ROOT)/$(PKGROOT)/rocks/etc
 
 	mkdir -p $(ROOT)/etc/ld.so.conf.d
 	install -m 644 lifemapper.conf $(ROOT)/etc/ld.so.conf.d
