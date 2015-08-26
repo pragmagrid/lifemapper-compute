@@ -22,6 +22,10 @@ echo "/opt/lifemapper/lib" > /etc/ld.so.conf.d/lifemapper.conf
 
 # for gdal
 rpm -i src/RPMS/hdf5*rpm
+rpm -i src/RPMS/gsl*rpm 
+rpm -i src/RPMS/hdf4*rpm
+rpm -i src/RPMS/sqlite-devel*rpm
+rpm -i src/RPMS/screen*rpm
 
 # install proj
 compile proj
