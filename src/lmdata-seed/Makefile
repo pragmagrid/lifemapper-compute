@@ -89,8 +89,9 @@ build:
 
 install::
 	mkdir -p $(ROOT)/$(EXPORTDIR)
+	mkdir -p $(ROOT)/$(PKGROOT)/etc
 	tar xzf  $(SCENARIO_PACKAGE).$(TARBALL_POSTFIX)  -C  $(ROOT)/$(EXPORTDIR)/
-	install -m 644 $(SCENARIO_PACKAGE).$(CSV_POSTFIX)  $(ROOT)/$(PKGROOT)/rocks/etc
+	install -m 644 $(SCENARIO_PACKAGE).$(CSV_POSTFIX)  $(ROOT)/$(PKGROOT)/etc
 
 clean::
 	rm -rf version.mk prepData.sh
