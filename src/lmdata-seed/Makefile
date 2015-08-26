@@ -71,7 +71,8 @@ version.mk:
 SEDSPEC += \
         -e 's%@SCENARIO_PACKAGE@%$(SCENARIO_PACKAGE)%g' \
         -e 's%@LMURL@%$(LMURL)%g' \
-        -e 's%@ZIPFILE_POSTFIX@%$(ZIPFILE_POSTFIX)%g'
+        -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g' \
+        -e 's%@CSV_POSTFIX@%$(CSV_POSTFIX)%g'
 
 prepData.sh: prepData.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -88,8 +89,8 @@ build:
 
 install::
 	mkdir -p $(ROOT)/$(EXPORTDIR)
-	unzip  $(SCENARIO_PACKAGE).$(TARBALL_POSTFIX)  -C  $(ROOT)/$(EXPORTDIR)/
-	install -m 644 $(ROOT)/$(EXPORTDIR)/$(SCENARIO_PACKAGE).csv  $(ROOT)/$(PKGROOT)/rocks/etc
+	tar xzf  $(SCENARIO_PACKAGE).$(TARBALL_POSTFIX)  -C  $(ROOT)/$(EXPORTDIR)/
+	install -m 644 $(SCENARIO_PACKAGE).$(CSV_POSTFIX)  $(ROOT)/$(PKGROOT)/rocks/etc
 
 clean::
 	rm -rf version.mk prepData.sh

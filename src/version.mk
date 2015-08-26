@@ -13,7 +13,7 @@ SMTPSENDER    = no-reply-lifemapper@@PUBLIC_FQDN@
 JAVABIN       = /usr/java/latest/bin/java
 
 LMUSER              = idigbio
-SCENARIO_PACKAGE    = WC_AR5_5min
+SCENARIO_PACKAGE    = 10min-past-present-future
 
 # Options are local or cluster
 JOB_SUBMITTER_TYPE  = cluster
