@@ -63,3 +63,6 @@ install opt-lifemapper-scipy
 echo "You will need to checkout src from Lifemapper SVN:"
 echo "    cd src/lmcompute"
 echo "    make prep "
+echo "and download data from Lifemapper:"
+echo "    cd src/lmdata-seed"
+echo "    make prep "
