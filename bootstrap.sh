@@ -48,8 +48,8 @@ install lifemapper-gdal
 /sbin/ldconfig
 
 # for pysal, rtree
-compile setuptools
-install opt-lifemapper-setuptools
+#compile setuptools
+#install opt-lifemapper-setuptools
 
 # for rtree
 compile spatialindex
