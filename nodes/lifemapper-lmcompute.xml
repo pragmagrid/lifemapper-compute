@@ -19,6 +19,7 @@
 	</changelog>
 
 	<package>roll-lifemapper-usersguide</package>
+	<package>lifemapper-seed-data</package>
 	<package>screen</package>
 
 <post>
