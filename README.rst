@@ -151,7 +151,7 @@ or (2) to the existing frontend.
 
 #. During the frontend install choose python  and sge rolls, they are a prerequisite for lifemapper roll.
 
-#. After the frontend is up set the attributes to point to LmWebserver and LmDbServer, 
+#. If this frontend is NOT being shared with LmServer, set the attributes to point to LmWebserver and LmDbServer, 
    either FQDN or IP can be used: ::  
 
        # /opt/rocks/bin/rocks add host attr localhost LM_webserver value=111.222.333.444
