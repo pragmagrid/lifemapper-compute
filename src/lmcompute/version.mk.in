@@ -1,7 +1,7 @@
-NAME        	= lifemapper-lmcompute
+NAME            = lifemapper-lmcompute
 ARCHIVENAME     = components
-VERSION     	= 6369
-RELEASE 	= 0
-TARBALL_POSTFIX	= tar.gz
+VERSION         = 6360
+RELEASE         = 0
+TARBALL_POSTFIX = tar.gz
 
 RPM.EXTRAS = %define __os_install_post %{nil}
