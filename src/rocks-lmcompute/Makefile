@@ -66,6 +66,7 @@ version.mk:
 	cat ../version.mk version.mk.in > version.mk
 
 SEDSPEC += \
+	-e 's%@PYTHONVER@%$(PYTHONVER)%g' \
 	-e 's%@PKGROOT@%$(PKGROOT)%g' \
 	-e 's%@LMHOME@%$(LMHOME)%g' \
 	-e 's%@LMUSER@%$(LMUSER)%g' \
