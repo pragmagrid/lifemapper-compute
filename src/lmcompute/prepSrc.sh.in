@@ -51,7 +51,6 @@ create_distro () {
 }
 
 ### main ###
-checkout_svn $URL
-collect_src
+checkout_git
 collect_configs
 create_distro
