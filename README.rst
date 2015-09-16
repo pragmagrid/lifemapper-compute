@@ -231,11 +231,17 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 
     lmwriter$ rocks run host $PYTHON /opt/lifemapper/LmCompute/scripts/testJobsOnNode.py  2>&1 > /tmp/testJobsOnNode.log
     
-#. Seed any layers already present on LmCompute instance, by first uncompressing 
-   a package of layers under @LMDISK@/data/layers/seeded.  Next, populate the local
-   Sqlite database by running the seedLayers script  ::
+#. Seed any layers already present on LmCompute instance (here with the example
+   10-min-past-present-future) by following these steps::
 
-    lmwriter$ rocks/bin/seedLayers 
+   * Uncompress the package of layers under JOB_DATA_PATH/layers/ 
+   
+   * Copy the 10-min-past-present-future.csv file (created on data population on LmServer in 
+     DATA_PATH/ENV_DATA_PATH) to LmCompute JOB_DATA_PATH/layers
+     
+   * As ``lmwriter``, populate the local Sqlite database by running the seedLayers script: ::
+
+    lmwriter$ rocks/bin/seedLayers  JOB_DATA_PATH/layers/10-min-past-present-future.csv
       Running /opt/lifemapper/LmCompute/scripts/layerSeeder.py ...
 
 #. Running lmcompute jobs

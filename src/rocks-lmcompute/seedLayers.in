@@ -5,8 +5,8 @@
 
 usage () 
 {
-    echo "Usage: $0"
-    echo "This script is run by the superuser. It will "
+    echo "Usage: $0 <layerPairs file>"
+    echo "This script should NOT run by the superuser. It will "
     echo "     - run seedLayers.py to install layers and populate sqlite database on each node "
     echo "   "
     echo "The output of the script is in /tmp/`/bin/basename $0`.log"
@@ -16,7 +16,6 @@ usage ()
 SetDefaults () {
     # script to seed layers
     SEEDER_SCRIPT=@LMHOME@/LmCompute/scripts/layerSeeder.py
-    SEEDER_ARGFILE=@LMHOME@/rocks/etc/@SCENARIO_PACKAGE@.csv
     LOG=/tmp/`/bin/basename $0`.log
     touch $LOG
     TimeStamp "# Start"
@@ -28,17 +27,17 @@ TimeStamp () {
 
 ### read the identifiers and relative path of layer files
 SeedLayers () {
-    if [ -f $SEEDER_SCRIPT ] ; then
+    if [ -f $SEEDER_SCRIPT ] && [ -f $1 ]  ; then
         echo "Running $SEEDER_SCRIPT ..." | tee -a $LOG
-        @PYBIN@ $SEEDER_SCRIPT $SEEDER_ARGFILE 2>&1 | tee -a $LOG
+        @PYBIN@ $SEEDER_SCRIPT $1 2>&1 | tee -a $LOG
     else
-        echo "Error: Missing $SEEDER_SCRIPT " | tee -a $LOG
+        echo "Error: Missing $SEEDER_SCRIPT or $1" | tee -a $LOG
         exit 1
     fi
 }
 
 ### Main ###
-if [ $# -ne 0 ]; then
+if [ $# -ne 1 ]; then
     usage
     exit 0
 fi 
