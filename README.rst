@@ -1,4 +1,4 @@
-.. hightlight:: rest
+.. highlight:: rest
 
 Lifemapper roll
 ===============
@@ -229,26 +229,47 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
    As 'lmwriter' user on the frontend, execute the following command to run the 
    test script on all nodes:  ::
 
-    lmwriter$ rocks run host $PYTHON /opt/lifemapper/LmCompute/scripts/testJobsOnNode.py  2>&1 > /tmp/testJobsOnNode.log
+    lmwriter$ rocks run host \
+       "$PYTHON /opt/lifemapper/LmCompute/scripts/testJobsOnNode.py" \
+       2>&1 > /tmp/testJobsOnNode.log
     
-#. Seed any layers already present on LmCompute instance (here with the example
-   10-min-past-present-future) by following these steps::
+#. Seed any layers already present on LmCompute instance (here with example
+   10-min-past-present-future) by following these steps:
 
    * Uncompress the package of layers under JOB_DATA_PATH/layers/ 
    
-   * Copy the 10-min-past-present-future.csv file (created on data population on LmServer in 
-     DATA_PATH/ENV_DATA_PATH) to LmCompute JOB_DATA_PATH/layers
+   * Copy the 10-min-past-present-future.csv file (created on data population by 
+     LmServer APP_PATH/LmDbServer/populate/initCatalog into 
+     DATA_PATH/ENV_DATA_PATH or independently by 
+     APP_PATH/LmDbServer/populate/createScenarioPackage.py) 
+     to LmCompute JOB_DATA_PATH/layers.
      
-   * As ``lmwriter``, populate the local Sqlite database by running the seedLayers script: ::
+   * As ``lmwriter``, populate the local Sqlite database by running the seedLayers script::
 
     lmwriter$ rocks/bin/seedLayers  JOB_DATA_PATH/layers/10-min-past-present-future.csv
-      Running /opt/lifemapper/LmCompute/scripts/layerSeeder.py ...
 
+#. Register an LmServer to compute jobs for 
+
+   Jobs are retrieved from an LmServer instance by looking at the config section 
+   ``[LmCompute - Job Retrievers]`` of either the config.ini file (installed) or
+    site.ini file (created, edited by user to override variables in config.ini).
+    
+    * Add a key to the [LmCompute - Job Retrievers] section::
+
+        [LmCompute - Job Retrievers]
+        JOB_RETRIEVER_KEYS: myJobServer
+
+    * Add a section for the new key::
+
+        [LmCompute - Job Retrievers - myJobServer]
+        RETRIEVER_TYPE: server
+        JOB_SERVER: http://myserver.pragma.org/jobs
+   
 #. Running lmcompute jobs
 
    The jobs are run on the frontend via a job submitter script.
    The script requests the jobs from the LM server and sends them to the compute nodes of the cluster.
-   Execute the following commands as ``lmwriter`` user:  ::
+   Execute the following commands as ``lmwriter`` user:
 
    * Start lm jobs via the following script: ::  
 
@@ -263,14 +284,14 @@ TODO
 ---------
 
 #. automate or create a command that will specify which server to use for lmjobs
-   this is done via initLMcompute script now.  LM_JOB_SERVER  specified in /opt/lifemapper/config/config.ini
+   this is done via initLMcompute script now.  
+   LM_JOB_SERVER  specified in /opt/lifemapper/config/config.ini
 
-#. Add instructions for creating a layer package for local installation on 
+#. Simplify steps for creating a layer package for local installation on 
    LmCompute, of input data with metadata cataloged in LmServer which will be 
-   sending jobs to this LmCompute instance.  This will include cataloging with 
-   a unique identifier, and creating a 'layerPairs.csv' comma-delimited file 
-   consisting of lines of the identifier and corresponding relative file location 
-   (in the layer package) 
+   sending jobs to this LmCompute instance.  This includes creating a CSV file 
+   consisting of lines of the metadataUrl from LmServer and corresponding 
+   relative file location (in the layer package) 
    
 #. Check that rocks-lmcompute/installCronJobs is handled properly in roll build and install 
     

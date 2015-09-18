@@ -1,2 +1,3 @@
 @LMHOME@/lib
+@LMHOME@/lib64
 /opt/python/lib
