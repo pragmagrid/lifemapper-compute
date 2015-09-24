@@ -79,6 +79,8 @@ SEDSPEC += \
         -e 's%@TEMPDIR@%$(TEMPDIR)%g'  \
         -e 's%@REPONAME@%$(REPONAME)%g'  \
         -e 's%@COMMIT_HASH@%$(COMMIT_HASH)%g'  \
+        -e 's%@VERSION@%$(VERSION)%g'  \
+        -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g'  \
         -e 's%@LMSERVER_FQDN@%$(LMSERVER_FQDN)%g'  \
         -e 's%@JAVABIN@%$(JAVABIN)%g' \
         -e 's%@JOB_SUBMITTER_TYPE@%$(JOB_SUBMITTER_TYPE)%g'  \
