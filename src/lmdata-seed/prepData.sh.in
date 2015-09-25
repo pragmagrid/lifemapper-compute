@@ -1,12 +1,17 @@
 #!/bin/bash
 
 # Purpose: Fetch climate data for seeding named in SCENARIO_PACKAGE  
-
+# Note that the CSV file must be created with URLs that will be sent by a 
+#   server within jobs.  The server creates jobs identifying layers by
+#   metadataUrls - these must be the same as those used in the seeding CSV 
+#   file.  
+# Here we are using data present on the server, so we create a CSV file after
+#   the database is initialized.
 create_seeded_data () {
   echo "Fetch climate data for seeding"
   LMURL="http://lifemapper.org/dl"
   curl -L "$LMURL/@SCENARIO_PACKAGE@.@TARBALL_POSTFIX@" -o ../lmdata-seed/@SCENARIO_PACKAGE@.@TARBALL_POSTFIX@
-  curl -L "$LMURL/@SCENARIO_PACKAGE@.@CSV_POSTFIX@" -o ../lmdata-seed/@SCENARIO_PACKAGE@.@CSV_POSTFIX@
+  #curl -L "$LMURL/@SCENARIO_PACKAGE@.@CSV_POSTFIX@" -o ../lmdata-seed/@SCENARIO_PACKAGE@.@CSV_POSTFIX@
 }
 
 ### main ###
