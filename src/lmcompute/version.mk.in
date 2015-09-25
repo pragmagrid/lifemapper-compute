@@ -1,6 +1,6 @@
 NAME            = lifemapper-lmcompute
 REPONAME        = core
-COMMIT_HASH    	= 3b2b3ec024ec9a18f5ed2b0282868afb0da56d41
+COMMIT_HASH    	= ec7e328052f39fffebcd6e4a0f21c9d49962838f
 RELEASE         = 0
 TARBALL_POSTFIX = tar.gz
 
