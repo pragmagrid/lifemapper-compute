@@ -34,7 +34,7 @@ updateConfig () {
 
 # install cron jobs for daily execution
 installCronJobs () {
-    /opt/lifemapper/rocks/bin/installCronJobs
+    /opt/lifemapper/rocks/bin/installComputeCronJobs
 }
 
 # source Lifemapper env
