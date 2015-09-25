@@ -105,7 +105,7 @@ lifemapper.conf: lifemapper.conf.in
 seedLayers: seedLayers.in
 	$(SED) $(SEDSPEC) $^ > $@
 
-installCronJobs: installCronJobs.in
+installComputeCronJobs: installComputeCronJobs.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 build: $(SCRIPTS) $(PROFILES) $(PROGS)
