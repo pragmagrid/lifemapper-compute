@@ -12,8 +12,8 @@ SMTPSERVER    = localhost
 SMTPSENDER    = no-reply-lifemapper@@PUBLIC_FQDN@
 JAVABIN       = /usr/java/latest/bin/java
 
-LMUSER              = idigbio
-SCENARIO_PACKAGE    = 10min-past-present-future
+LMUSER              = pragma 
+SCENARIO_PACKAGE    = 30sec-present-future-SEA
 
 # Options are local or cluster
 JOB_SUBMITTER_TYPE  = cluster
