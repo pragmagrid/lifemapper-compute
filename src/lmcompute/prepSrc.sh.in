@@ -12,9 +12,9 @@ checkout_git () {
       git clone $URL/$SRC
 
       if [ -d $SRC ]; then
-          echo "Reset to commit version #@COMMIT_HASH@ in $SRC"
+          echo "Reset to commit version #@VERSION@ in $SRC"
           cd $SRC
-          git reset --hard @COMMIT_HASH@
+          git reset --hard @VERSION@
           cd ..
 
           echo "Removing .git in $SRC:"
@@ -40,7 +40,7 @@ create_distro () {
   if [ -d $SRC ]; then
       # create lmcompute src distro
       echo "Creating lmcompute src archive from svn checkout"
-      tar czf lifemapper-lmcompute-@COMMIT_HASH@.@TARBALL_POSTFIX@ $SRC/* \
+      tar czf lifemapper-lmcompute-@VERSION@.@TARBALL_POSTFIX@ $SRC/* \
           --exclude=LmDebug \
           --exclude=LmDbServer \
           --exclude=LmServer \

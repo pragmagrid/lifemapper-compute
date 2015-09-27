@@ -78,7 +78,6 @@ SEDSPEC += \
         -e 's%@SMTPSENDER@%$(SMTPSENDER)%g' \
         -e 's%@TEMPDIR@%$(TEMPDIR)%g'  \
         -e 's%@REPONAME@%$(REPONAME)%g'  \
-        -e 's%@COMMIT_HASH@%$(COMMIT_HASH)%g'  \
         -e 's%@VERSION@%$(VERSION)%g'  \
         -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g'  \
         -e 's%@LMSERVER_FQDN@%$(LMSERVER_FQDN)%g'  \
@@ -126,7 +125,7 @@ prep: prepSrc.sh
 	./prepSrc.sh
 
 build: 
-	tar xzvf $(NAME)-$(COMMIT_HASH).tar.gz  
+	tar xzvf $(NAME)-$(VERSION).tar.gz  
 	make config.ini
 	make $(SCRIPTS)
 
