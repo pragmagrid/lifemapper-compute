@@ -60,7 +60,7 @@ RPM.ARCH = noarch
 
 REDHAT.ROOT = $(CURDIR)/../../
 
-EXPORTDIR=$(subst share,state/partition1,$(DATADIR))/$(SEED_DIR)
+EXPORTDIR=$(subst share,state/partition1,$(DATADIR_COMPUTE))/$(SEED_DIR)
 
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk

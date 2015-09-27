@@ -69,7 +69,7 @@ PY.PATH = /opt/python/bin/$(PYTHONVER)
 SEDSPEC += \
         -e 's%@PKGROOT@%$(PKGROOT)%g' \
         -e 's%@PYBIN@%$(PY.PATH)%g' \
-        -e 's%@DATADIR@%$(DATADIR)%g' \
+        -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
         -e 's%@LMDISK@%$(LMDISK)%g' \
         -e 's%@LMHOME@%$(LMHOME)%g' \
         -e 's%@LMWEB@%$(LMWEB)%g' \
