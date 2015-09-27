@@ -229,8 +229,8 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
    As 'lmwriter' user on the frontend, execute the following command to run the 
    test script on all nodes:  ::
 
-    lmwriter$ rocks run host \
-       "$PYTHON /opt/lifemapper/LmCompute/scripts/testJobsOnNode.py" \
+    lmwriter$ rocks run host compute \
+       "python2.7 /opt/lifemapper/LmCompute/scripts/testJobsOnNode.py" \
        2>&1 > /tmp/testJobsOnNode.log
     
 #. Seed any layers already present on LmCompute instance (here with example
