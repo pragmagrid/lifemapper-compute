@@ -227,7 +227,7 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 #. Test the installation.
 
    As 'lmwriter' user on the frontend, execute the following command to run the 
-   test script on all nodes: ::
+   test script on all nodes::
 
    lmwriter$ rocks run host compute \
        "$PYTHON /opt/lifemapper/LmCompute/scripts/testJobsOnNode.py" \
@@ -240,7 +240,7 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
      /opt/lifemapper/LmDbServer/populate/createScenarioPackage.py) in 
      JOB_DATA_PATH/layers  on LmCompute
      
-   * As ``lmwriter``, populate the local Sqlite database by running the seedLayers script: ::
+   * As ``lmwriter``, populate the local Sqlite database by running the seedLayers script::
 
     lmwriter$ $PYTHON /opt/lifemapper/LmCompute/scripts/layerSeeder.py  /share/lm/data/layers/30sec-present-future-SEAlayers.csv
 
