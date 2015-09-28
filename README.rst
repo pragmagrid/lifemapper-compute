@@ -227,9 +227,9 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 #. Test the installation.
 
    As 'lmwriter' user on the frontend, execute the following command to run the 
-   test script on all nodes:  ::
+   test script on all nodes: ::
 
-    lmwriter$ rocks run host compute \
+   lmwriter$ rocks run host compute \
        "$PYTHON /opt/lifemapper/LmCompute/scripts/testJobsOnNode.py" \
        2>&1 > /tmp/testJobsOnNode.log
     
@@ -238,24 +238,24 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 
    * Uncompress the package of layers and csv file (created on LmServer by
      /opt/lifemapper/LmDbServer/populate/createScenarioPackage.py) in 
-     JOB_DATA_PATH/layers on LmCompute.
+     JOB_DATA_PATH/layers  on LmCompute
      
-   * As ``lmwriter``, populate the local Sqlite database by running the seedLayers script::
+   * As ``lmwriter``, populate the local Sqlite database by running the seedLayers script: ::
 
-    lmwriter$ $PYTHON /opt/lifemapper/LmCompute/scripts/layerSeeder.py  JOB_DATA_PATH/layers/10-min-past-present-future.csv
+    lmwriter$ $PYTHON /opt/lifemapper/LmCompute/scripts/layerSeeder.py  /share/lm/data/layers/30sec-present-future-SEAlayers.csv
 
 #. Register an LmServer to compute jobs for 
 
    Jobs are retrieved from an LmServer instance by looking at the config section 
    ``[LmCompute - Job Retrievers]`` of either the config.ini file (installed) or
-    site.ini file (created, edited by user to override variables in config.ini).
+   site.ini file (created, edited by user to override variables in config.ini).
     
-    * Add a key to the [LmCompute - Job Retrievers] section::
+   * Add a key to the [LmCompute - Job Retrievers] section::
 
         [LmCompute - Job Retrievers]
         JOB_RETRIEVER_KEYS: myJobServer
 
-    * Add a section for the new key::
+   * Add a section for the new key::
 
         [LmCompute - Job Retrievers - myJobServer]
         RETRIEVER_TYPE: server
