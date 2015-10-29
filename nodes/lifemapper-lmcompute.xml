@@ -50,8 +50,13 @@ mkdir -p /state/partition1/lm/pushJobs
 chgrp -R lmwriter /state/partition1/lm
 chmod -R g+ws /state/partition1/lm
 
+# these directories allow lock files on each node, lmwriter must have rw
+mkdir /opt/lifemapper/.java
+mkdir /opt/lifemapper/.java/.systemPrefs
+mkdir /opt/lifemapper/.java/.userPrefs
+
 # these commands do the same changes as lifemapper-server roll
-# need if both rolls are on the same server
+# need if both rolls are on the same server (and for java dir)
 /bin/chgrp lmwriter /opt/lifemapper
 /bin/chmod g+ws /opt/lifemapper
 
