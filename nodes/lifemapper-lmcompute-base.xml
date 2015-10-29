@@ -48,6 +48,12 @@
 
 /sbin/ldconfig
 
+# these directories allow lock files on each node, lmwriter must have rw
+mkdir /opt/lifemapper/.java
+mkdir /opt/lifemapper/.java/.systemPrefs
+mkdir /opt/lifemapper/.java/.userPrefs
+/bin/chgrp lmwriter /opt/lifemapper/.java
+/bin/chmod g+ws /opt/lifemapper/.java
 
 <file name="/etc/rc.d/rocksconfig.d/post-99-lifemapper" perms="0700">
 #!/bin/bash
