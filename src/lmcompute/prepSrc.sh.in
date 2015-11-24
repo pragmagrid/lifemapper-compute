@@ -5,30 +5,29 @@
 
 SRC=@REPONAME@
 URL=https://github.com/lifemapper/
+TOPDIR=@REPONAME@-@VERSION@
 
-# get distro from lifemapper git and needed updates
-checkout_git () {
+# download archive from lifemapper git
+download_git () {
       echo "Starting GIT checkout from $URL"
-      git clone $URL/$SRC
-
-      if [ -d $SRC ]; then
-          echo "Reset to commit version #@VERSION@ in $SRC"
-          cd $SRC
-          git reset --hard @VERSION@
-          cd ..
-
-          echo "Removing .git in $SRC:"
-          DIRS=`find $SRC -name .git`
+      wget "$URL/$SRC/archive/@VERSION@.@TARBALL_POSTFIX@" 
+      tar xzvf @VERSION@.@TARBALL_POSTFIX@
+      
+      
+      if [ -d $TOPDIR ]; then
+          echo "Removing .git in $TOPDIR:"
+          DIRS=`find $TOPDIR -name .git`
           for i in $DIRS; do
               rm -rf $i
           done
+
       else
-          echo "Error with GIT clone from $URL/$SRC: directory $SRC is not created"
+          echo "Error with GIT archive download from $URL/$SRC: directory $TOPDIR is not created"
       fi
 }
 
 collect_configs () {
-  conf=$SRC/config/config.ini.in
+  conf=$TOPDIR/config/config.ini.in
   if [ ! -f $conf ]; then
       echo "ERROR: File $conf is missing from $SRC "
       return
@@ -37,10 +36,10 @@ collect_configs () {
 
 # create distro files for lmcompute
 create_distro () {
-  if [ -d $SRC ]; then
+  if [ -d $TOPDIR ]; then
       # create lmcompute src distro
-      echo "Creating lmcompute src archive from svn checkout"
-      tar czf lifemapper-lmcompute-@VERSION@.@TARBALL_POSTFIX@ $SRC/* \
+      echo "Creating lmcompute src archive from Github archive download"
+      tar czf lifemapper-lmcompute-@VERSION@.@TARBALL_POSTFIX@ $TOPDIR/* \
           --exclude=LmDebug \
           --exclude=LmDbServer \
           --exclude=LmServer \
@@ -51,6 +50,6 @@ create_distro () {
 }
 
 ### main ###
-checkout_git
+download_git
 collect_configs
 create_distro

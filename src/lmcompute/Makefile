@@ -85,6 +85,8 @@ SEDSPEC += \
         -e 's%@JOB_SUBMITTER_TYPE@%$(JOB_SUBMITTER_TYPE)%g'  \
         -e 's%@JOB_CAPACITY@%$(JOB_CAPACITY)%g'
 
+TOPDIR = $(REPONAME)-$(VERSION)
+
 SCRIPTS = \
 	lmJobScript \
 	maintenance-aggregate-logs \
@@ -93,27 +95,27 @@ SCRIPTS = \
 	lmMaxent \
 	maxent.bat
 
-config.ini: $(REPONAME)/config/config.ini.in
+config.ini: $(TOPDIR)/config/config.ini.in
 	$(SED) -i $(SEDSPEC) $^ 
-	cat $^ > $(REPONAME)/config/$@
+	cat $^ > $(TOPDIR)/config/$@
 
-lmJobScript: $(REPONAME)/LmCompute/scripts/lmJobScript.in
-	$(SED) $(SEDSPEC) $^ > $(REPONAME)/LmCompute/scripts/$@
+lmJobScript: $(TOPDIR)/LmCompute/scripts/lmJobScript.in
+	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/scripts/$@
 
-maintenance-aggregate-logs: $(REPONAME)/LmCompute/scripts/maintenance-aggregate-logs.in
-	$(SED) $(SEDSPEC) $^ > $(REPONAME)/LmCompute/scripts/$@
+maintenance-aggregate-logs: $(TOPDIR)/LmCompute/scripts/maintenance-aggregate-logs.in
+	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/scripts/$@
 
-maintenance-cleanup-jobs-rocks: $(REPONAME)/LmCompute/scripts/maintenance-cleanup-jobs-rocks.in
-	$(SED) $(SEDSPEC) $^ > $(REPONAME)/LmCompute/scripts/$@
+maintenance-cleanup-jobs-rocks: $(TOPDIR)/LmCompute/scripts/maintenance-cleanup-jobs-rocks.in
+	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/scripts/$@
 
-maintenance-free-memory-rocks: $(REPONAME)/LmCompute/scripts/maintenance-cleanup-jobs-rocks.in
-	$(SED) $(SEDSPEC) $^ > $(REPONAME)/LmCompute/scripts/$@
+maintenance-free-memory-rocks: $(TOPDIR)/LmCompute/scripts/maintenance-cleanup-jobs-rocks.in
+	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/scripts/$@
 
-lmMaxent: $(REPONAME)/LmCompute/apps/lmMaxent.in
-	$(SED) $(SEDSPEC) $^ > $(REPONAME)/LmCompute/apps/$@
+lmMaxent: $(TOPDIR)/LmCompute/apps/lmMaxent.in
+	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/apps/$@
 
-maxent.bat: $(REPONAME)/LmCompute/apps/maxent.bat.in
-	$(SED) $(SEDSPEC) $^ > $(REPONAME)/LmCompute/apps/$@
+maxent.bat: $(TOPDIR)/LmCompute/apps/maxent.bat.in
+	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/apps/$@
 
 
 prepSrc.sh: prepSrc.sh.in 
@@ -132,15 +134,15 @@ build:
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
 	mkdir -p $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(REPONAME)/LmCompute/scripts/lmJobScript $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(REPONAME)/LmCompute/scripts/maintenance-aggregate-logs $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(REPONAME)/LmCompute/scripts/maintenance-cleanup-jobs-rocks $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(REPONAME)/LmCompute/scripts/maintenance-cleanup-jobs-rocks $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(REPONAME)/LmCompute/apps/lmMaxent $(ROOT)/$(PKGROOT)/bin
-	mv $(REPONAME)/LmCompute/apps/maxent.bat  $(ROOT)/$(PKGROOT)/bin
-	mv $(REPONAME)/*  $(ROOT)/$(PKGROOT) 
+	install -m 755 $(TOPDIR)/LmCompute/scripts/lmJobScript $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(TOPDIR)/LmCompute/scripts/maintenance-aggregate-logs $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(TOPDIR)/LmCompute/scripts/maintenance-cleanup-jobs-rocks $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(TOPDIR)/LmCompute/scripts/maintenance-cleanup-jobs-rocks $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(TOPDIR)/LmCompute/apps/lmMaxent $(ROOT)/$(PKGROOT)/bin
+	mv $(TOPDIR)/LmCompute/apps/maxent.bat  $(ROOT)/$(PKGROOT)/bin
+	mv $(TOPDIR)/*  $(ROOT)/$(PKGROOT) 
 
 clean::
 	rm -rf $(SCRIPTS) 
 	rm -rf version.mk prepSrc.sh
-	rm -rf $(REPONAME)
+	rm -rf $(TOPDIR)
