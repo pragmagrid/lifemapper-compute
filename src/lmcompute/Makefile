@@ -71,6 +71,7 @@ SEDSPEC += \
         -e 's%@PYBIN@%$(PY.PATH)%g' \
         -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
         -e 's%@LMDISK@%$(LMDISK)%g' \
+        -e 's%@LMTEMPDISK@%$(LMTEMPDISK)%g' \
         -e 's%@LMHOME@%$(LMHOME)%g' \
         -e 's%@LMWEB@%$(LMWEB)%g' \
         -e 's%@LMUSER@%$(LMUSER)%g' \
