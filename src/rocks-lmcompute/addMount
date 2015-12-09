@@ -1,0 +1,48 @@
+#!/bin/bash 
+#
+# Create mount points and needed links for specialized data
+#
+
+if [ $# -ne 0 ]; then
+    echo "Usage: $0"
+    echo "This script created mounts for specialized data."
+    echo "Run ona live frontend once information about mounted filesystem is known" 
+    echo "and is present in /opt/lifemapper/rocks/etc/mountinfo file."
+    exit 0
+fi 
+
+# directory on Frontend 
+basedir=/state/partition1/lm/data/layers
+
+# file specifying mount points and host for mounted data
+infile=/opt/lifemapper/rocks/etc/mountinfo
+
+# layers available in mounted  data
+layers=5min
+
+if [ -f $infile ]; then
+    MLINE=`cat $infile` 
+    MPOINT=`echo $MLINE | awk '{print $1}'`
+    HAVE=`grep ^$MPOINT /etc/auto.share`
+    if [ "$HAVE" != "" ] ; then
+        sed  -i "s/^$MPOINT/#$MPOINT/" /etc/auto.share
+    fi
+    
+    echo $MLINE >> /etc/auto.share
+    /etc/init.d/autofs restart
+    for l in $layers; do
+        if [ -d /share/$MPOINT/$l ]; then
+            ln -s  /share/$MPOINT/$l $basedir/$l
+        else
+            echo "Missing layer /share/$MPOINT/$l"
+        fi
+    done
+
+    /opt/rocks/bin/rocks sync users
+    /opt/rocks/bin/rocks run host compute "service autofs restart"
+
+else
+    echo "ERROR: File $infile does not exist"
+    exit 1
+fi
+

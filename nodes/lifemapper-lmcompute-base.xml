@@ -37,16 +37,27 @@
 	<package>opt-lifemapper-pysal</package>
 	<package>opt-lifemapper-rtree</package>
 	<package>opt-lifemapper-scipy</package>
-	<package>opt-lifemapper-setuptools</package>
 
 	<package>opt-lifemapper-dateutil</package>
 	<package>opt-lifemapper-pyparsing</package>
 	<package>opt-lifemapper-matplotlib</package>
+	<package>opt-lifemapper-futures</package>
 
 	<package>rocks-lmcompute</package>
 <post>
 
 /sbin/ldconfig
+
+# scratch space for job computation
+mkdir -p /state/partition1/lm
+mkdir -p /state/partition1/lm/jobs
+
+# these directories allow lock files on each node, lmwriter must have rw
+mkdir /opt/lifemapper/.java
+mkdir /opt/lifemapper/.java/.systemPrefs
+mkdir /opt/lifemapper/.java/.userPrefs
+/bin/chgrp lmwriter /opt/lifemapper/.java
+/bin/chmod g+ws /opt/lifemapper/.java
 
 <file name="/etc/rc.d/rocksconfig.d/post-99-lifemapper" perms="0700">
 #!/bin/bash

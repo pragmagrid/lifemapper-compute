@@ -1,0 +1,8 @@
+NAME        	= lifemapper-seed-data
+ARCHIVENAME    = seeddata
+SEED_DIR       = layers
+
+VERSION     	= 1.0
+RELEASE 	= 0
+CSV_POSTFIX       = csv
+TARBALL_POSTFIX   = tar.gz

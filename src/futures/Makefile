@@ -56,7 +56,6 @@
 #
 # $Log$
 
-
 REDHAT.ROOT = $(CURDIR)/../../
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
@@ -73,7 +72,6 @@ build:
 	    cd $(ARCHIVENAME)-$(VERSION);   \
 	    $(PY.PATH) setup.py build;      \
 	)
-
 
 install::
 	(\

@@ -22,6 +22,10 @@ echo "/opt/lifemapper/lib" > /etc/ld.so.conf.d/lifemapper.conf
 
 # for gdal
 rpm -i src/RPMS/hdf5*rpm
+rpm -i src/RPMS/gsl*rpm 
+rpm -i src/RPMS/hdf4*rpm
+rpm -i src/RPMS/sqlite-devel*rpm
+rpm -i src/RPMS/screen*rpm
 
 # install proj
 compile proj
@@ -33,19 +37,19 @@ compile tiff
 install lifemapper-tiff
 /sbin/ldconfig
 
-# meed for gdal
+# need for gdal
 compile geos
 install lifemapper-geos
 /sbin/ldconfig
 
-# meed for modules
+# need for modules
 compile gdal
 install lifemapper-gdal
 /sbin/ldconfig
 
 # for pysal, rtree
-compile setuptools
-install opt-lifemapper-setuptools
+#compile setuptools
+#install opt-lifemapper-setuptools
 
 # for rtree
 compile spatialindex
@@ -58,4 +62,7 @@ install opt-lifemapper-scipy
 
 echo "You will need to checkout src from Lifemapper SVN:"
 echo "    cd src/lmcompute"
+echo "    make prep "
+echo "and download data from Lifemapper:"
+echo "    cd src/lmdata-seed"
 echo "    make prep "

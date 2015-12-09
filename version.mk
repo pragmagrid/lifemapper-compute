@@ -1,4 +1,4 @@
-ROLLNAME	= lifemapper
+ROLLNAME	= lifemapper-compute
 RELEASE		= 0
 COLOR		= oldlace
 

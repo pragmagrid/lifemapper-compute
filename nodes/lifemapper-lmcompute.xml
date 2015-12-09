@@ -19,13 +19,18 @@
 	</changelog>
 
 	<package>roll-lifemapper-usersguide</package>
+	<package>lifemapper-seed-data</package>
 	<package>screen</package>
 
 <post>
 
-GID=`grep lmwriter: /etc/group`
-if [ "$GID" == "" ] ; then
-    /usr/sbin/groupadd lmwriter
+ID=`/bin/egrep -i "^lmwriter" /etc/group`
+if [ "$ID" == "" ] ; then
+    # adding lmwriter user with group
+    /usr/sbin/useradd -c "Lifemapper user" lmwriter
+else
+    # adding lmwriter user, group already exists
+    /usr/sbin/useradd -c "Lifemapper user" -g lmwriter lmwriter
 fi
 
 mkdir -p /state/partition1/lm
@@ -33,14 +38,20 @@ mkdir -p /state/partition1/lm/jobs
 mkdir -p /state/partition1/lm/metrics
 mkdir -p /state/partition1/lm/temp
 mkdir -p /state/partition1/lm/logs
+mkdir -p /state/partition1/lm/dailyLogs
 mkdir -p /state/partition1/lm/data/layers
 mkdir -p /state/partition1/lm/test
+
+mkdir -p /state/partition1/lm/jobRequests
+mkdir -p /state/partition1/lm/holdJobs
+mkdir -p /state/partition1/lm/pushJobs
+
 /bin/cp -p -r /opt/lifemapper/LmCompute/test/* /state/partition1/lm/test
 chgrp -R lmwriter /state/partition1/lm
 chmod -R g+ws /state/partition1/lm
 
 # these commands do the same changes as lifemapper-server roll
-# need if both rolls are on the same server
+# need if both rolls are on the same server 
 /bin/chgrp lmwriter /opt/lifemapper
 /bin/chmod g+ws /opt/lifemapper
 
@@ -49,6 +60,7 @@ for item in "config" "Lm*" "__init__.py*" ; do
     /bin/chmod -R g+ws /opt/lifemapper/$item
 done
 
+# Mounts /export/lm to /share/lm
 <file name="/etc/auto.share" mode="append">
 lm &Kickstart_PrivateHostname;:/export/&amp;
 </file>

@@ -1,0 +1,6 @@
+PKGROOT		= /opt/lifemapper
+NAME        	= opt-lifemapper-futures
+ARCHIVENAME     = futures
+VERSION     	= 2.2.0
+RELEASE 	= 0
+TARBALL_POSTFIX	= tar.gz

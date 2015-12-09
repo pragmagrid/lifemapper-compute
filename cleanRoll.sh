@@ -22,6 +22,7 @@ del-lifemapper() {
    $RM lifemapper-gdal
    $RM lifemapper-geos
    $RM lifemapper-lmcompute
+   $RM lifemapper-seed-data
 }
 
 del-opt-python () {
@@ -29,7 +30,7 @@ del-opt-python () {
    $RM opt-lifemapper-matplotlib
    $RM opt-lifemapper-pyparsing
    $RM opt-lifemapper-dateutil
-   $RM opt-lifemapper-setuptools
+   $RM opt-lifemapper-futures
    $RM opt-lifemapper-scipy
    $RM opt-lifemapper-rtree
    $RM opt-lifemapper-pysal

@@ -56,7 +56,11 @@
 #
 # $Log$
 
+RPM.ARCH = noarch
+
 REDHAT.ROOT = $(CURDIR)/../../
+
+EXPORTDIR=$(subst share,state/partition1,$(DATADIR_COMPUTE))/$(SEED_DIR)
 
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
@@ -64,86 +68,30 @@ include Rules.mk
 version.mk:
 	cat ../version.mk version.mk.in > version.mk
 
-PY.PATH = /opt/python/bin/$(PYTHONVER)
-
 SEDSPEC += \
-        -e 's%@PKGROOT@%$(PKGROOT)%g' \
-        -e 's%@PYBIN@%$(PY.PATH)%g' \
-        -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
-        -e 's%@LMDISK@%$(LMDISK)%g' \
-        -e 's%@LMTEMPDISK@%$(LMTEMPDISK)%g' \
-        -e 's%@LMHOME@%$(LMHOME)%g' \
-        -e 's%@LMWEB@%$(LMWEB)%g' \
-        -e 's%@LMUSER@%$(LMUSER)%g' \
-        -e 's%@SMTPSERVER@%$(SMTPSERVER)%g' \
-        -e 's%@SMTPSENDER@%$(SMTPSENDER)%g' \
-        -e 's%@TEMPDIR@%$(TEMPDIR)%g'  \
-        -e 's%@REPONAME@%$(REPONAME)%g'  \
-        -e 's%@VERSION@%$(VERSION)%g'  \
-        -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g'  \
-        -e 's%@LMSERVER_FQDN@%$(LMSERVER_FQDN)%g'  \
-        -e 's%@JAVABIN@%$(JAVABIN)%g' \
-        -e 's%@JOB_SUBMITTER_TYPE@%$(JOB_SUBMITTER_TYPE)%g'  \
-        -e 's%@JOB_CAPACITY@%$(JOB_CAPACITY)%g'
+        -e 's%@SCENARIO_PACKAGE@%$(SCENARIO_PACKAGE)%g' \
+        -e 's%@LMURL@%$(LMURL)%g' \
+        -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g' \
+        -e 's%@CSV_POSTFIX@%$(CSV_POSTFIX)%g'
 
-TOPDIR = $(REPONAME)-$(VERSION)
-
-SCRIPTS = \
-	lmJobScript \
-	maintenance-aggregate-logs \
-	maintenance-cleanup-jobs-rocks \
-	maintenance-free-memory-rocks \
-	lmMaxent \
-	maxent.bat
-
-config.ini: $(TOPDIR)/config/config.ini.in
-	$(SED) -i $(SEDSPEC) $^ 
-	cat $^ > $(TOPDIR)/config/$@
-
-lmJobScript: $(TOPDIR)/LmCompute/tools/lmJobScript.in
-	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
-
-maintenance-aggregate-logs: $(TOPDIR)/LmCompute/tools/maintenance-aggregate-logs.in
-	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
-
-maintenance-cleanup-jobs-rocks: $(TOPDIR)/LmCompute/tools/maintenance-cleanup-jobs-rocks.in
-	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
-
-maintenance-free-memory-rocks: $(TOPDIR)/LmCompute/tools/maintenance-cleanup-jobs-rocks.in
-	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
-
-lmMaxent: $(TOPDIR)/LmCompute/apps/lmMaxent.in
-	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/apps/$@
-
-maxent.bat: $(TOPDIR)/LmCompute/apps/maxent.bat.in
-	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/apps/$@
-
-
-prepSrc.sh: prepSrc.sh.in 
-	make version.mk
+prepData.sh: prepData.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
 	chmod 755 $@
+   
+prep: 
+	rm -rf version.mk
+	make version.mk
+	make prepData.sh
+	./prepData.sh
 
-prep: prepSrc.sh
-	./prepSrc.sh
-
-build: 
-	tar xzvf $(NAME)-$(VERSION).tar.gz  
-	make config.ini
-	make $(SCRIPTS)
+build:
+	echo $(EXPORTDIR)
 
 install::
-	mkdir -p $(ROOT)/$(PKGROOT)
-	mkdir -p $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(TOPDIR)/LmCompute/tools/lmJobScript $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(TOPDIR)/LmCompute/tools/maintenance-aggregate-logs $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(TOPDIR)/LmCompute/tools/maintenance-cleanup-jobs-rocks $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(TOPDIR)/LmCompute/tools/maintenance-cleanup-jobs-rocks $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(TOPDIR)/LmCompute/apps/lmMaxent $(ROOT)/$(PKGROOT)/bin
-	mv $(TOPDIR)/LmCompute/apps/maxent.bat  $(ROOT)/$(PKGROOT)/bin
-	mv $(TOPDIR)/*  $(ROOT)/$(PKGROOT) 
+	mkdir -p $(ROOT)/$(EXPORTDIR)
+	mkdir -p $(ROOT)/$(PKGROOT)/etc
+	tar xzf  $(SCENARIO_PACKAGE).$(TARBALL_POSTFIX)  -C  $(ROOT)/$(EXPORTDIR)/
+	#install -m 644 $(SCENARIO_PACKAGE).$(CSV_POSTFIX)  $(ROOT)/$(PKGROOT)/etc
 
 clean::
-	rm -rf $(SCRIPTS) 
-	rm -rf version.mk prepSrc.sh
-	rm -rf $(TOPDIR)
+	rm -rf version.mk prepData.sh

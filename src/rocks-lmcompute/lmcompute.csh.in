@@ -1,12 +1,12 @@
 # lifemapper roll: lmcompute
 
-setenv LM_CONFIG_PATH @LMHOME@/config/config.ini
+PYBIN=/opt/python/bin
+setenv PYTHON=$PYBIN/@PYTHONVER@
+setenv NODE_PYTHON=$PYBIN/@PYTHONVER@
+
 setenv LIFEMAPPER_CONFIG_FILE @LMHOME@/config/config.ini
-setenv LM_JOB_SUBMITTER_CONFIG @LMHOME@/LmCompute/config/submitterConfig.ini
 setenv LM_NODE_CODE_LOCATION @LMHOME@/LmCompute
 setenv LM_SCRIPTS_PATH @LMHOME@/LmCompute/scripts/
-setenv NODE_PYTHON /opt/python/bin/python2.7
-setenv PYTHON /opt/python/bin/python2.7
 
 set LMCOMPUTE=@PKGROOT@
 echo ${PYTHONPATH} | /bin/grep -q ${LMCOMPUTE}
