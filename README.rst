@@ -272,6 +272,12 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
         [LmCompute - Job Retrievers - myJobServer]
         RETRIEVER_TYPE: server
         JOB_SERVER: http://myserver.pragma.org/jobs
+        
+#. FIX: replace a buggy file with github version::
+
+        wget https://github.com/lifemapper/core/blob/master/LmCommon/common/apiquery.py
+        cp apiquery.py /opt/lifemapper/LmCommon/common/apiquery.py
+   
    
 #. Running lmcompute jobs
 
