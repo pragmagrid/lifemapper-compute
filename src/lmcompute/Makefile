@@ -71,6 +71,7 @@ SEDSPEC += \
         -e 's%@PYBIN@%$(PY.PATH)%g' \
         -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
         -e 's%@LMDISK@%$(LMDISK)%g' \
+        -e 's%@LMTEMPDISK@%$(LMTEMPDISK)%g' \
         -e 's%@LMHOME@%$(LMHOME)%g' \
         -e 's%@LMWEB@%$(LMWEB)%g' \
         -e 's%@LMUSER@%$(LMUSER)%g' \
@@ -99,17 +100,17 @@ config.ini: $(TOPDIR)/config/config.ini.in
 	$(SED) -i $(SEDSPEC) $^ 
 	cat $^ > $(TOPDIR)/config/$@
 
-lmJobScript: $(TOPDIR)/LmCompute/scripts/lmJobScript.in
-	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/scripts/$@
+lmJobScript: $(TOPDIR)/LmCompute/tools/lmJobScript.in
+	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
 
-maintenance-aggregate-logs: $(TOPDIR)/LmCompute/scripts/maintenance-aggregate-logs.in
-	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/scripts/$@
+maintenance-aggregate-logs: $(TOPDIR)/LmCompute/tools/maintenance-aggregate-logs.in
+	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
 
-maintenance-cleanup-jobs-rocks: $(TOPDIR)/LmCompute/scripts/maintenance-cleanup-jobs-rocks.in
-	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/scripts/$@
+maintenance-cleanup-jobs-rocks: $(TOPDIR)/LmCompute/tools/maintenance-cleanup-jobs-rocks.in
+	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
 
-maintenance-free-memory-rocks: $(TOPDIR)/LmCompute/scripts/maintenance-cleanup-jobs-rocks.in
-	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/scripts/$@
+maintenance-free-memory-rocks: $(TOPDIR)/LmCompute/tools/maintenance-cleanup-jobs-rocks.in
+	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
 
 lmMaxent: $(TOPDIR)/LmCompute/apps/lmMaxent.in
 	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/apps/$@
@@ -134,10 +135,10 @@ build:
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
 	mkdir -p $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(TOPDIR)/LmCompute/scripts/lmJobScript $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(TOPDIR)/LmCompute/scripts/maintenance-aggregate-logs $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(TOPDIR)/LmCompute/scripts/maintenance-cleanup-jobs-rocks $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(TOPDIR)/LmCompute/scripts/maintenance-cleanup-jobs-rocks $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(TOPDIR)/LmCompute/tools/lmJobScript $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(TOPDIR)/LmCompute/tools/maintenance-aggregate-logs $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(TOPDIR)/LmCompute/tools/maintenance-cleanup-jobs-rocks $(ROOT)/$(PKGROOT)/bin
+	install -m 755 $(TOPDIR)/LmCompute/tools/maintenance-cleanup-jobs-rocks $(ROOT)/$(PKGROOT)/bin
 	install -m 755 $(TOPDIR)/LmCompute/apps/lmMaxent $(ROOT)/$(PKGROOT)/bin
 	mv $(TOPDIR)/LmCompute/apps/maxent.bat  $(ROOT)/$(PKGROOT)/bin
 	mv $(TOPDIR)/*  $(ROOT)/$(PKGROOT) 

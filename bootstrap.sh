@@ -4,7 +4,6 @@
 
 # download needed RPMS
 yum --enablerepo base install cmake.x86_64;
-yum --enablerepo base install subversion.x86_64;
 
 # Do once for roll repo
 #(cd src/RPMS; 

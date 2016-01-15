@@ -40,13 +40,13 @@ mkdir -p /state/partition1/lm/temp
 mkdir -p /state/partition1/lm/logs
 mkdir -p /state/partition1/lm/dailyLogs
 mkdir -p /state/partition1/lm/data/layers
-mkdir -p /state/partition1/lm/test
+mkdir -p /state/partition1/lm/tests
 
 mkdir -p /state/partition1/lm/jobRequests
 mkdir -p /state/partition1/lm/holdJobs
 mkdir -p /state/partition1/lm/pushJobs
 
-/bin/cp -p -r /opt/lifemapper/LmCompute/test/* /state/partition1/lm/test
+/bin/cp -p -r /opt/lifemapper/LmCompute/tests/* /state/partition1/lm/tests
 chgrp -R lmwriter /state/partition1/lm
 chmod -R g+ws /state/partition1/lm
 
