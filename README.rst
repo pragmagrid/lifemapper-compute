@@ -243,7 +243,9 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
      Step 3 of https://github.com/pragmagrid/lifemapper-server/blob/kutest/docs/Using.rst.) 
      in the JOB_DATA_PATH/layers directory on LmCompute::
 
-        $ unzip 30sec-present-future-SEA.zip
+        $ unzip -o 30sec-present-future-SEA.zip
+
+     need -o option to overwrite existing tiff files. 
      
    * Populate the local Sqlite database by running the seedLayers script::
 
