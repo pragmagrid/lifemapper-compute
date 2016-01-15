@@ -229,7 +229,7 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
    As 'lmwriter' user on the frontend, execute the following command to run the 
    test script on all nodes::
 
-        $ rocks run host compute "$PYTHON /opt/lifemapper/LmCompute/scripts/testJobsOnNode.py" 2>&1 > /tmp/testJobsOnNode.log
+        $ rocks run host compute "$PYTHON /opt/lifemapper/LmCompute/tests/scripts/testJobsOnNode.py" 2>&1 > /tmp/testJobsOnNode.log
     
 #. Seed any layers already present on LmCompute instance (here with example
    30sec-present-future-SEA) by following these steps:
@@ -246,7 +246,7 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
      
    * Populate the local Sqlite database by running the seedLayers script::
 
-        $ $PYTHON /opt/lifemapper/LmCompute/scripts/layerSeeder.py  30sec-present-future-SEAlayers.csv
+        $ $PYTHON /opt/lifemapper/LmCompute/tools/layerSeeder.py  30sec-present-future-SEAlayers.csv
 
 #. Register an LmServer to compute jobs for 
 
@@ -273,11 +273,11 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 
    * Start lm jobs via the following script: ::  
 
-        lmwriter$ $PYTHON /opt/lifemapper/LmCompute/scripts/jobMediator.py start
+        lmwriter$ $PYTHON /opt/lifemapper/LmCompute/tools/jobMediator.py start
 
    * Stop jobs via the following script: :: 
 
-        lmwriter$ $PYTHON /opt/lifemapper/LmCompute/scripts/jobMediator.py stop
+        lmwriter$ $PYTHON /opt/lifemapper/LmCompute/tools/jobMediator.py stop
 
 
 TODO
