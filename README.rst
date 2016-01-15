@@ -242,7 +242,9 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
      /opt/lifemapper/LmDbServer/populate/createScenarioPackage.py) in the
      JOB_DATA_PATH/layers directory on LmCompute::
 
-        $ unzip 30sec-present-future-SEA.zip
+        $ unzip -o 30sec-present-future-SEA.zip
+
+     need -o option to overwrite existing tiff files. 
      
    * Populate the local Sqlite database by running the seedLayers script::
 
