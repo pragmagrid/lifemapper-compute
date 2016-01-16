@@ -14,7 +14,7 @@ usage ()
 setDefaults () {
     # script to seed layers
     CRON_DIR=/etc/cron.daily/
-    TASK_DIR=@LMHOME@/LmCompute/scripts/
+    TASK_DIR=@LMHOME@/LmCompute/tools/
     LOG=/tmp/`/bin/basename $0`.log
     touch $LOG
     TimeStamp "# Start"

@@ -229,25 +229,33 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
    As 'lmwriter' user on the frontend, execute the following command to run the 
    test script on all nodes::
 
-        $ rocks run host compute "$PYTHON /opt/lifemapper/LmCompute/scripts/testJobsOnNode.py" 2>&1 > /tmp/testJobsOnNode.log
+        $ rocks run host compute "$PYTHON /opt/lifemapper/LmCompute/tests/scripts/testJobsOnNode.py" 2>&1 > /tmp/testJobsOnNode.log
     
 #. Seed any layers already present on LmCompute instance (here with example
-   30sec-present-future-SEA) by following these steps:
+   30sec-present-future-SEA) by following these steps.  
    
    * Change to JOB_DATA_PATH/layers::
    
         $ cd /share/lm/data/layers
 
    * Uncompress the package of layers and csv file (created on LmServer by
-     /opt/lifemapper/LmDbServer/populate/createScenarioPackage.py) in the
-     JOB_DATA_PATH/layers directory on LmCompute::
+     /opt/lifemapper/LmDbServer/populate/createScenarioPackage.py
+     Step 3 of https://github.com/pragmagrid/lifemapper-server/blob/kutest/docs/Using.rst.) 
+     in the JOB_DATA_PATH/layers directory on LmCompute::
 
-        $ unzip 30sec-present-future-SEA.zip
+        $ unzip -o 30sec-present-future-SEA.zip
+
+     need -o option to overwrite existing tiff files. 
      
    * Populate the local Sqlite database by running the seedLayers script::
 
-        $ $PYTHON /opt/lifemapper/LmCompute/scripts/layerSeeder.py  30sec-present-future-SEAlayers.csv
-
+        $ $PYTHON /opt/lifemapper/LmCompute/tools/layerSeeder.py  30sec-present-future-SEAlayers.csv
+        
+   * Check the contents of the resulting sqlite database with:
+   
+        $ sqlite3 layers.db
+        sqlite> select * from layers;
+        
 #. Register an LmServer to compute jobs for 
 
    Jobs are retrieved from an LmServer instance by looking at the config section 
@@ -264,6 +272,12 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
         [LmCompute - Job Retrievers - myJobServer]
         RETRIEVER_TYPE: server
         JOB_SERVER: http://myserver.pragma.org/jobs
+        
+#. FIX: replace a buggy file with github version::
+
+        wget https://github.com/lifemapper/core/blob/master/LmCommon/common/apiquery.py
+        cp apiquery.py /opt/lifemapper/LmCommon/common/apiquery.py
+   
    
 #. Running lmcompute jobs
 
@@ -273,11 +287,11 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 
    * Start lm jobs via the following script: ::  
 
-        lmwriter$ $PYTHON /opt/lifemapper/LmCompute/scripts/jobMediator.py start
+        lmwriter$ $PYTHON /opt/lifemapper/LmCompute/tools/jobMediator.py start
 
    * Stop jobs via the following script: :: 
 
-        lmwriter$ $PYTHON /opt/lifemapper/LmCompute/scripts/jobMediator.py stop
+        lmwriter$ $PYTHON /opt/lifemapper/LmCompute/tools/jobMediator.py stop
 
 
 TODO
