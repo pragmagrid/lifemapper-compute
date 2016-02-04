@@ -251,7 +251,7 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 
         $ $PYTHON /opt/lifemapper/LmCompute/tools/layerSeeder.py  30sec-present-future-SEAlayers.csv
         
-   * Check the contents of the resulting sqlite database with:
+   * Check the contents of the resulting sqlite database with::
    
         $ sqlite3 layers.db
         sqlite> select * from layers;
