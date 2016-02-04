@@ -227,9 +227,14 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 #. Test the installation.
 
    As 'lmwriter' user on the frontend, execute the following command to run the 
-   test script on all nodes::
+   test script on each node.  Since the nodes are currently using a shared directory,
+   conflicts will arise if they try to access the same jobs at the same time. This
+   will not happen during normal operations when they work on different jobs.  To
+   avoid this conflict during testing, run the job on one or more nodes individually.
+   Make sure to name log files uniquely if writing to the shared log directory::
 
-        $ rocks run host compute "$PYTHON /opt/lifemapper/LmCompute/tests/scripts/testJobsOnNode.py" 2>&1 > /tmp/testJobsOnNode.log
+        $ ssh compute-0-0
+        $ $PYTHON /opt/lifemapper/LmCompute/tests/scripts/testJobsOnNode.py 2>&1 > /share/lm/logs/testJobsOnNode-0-0.log
     
 #. Seed any layers already present on LmCompute instance (here with example
    30sec-present-future-SEA) by following these steps.  
