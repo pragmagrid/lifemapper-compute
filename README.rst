@@ -5,14 +5,14 @@ Lifemapper roll
 .. contents::
 
 Introduction
----------------
+------------
 This roll installs lmcompute part of Lifemapper on a cluster. 
 
 Installing lmCompute
----------------------
+--------------------
 
 Prerequisites
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
 This section lists all the prerequisites for lifemapper code dependencies.
 The dependencies are either build from source or installed from RPMs
 during the roll build.
@@ -29,7 +29,7 @@ during the roll build.
    :python modules: setuptools, scipy, numpy, pysal, rtree
 
 Downloads
-~~~~~~~~~~~~~
+~~~~~~~~~
 This section lists all the packages that were downloaded and used in the roll.
 The packages are a part of the roll source (or downloaded by bootstrap.sh).
 
@@ -45,7 +45,7 @@ The packages are a part of the roll source (or downloaded by bootstrap.sh).
    The lmcompute source id checked out from lifemapper SVN. Valid user/pass is required.
    
 Individual package dependencies
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section is for information on some packages build dependencies. These dependencies are handled
 by the bootstrap.sh
@@ -55,7 +55,7 @@ by the bootstrap.sh
 :**gdal**:  hdf5, hdf5-devel
 
 Required Rolls
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 
 These rolls must be installed for lifemapper roll to work  properly.
 
@@ -64,7 +64,7 @@ These rolls must be installed for lifemapper roll to work  properly.
 
 
 Building a roll
-------------------
+---------------
 
 Checkout roll distribution from git repo :: 
 
@@ -100,7 +100,7 @@ The resulting ISO file lifemapper-*.iso is the roll that can be added to the
 frontend.
 
 Debugging a roll
------------------
+----------------
 
 When need to update only a few packages that have changed one can rebuild only the RPMs
 for changed packages and use the rest of the RPMS from the previous build. 
@@ -123,13 +123,13 @@ installed config.ini file needs template IP addressees updated.
 
 
 Adding a roll
---------------
+-------------
 The roll (ISO file) can be added (1) during the initial installation of the cluster (frontend)
 or (2) to the existing frontend.
 
 
 1 Adding a roll to a new server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #. Add the updated python roll that Nadya prepared to the frontend: ::
 
        # rocks add roll python*iso clean=1
@@ -175,7 +175,7 @@ A roll can be added to the existing frontend.
 Make sure that the python roll is installed (can be downloaded from
 `Rocks Downloads <http://www.rocksclusters.org/wordpress/?page_id=80>`_ )
 
-#. Execute all commands from top level lifemapper/ ::
+#. Execute following commands from the location of the ISO ::
 
    # rocks add roll lifemapper-compute-6.1-0.x86_64.disk1.iso   
    # rocks enable roll lifemapper-compute
@@ -201,7 +201,7 @@ Make sure that the python roll is installed (can be downloaded from
    # rocks run host compute reboot 
 
 Where installed roll components are
-------------------------------------
+-----------------------------------
 
 #. Created user and group ``lmwriter``
 
@@ -220,7 +220,7 @@ Where installed roll components are
    /share/lm/ - jobs/,metrics/,temp/,logs/,layers/,test/
 
 Using a Roll
------------------
+------------
 
 After the roll is installed, the cluster is ready to run lifemapper jobs.  
 
@@ -300,7 +300,7 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 
 
 TODO
----------
+----
 
 #. automate or create a command that will specify which server to use for lmjobs
    this is done via initLMcompute script now.  
