@@ -12,9 +12,9 @@ import subprocess
 class AddConfig():
     def __init__(self, argv):
         if len(argv) == 1:
-            config = os.getenv('LIFEMAPPER_CONFIG_FILE') 
+            config = os.getenv('LIFEMAPPER_COMPUTE_CONFIG_FILE') 
             if config is None or len(config) == 0:
-                raise Exception, "No configuration file found.  Set LIFEMAPPER_CONFIG_FILE environment variable"
+                raise Exception, "No configuration file found.  Set LIFEMAPPER_COMPUTE_CONFIG_FILE environment variable"
             self.fn = config
         else:
             self.fn = argv[1]

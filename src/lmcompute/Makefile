@@ -96,7 +96,7 @@ SCRIPTS = \
 	lmMaxent \
 	maxent.bat
 
-config.ini: $(TOPDIR)/config/config.ini.in
+config.lmcompute.ini: $(TOPDIR)/config/config.lmcompute.ini.in
 	$(SED) -i $(SEDSPEC) $^ 
 	cat $^ > $(TOPDIR)/config/$@
 
@@ -129,7 +129,7 @@ prep: prepSrc.sh
 
 build: 
 	tar xzvf $(NAME)-$(VERSION).tar.gz  
-	make config.ini
+	make config.lmcompute.ini
 	make $(SCRIPTS)
 
 install::
