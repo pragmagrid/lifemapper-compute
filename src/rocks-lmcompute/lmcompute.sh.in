@@ -4,7 +4,6 @@ PYBIN=/opt/python/bin
 export PYTHON=$PYBIN/@PYTHONVER@
 export NODE_PYTHON=$PYBIN/@PYTHONVER@
 
-export LIFEMAPPER_CONFIG_FILE=@LMHOME@/config/config.ini
 export LIFEMAPPER_COMPUTE_CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
 export LM_NODE_CODE_LOCATION=@LMHOME@/LmCompute
 export LM_SCRIPTS_PATH=@LMHOME@/LmCompute/scripts/
