@@ -143,16 +143,17 @@ or (2) to the existing frontend.
 
  
 #. Add roll ISO to your existing frontend that is configured to be
-   a central server. This procesdure is documented in the section ``Frontend 
-   Central Server`` of `Rocks Users Guide <http://central6.rocksclusters.org/roll-documentation/base/6.1.1/>`_.
+   a central server. This procedure is documented in the section ``Frontend 
+   Central Server`` of `Rocks Users Guide <http://central6.rocksclusters.org/roll-documentation/base/6.2/>`_.
 
 #. During the frontend install choose the lifemapper roll from the list of available rolls
    when you see ``Select Your Rolls`` screen. 
 
-#. During the frontend install choose python  and sge rolls, they are a prerequisite for lifemapper roll.
+#. During the frontend install choose python and sge rolls, they are a prerequisite for lifemapper roll.
 
-#. If this frontend is NOT being shared with LmServer, set the attributes to point to LmWebserver and LmDbServer, 
-   either FQDN or IP can be used: ::  
+#. If this frontend is NOT being shared with LmServer, set the attributes to 
+   point to LmWebserver and LmDbServer, either FQDN or IP can be used.  If this 
+   frontend is being shared with LmServer, it will set thse attributes to true. ::  
 
        # /opt/rocks/bin/rocks add host attr localhost LM_webserver value=111.222.333.444
        # /opt/rocks/bin/rocks add host attr localhost LM_dbserver value=my.host.domain 
