@@ -1,6 +1,6 @@
 #!/bin/bash 
 #
-# Update @LMHOME@/config/config.ini file with correct ip info  
+# Update @LMHOME@/config/config.lmcompute.ini file with correct ip info  
 #
 usage () 
 {

@@ -119,7 +119,7 @@ Install the resulting RPM with: ::
    # /opt/lifemapper/rocks/bin/updateIP-lmcompute
 
 The ``updateIP-lmcompute`` is needed for this specfic RPM because  a newly 
-installed config.ini file needs template IP addressees updated. 
+installed config.lmcompute.ini file needs template IP addressees updated. 
 
 
 Adding a roll
@@ -265,8 +265,8 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 #. Register an LmServer to compute jobs for 
 
    Jobs are retrieved from an LmServer instance by looking at the config section 
-   ``[LmCompute - Job Retrievers]`` of either the config.ini file (installed) or
-   site.ini file (created, edited by user to override variables in config.ini).
+   ``[LmCompute - Job Retrievers]`` of either the config.lmcompute.ini file (installed) or
+   site.ini file (created, edited by user to override variables in config.lmcompute.ini).
     
    * Add a key to the [LmCompute - Job Retrievers] section::
 
@@ -305,7 +305,7 @@ TODO
 
 #. automate or create a command that will specify which server to use for lmjobs
    this is done via initLMcompute script now.  
-   LM_JOB_SERVER  specified in /opt/lifemapper/config/config.ini
+   LM_JOB_SERVER  specified in /opt/lifemapper/config/config.lmcompute.ini
 
 #. Simplify steps for creating a layer package for local installation on 
    LmCompute, of input data with metadata cataloged in LmServer which will be 

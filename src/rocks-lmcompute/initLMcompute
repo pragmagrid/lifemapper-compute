@@ -1,14 +1,14 @@
 #!/bin/bash
 #
-# This script updates Lifemapper configuration file config/config.ini
+# This script updates Lifemapper configuration file config/config.lmcompute.ini
 # Run by the roll install process on all nodes of lmcompute cluster
 
 usage () 
 {
     echo "Usage: $0"
     echo "This script is run during the roll install it will:"
-    echo "     - update config/config.ini file with values from LMdbserver and LM_webserver attributes "
-    echo "     - add [machine] section to config/config.ini  "
+    echo "     - update config/config.lmcompute.ini file with values from LMdbserver and LM_webserver attributes "
+    echo "     - add [machine] section to config/config.lmcompute.ini  "
     echo "     - add maintenance scripts to /etc/cron.daily/ directory  "
     echo "   "
 }
@@ -27,7 +27,7 @@ runLdconfig () {
     /sbin/ldconfig
 }
 
-# update config/config.ini
+# update config/config.lmcompute.ini
 updateConfig () {
     /opt/lifemapper/rocks/bin/updateIP-lmcompute
 }

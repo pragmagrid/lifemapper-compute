@@ -96,7 +96,7 @@ SCRIPTS = \
 	lmMaxent \
 	maxent.bat
 
-config.lmcompute.ini: $(TOPDIR)/config/config.lmcompute.ini.in
+config.lmcompute.ini: $(TOPDIR)/LmCompute/config/config.lmcompute.ini.in
 	$(SED) -i $(SEDSPEC) $^ 
 	cat $^ > $(TOPDIR)/config/$@
 

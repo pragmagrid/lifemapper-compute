@@ -1,12 +1,12 @@
 #!/bin/bash 
 #
-# Update @LMHOME@/config/config.ini file with correct ip info  
+# Update @LMHOME@/config/config.lmcompute.ini file with correct ip info  
 #
 usage () 
 {
     echo "Usage: $0"
-    echo "This script updates IPs in @LMHOME@/config/config.ini file from"
-    echo "the values set in rocks attributes LM_dbserver and LM_webserver."
+    echo "This script updates IPs in @LMHOME@/LmCompute/config/config.lmcompute.ini"
+    echo "file from the values set in rocks attributes LM_dbserver and LM_webserver."
     echo "If attributes are not set then the server public IP is used"
 
 }
@@ -42,8 +42,8 @@ getAddress () {
 
 ### changed line 48 from  "s%@PUBLIC_FQDN@%$AddrWebserver%g;\
 updateConfFile () {
-    infile=$1.in
-    outfile=$1
+    infile=@LMHOME@/LmCompute/config/config.lmcompute.ini.in
+    outfile=@LMHOME@/config/config.lmcompute.ini
     if [ -f $infile ]; then
         sed  "s%@PUBLIC_FQDN@%$Addr%g;\
               s%@WEB_FQDN@%$AddrWebserver%g; \
@@ -60,7 +60,7 @@ updateAddress () {
 	exit 1
     fi
 
-    updateConfFile @LMHOME@/config/config.ini
+    updateConfFile 
     . /etc/profile.d/lmcompute.sh
     @LMHOME@/rocks/bin/confSysvals 
 }
