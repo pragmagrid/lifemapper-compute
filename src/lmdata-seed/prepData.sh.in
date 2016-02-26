@@ -9,7 +9,7 @@
 #   the database is initialized.
 create_seeded_data () {
   echo "Fetch climate data for seeding"
-  LMURL="http://lifemapper.org/dl"
+  LMURL="http://svc.lifemapper.org/dl"
   curl -L "$LMURL/@SCENARIO_PACKAGE@.@TARBALL_POSTFIX@" -o ../lmdata-seed/@SCENARIO_PACKAGE@.@TARBALL_POSTFIX@
 }
 
