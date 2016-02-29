@@ -18,8 +18,8 @@
 	$Log$
 	</changelog>
 
-	<edge from="server" to="lifemapper-lmcompute"/>
-	<edge from="server" to="lifemapper-lmcompute-base"/>
-	<edge from="client" to="lifemapper-lmcompute-base"/>
+	<edge from="server" to="lifemapper-compute"/>
+	<edge from="server" to="lifemapper-compute-base"/>
+	<edge from="client" to="lifemapper-compute-base"/>
 
 </graph>
