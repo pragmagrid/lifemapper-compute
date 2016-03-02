@@ -167,6 +167,8 @@ or (2) to the existing frontend.
 
        # /opt/lifemapper/rocks/bin/initLMcompute 
 
+   **TODO:** Move to command **lm init compute** 
+
 #. Install compute nodes 
 
 2 Adding a roll to a live frontend
@@ -236,9 +238,11 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 
         $ ssh compute-0-0
         $ $PYTHON /opt/lifemapper/LmCompute/tests/scripts/testJobsOnNode.py 2>&1 > /share/lm/logs/testJobsOnNode-0-0.log
+   
+   **TODO:** Move to command **lm test jobcalcs** 
     
-#. Seed any layers already present on LmCompute instance (here with example
-   30sec-present-future-SEA) by following these steps.  
+#. **Soon to be deprecated** Seed any layers already present on LmCompute instance 
+   (here with example 30sec-present-future-SEA) by following these steps.  
    
    * Change to JOB_DATA_PATH/layers::
    
@@ -256,18 +260,27 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
    * Populate the local Sqlite database by running the seedLayers script::
 
         $ $PYTHON /opt/lifemapper/LmCompute/tools/layerSeeder.py  30sec-present-future-SEAlayers.csv
-        
+
    * Check the contents of the resulting sqlite database with::
    
         $ sqlite3 layers.db
         sqlite> select * from layers;
         
-#. Register an LmServer to compute jobs for 
-
-   Jobs are retrieved from an LmServer instance by looking at the config section 
-   ``[LmCompute - Job Retrievers]`` of either the config.lmcompute.ini file (installed) or
-   site.ini file (created, edited by user to override variables in config.lmcompute.ini).
-    
+#. **Optional** Register a different LmServer get jobs from. The default 
+   configuration assumes that LmServer has been installed on this 
+   same cluster.  
+   
+   To change this default, copy the configured values (detailed 
+   below) into the site.ini file. Leave the default ``JOB_RETRIEVER_KEYS`` value,
+   ``myJobServer`` and the section head ``[LmCompute - Job Retrievers - myJobServer]`` 
+   in the example below, and modify the URL value for ``JOB_SERVER``.
+   
+   To add an additional key, add another value to the ``JOB_RETRIEVER_KEYS``
+   variable, for example ``aNewJobServer``.  This will now be a comma-delimited 
+   list, without spaces), then add a matching section, for example, 
+   ``[LmCompute - Job Retrievers - aNewJobServer]``, filling in ``JOB_SERVER``
+   with the appropriate URL.
+   
    * Add a key to the [LmCompute - Job Retrievers] section::
 
         [LmCompute - Job Retrievers]
@@ -279,26 +292,33 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
         RETRIEVER_TYPE: server
         JOB_SERVER: http://myserver.pragma.org/jobs
         
-#. FIX: replace a buggy file with github version::
+#. Run lmcompute jobs
 
-        wget https://github.com/lifemapper/core/blob/master/LmCommon/common/apiquery.py
-        cp apiquery.py /opt/lifemapper/LmCommon/common/apiquery.py
-   
-   
-#. Running lmcompute jobs
-
-   The jobs are run on the frontend via a job submitter script.
-   The script requests the jobs from the LM server and sends them to the compute nodes of the cluster.
-   Execute the following commands as ``lmwriter`` user:
+   The jobs are run on the frontend via a job submitter script.  The script 
+   requests the jobs from the LM server and sends them to the compute nodes of 
+   the cluster.  Execute the following commands as ``lmwriter`` user:
 
    * Start lm jobs via the following script: ::  
 
         lmwriter$ $PYTHON /opt/lifemapper/LmCompute/tools/jobMediator.py start
+        
+   * Test that jobs are being created and submitted with the following command. 
+     Check several times to see that jobs are moving out of the queue and new
+     ones are replacing them: ::
+     
+        lmwriter$ qstat -u lmwriter
+
+   **TODO:** Add command **lm list worker** (to check active workers)
+
+   **TODO:** Add command **lm test worker** (to test pre-prepared jobs, and 
+   their status and movement over a short period of time)
 
    * Stop jobs via the following script: :: 
 
         lmwriter$ $PYTHON /opt/lifemapper/LmCompute/tools/jobMediator.py stop
-
+   
+   **TODO:** Move to command **lm start/stop worker** (WorkQueue will replace 
+   jobMediator)
 
 TODO
 ----
