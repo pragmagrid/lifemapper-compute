@@ -26,13 +26,21 @@ Update code and scripts
    
 #. **Update your configuration** (only if you are installing the 
    lifemapper-lmcompute (Lifemapper source code) rpm), with:::
-
-   # /opt/lifemapper/rocks/bin/updateIP-lmcompute
+   
+   # /opt/lifemapper/rocks/bin/initLMcompute
 
    **TODO:** Move to command **lm update config lmcompute** 
 
-  This script fills in the ``@*_FQDN@`` variables in the 
-  LmCompute/config/config.lmcompute.ini.in file with fully qualified domain name 
-  or IP address, and moves it to onfig/config.lmcompute.ini 
+  This script performs 2 functions: 
+  
+  - runs the updateIP-lmcompute script, which fills in the ``@*_FQDN@`` 
+    variables in the LmCompute/config/config.lmcompute.ini.in file with fully 
+    qualified domain name or IP address, and moves it to onfig/config.lmcompute.ini 
+  - runs the installComputeCronJobs script, which installs and new or modified
+    cron jobs present in the source code
+  
+#. **Rebuild the compute nodes** ::  
 
+   # rocks set host boot compute action=install
+   # rocks run host compute reboot 
 
