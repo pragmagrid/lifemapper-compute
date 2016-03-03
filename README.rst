@@ -202,6 +202,11 @@ Make sure that the python roll is installed (can be downloaded from
 
    # rocks set host boot compute action=install
    # rocks run host compute reboot 
+   
+#. **FIXME** Set file permissions for node scratch space ::
+
+   # rocks run host compute "chgrp -R lmwriter /state/partition1/lm"
+   # rocks run host compute "chmod -R g+ws /state/partition1/lm" 
 
 Where installed roll components are
 -----------------------------------
