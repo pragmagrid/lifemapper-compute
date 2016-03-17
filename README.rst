@@ -227,6 +227,15 @@ Where installed roll components are
 
    /share/lm/ - jobs/,metrics/,temp/,logs/,layers/,test/
 
+Updating parts of a roll
+------------------------
+
+.. _Updating : docs/Updating.rst
+
+If you are re-installing the lifemapper-lmcompute rpm (Lifemapper source code), 
+and/or the rocks-lmcompute rpm, see **Update code and scripts** at `Updating`_  
+to update the code, configuration and nodes.   
+
 Using a Roll
 ------------
 
