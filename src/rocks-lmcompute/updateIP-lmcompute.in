@@ -41,7 +41,7 @@ getAddress () {
 }
 
 ### changed line 48 from  "s%@PUBLIC_FQDN@%$AddrWebserver%g;\
-updateConfFile () {
+updateConfig () {
     infile=@LMHOME@/LmCompute/config/config.lmcompute.ini.in
     outfile=@LMHOME@/config/config.lmcompute.ini
     if [ -f $infile ]; then
@@ -51,6 +51,9 @@ updateConfFile () {
     else
        echo "ERROR: File $infile does not exist"
     fi
+
+    # Source profile for environment
+    . /etc/profile.d/lmcompute.sh
 }
 
 updateAddress () {
@@ -60,8 +63,6 @@ updateAddress () {
 	exit 1
     fi
 
-    updateConfFile 
-    . /etc/profile.d/lmcompute.sh
     @LMHOME@/rocks/bin/confSysvals 
 }
 
@@ -81,5 +82,6 @@ if [ $# -ne 0 ]; then
 fi 
 
 getAddress
+updateConfig
 updateAddress
 updatePerms

@@ -7,23 +7,32 @@ Updating an existing Lifemapper Compute installation
 
 Introduction
 ------------
-After the roll is installed, and the instance has been populated, you may want
-to update the code and configuration (in lifemapper-lmcompute*.rpm) 
-and applying those changes with scripts (from rocks-lmcompute*.rpm) 
-without losing data.
+After the roll is installed, and the instance has been populated, and new source
+code has been released, you will want to update the code and configuration (lifemapper-lmcompute*.rpm) 
+and scripts (rocks-lmcompute*.rpm) without losing data.
 
 Update code and scripts
 -----------------------
 
-#. **Copy new Lifemapper RPMs to server**, for example lifemapper-lmcompute-xxxxx.x86_64.rpm 
-     # rocks-lmcompute-6.2-0.x86_64.rpm
+#. **Copy new Lifemapper RPMs to server**, for example 
+   lifemapper-lmcompute-xxxxx.x86_64.rpm and rocks-lmcompute-6.2-0.x86_64.rpm
      
-#. **Install the RPMs** as user root, then double-check that they are there: ::   
+#. **Remove the old RPMs** as user root::   
 
    # rpm -el lifemapper-lmcompute
-   # rpm -i --force path-to-new-lifemapper-lmcompute.rpm
-   # rpm -qa | grep lifemapper-lmcompute
+   # rpm -el rocks-lmcompute
    
+#. **Install the RPMs** as user root, then double-check that they are there: ::   
+
+   # rpm -i --force path-to-new-lifemapper-lmcompute.rpm
+   # rpm -i --force path-to-new-rocks-lmcompute.rpm
+   # rpm -qa | grep lmcompute
+
+#. **Temporary** (pre 1.0.9.lw; this has been added to the rocks-lmcompute "make install").
+   Read the new profile file to update any environment variables::
+   
+     # source /etc/profile.d/lmcompute.sh
+      
 #. **Update your configuration** (only if you are installing the 
    lifemapper-lmcompute (Lifemapper source code) rpm), with:::
    
