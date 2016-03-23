@@ -17,8 +17,8 @@ usage ()
 updatePerms () {
     GID=`grep lmwriter: /etc/group`
     if [ "$GID" != "" ] ; then
-        chgrp  lmwriter /opt/lifemapper/config/config*.ini*
-        chmod g+ws /opt/lifemapper/config/config*.ini*
+        chgrp  lmwriter @PKGROOT@/config/config*.ini*
+        chmod g+ws @PKGROOT@/config/config*.ini*
     fi
 }
 
@@ -29,12 +29,12 @@ runLdconfig () {
 
 # update config/config.lmcompute.ini
 updateConfig () {
-    /opt/lifemapper/rocks/bin/updateIP-lmcompute
+    @PKGROOT@/rocks/bin/updateIP-lmcompute
 }
 
 # install cron jobs for daily execution
 installCronJobs () {
-    /opt/lifemapper/rocks/bin/installComputeCronJobs
+    @PKGROOT@/rocks/bin/installComputeCronJobs
 }
 
 # source Lifemapper env
