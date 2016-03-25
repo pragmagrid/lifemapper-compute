@@ -27,9 +27,22 @@ Update roll
    # rocks run roll lifemapper-compute > add-compute.sh 
    # bash add-compute.sh > add-compute.out 2>&1
     
+#. **Reboot front end** ::  
+
+   # reboot
+   
 #. **Rebuild the compute nodes** ::  
 
    # rocks set host boot compute action=install
    # rocks run host compute reboot 
+
+#. **Temporary** On EACH node fix permissions.  Note: this is run on FE by 
+   script created by run roll. Commands are in lifemapper-compute-base.xml::
+
+   # /bin/chgrp -R lmwriter /state/partition1/lm
+   # /bin/chmod -R g+ws /state/partition1/lm
+
+   # /bin/chgrp -R lmwriter /opt/lifemapper/.java
+   # /bin/chmod -R g+ws /opt/lifemapper/.java
 
 
