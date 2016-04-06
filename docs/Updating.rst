@@ -18,6 +18,12 @@ Update roll
 
    # scp lifemapper-compute-6.2-0.x86_64.disk1.iso server.lifemapper.org:
 
+#. **Remove old Lifemapper roll**, for example::
+
+   # rocks remove roll lifemapper-compute
+   # (cd /export/rocks/install; rocks create distro)
+   # yum clean all
+
 #. **Add a new version of the roll**, ensuring that old rpms/files are deleted::
 
    # rocks add roll lifemapper-compute-6.2-0.x86_64.disk1.iso clean=1
