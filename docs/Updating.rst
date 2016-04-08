@@ -7,9 +7,21 @@ Updating an existing Lifemapper Compute installation
 
 Introduction
 ------------
+
 After the roll is installed, and the instance has been populated, and new source
 code has been released, you will want to update the code and configuration (lifemapper-lmcompute*.rpm) 
 and scripts (rocks-lmcompute*.rpm) without losing data.
+
+Stop processes
+--------------
+
+#. **Stop the jobMediator** as lmwriter:
+
+   To Stop the jobMediator ::    
+
+     lmwriter$ $PYTHON /opt/lifemapper/LmCompute/tools/jobMediator.py stop
+
+   **TODO:** Move to command **lm stop jobs** 
 
 Update roll
 -----------
