@@ -9,8 +9,7 @@ Introduction
 ------------
 
 After the roll is installed, and the instance has been populated, and new source
-code has been released, you will want to update the code and configuration (lifemapper-lmcompute*.rpm) 
-and scripts (rocks-lmcompute*.rpm) without losing data.
+code has been released, you will want to update the lifemapper-compute roll.
 
 Stop processes
 --------------
@@ -30,13 +29,14 @@ Update roll
 
    # scp lifemapper-compute-6.2-0.x86_64.disk1.iso server.lifemapper.org:
 
-#. **Remove old Lifemapper roll**, for example::
+#. **Temporary** Remove rocks-lmcompute manually.  Previously, this rpm did
+   not have a version, and defaulted to rocks version 6.2.  Rocks reads the new
+   version, 1.0.0, as older than the previous one named 6.2::
 
-   # rocks remove roll lifemapper-compute
-   # (cd /export/rocks/install; rocks create distro)
-   # yum clean all
+   # rpm -el rocks-lmcompute
 
-#. **Add a new version of the roll**, ensuring that old rpms/files are deleted::
+#. **Add a new version of the roll**, using **clean=1** to ensure that 
+   old rpms/files are deleted::
 
    # rocks add roll lifemapper-compute-6.2-0.x86_64.disk1.iso clean=1
    # rocks enable roll lifemapper-compute
