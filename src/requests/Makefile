@@ -65,6 +65,9 @@ RPM.EXTRAS += "AutoReq: 0"
 
 PY.PATH = /opt/python/bin/$(PYTHONVER)
 
+version.mk:
+	cat ../version.mk version.mk.in > version.mk
+
 build:
 	tar xzf  $(ARCHIVENAME)-$(VERSION).tar.gz 
 	(\

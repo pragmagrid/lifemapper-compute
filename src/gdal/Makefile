@@ -62,7 +62,10 @@ REDHAT.ROOT = $(CURDIR)/../../
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
 
-PY.PATH = /opt/python/bin/python2.7
+PY.PATH = /opt/python/bin/$(PYTHONVER)
+
+version.mk:
+	cat ../version.mk version.mk.in > version.mk
 
 build:
 	gunzip -c $(ARCHIVENAME)-$(VERSION).$(TARBALL_POSTFIX) | $(TAR) -xf -
