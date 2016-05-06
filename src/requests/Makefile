@@ -82,4 +82,4 @@ install::
 	)
 
 clean::
-	rm -rf $(ARCHIVENAME)-$(VERSION)
+	rm -rf $(ARCHIVENAME)-$(VERSION) version.mk 
