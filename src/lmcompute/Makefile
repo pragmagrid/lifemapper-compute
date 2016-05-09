@@ -90,8 +90,6 @@ TOPDIR = $(REPONAME)-$(VERSION)
 
 SCRIPTS = \
 	lmJobScript \
-	maintenance-aggregate-logs.cron \
-	maintenance-cleanup-jobs-rocks.cron \
 	lmMaxent \
 	maxent.bat
 
@@ -100,12 +98,6 @@ config.lmcompute.ini: $(TOPDIR)/LmCompute/config/config.lmcompute.ini.in
 	cat $^ > $(TOPDIR)/config/$@
 
 lmJobScript: $(TOPDIR)/LmCompute/tools/lmJobScript.in
-	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
-
-maintenance-aggregate-logs.cron: $(TOPDIR)/LmCompute/tools/maintenance-aggregate-logs.cron.in
-	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
-
-maintenance-cleanup-jobs-rocks.cron: $(TOPDIR)/LmCompute/tools/maintenance-cleanup-jobs-rocks.cron.in
 	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
 
 lmMaxent: $(TOPDIR)/LmCompute/apps/lmMaxent.in

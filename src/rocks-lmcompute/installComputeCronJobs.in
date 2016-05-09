@@ -6,16 +6,14 @@
 usage () 
 {
     echo "Usage: $0"
-    echo "This script copies maintenance scripts in @LMHOME@/LmCompute/tools " 
-    echo "and @LMHOME@/config/ directories to the cron.daily directory and "
-    echo "sets execute permissions."
+    echo "This script copies maintenance scripts in @LMHOME@/rocks/bin/ " 
+    echo "to the cron.daily directory and sets execute permissions."
 }
 
 ### define varibles
 setDefaults () {
     # script to seed layers
     CRON_DIR=/etc/cron.daily/
-    TASK_DIR=@LMHOME@/LmCompute/tools/
     LOG=/tmp/`/bin/basename $0`.log
     touch $LOG
     TimeStamp "# Start"
@@ -31,9 +29,9 @@ installDailyTasks () {
     name1=`hostname`
     name2=`/opt/rocks/bin/rocks list host attr localhost | grep Kickstart_PublicHostname | awk '{print $3}'`
     if [ "$name1" == "$name2" ] ; then
-        install ${TASK_DIR}/maintenance-aggregate-logs  ${CRON_DIR}
-        install ${TASK_DIR}/maintenance-cleanup-jobs-rocks  ${CRON_DIR}
-        install ${TASK_DIR}/maintenance-free-memory-rocks  ${CRON_DIR}
+        install @LMHOME@/rocks/bin/maintenance-aggregate-logs.cron  ${CRON_DIR}
+        install @LMHOME@/rocks/bin/maintenance-cleanup-jobs-rocks.cron  ${CRON_DIR}
+        install @LMHOME@/rocks/bin/maintenance-free-memory-rocks.cron  ${CRON_DIR}
         echo "Installed tasks in ${CRON_DIR} on frontend ..." | tee -a $LOG
     fi
 }

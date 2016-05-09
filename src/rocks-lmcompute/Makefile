@@ -86,6 +86,9 @@ PROGS = \
 	updateIP-lmcompute \
 	confSysvals \
 	seedLayers \
+	maintenance-aggregate-logs.cron \
+	maintenance-cleanup-jobs-rocks.cron \
+	maintenance-free-memory-rocks.cron \
 	installComputeCronJobs
 
 lmcompute.sh: lmcompute.sh.in
@@ -108,6 +111,15 @@ lifemapper.conf: lifemapper.conf.in
 
 seedLayers: seedLayers.in
 	$(SED) $(SEDSPEC) $^ > $@
+	
+maintenance-aggregate-logs.cron: maintenance-aggregate-logs.cron.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+maintenance-cleanup-jobs-rocks.cron: maintenance-cleanup-jobs-rocks.cron.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+maintenance-free-memory-rocks.cron: maintenance-free-memory-rocks.cron.in
+	$(SED) $(SEDSPEC) $^ > $@
 
 installComputeCronJobs: installComputeCronJobs.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -122,7 +134,6 @@ install::
 
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 $(PROGS) $(ROOT)/$(PKGROOT)/rocks/bin
-	install -m 755 initLMcompute $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 addMount addVine $(ROOT)/$(PKGROOT)/rocks/bin
 
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks/etc
