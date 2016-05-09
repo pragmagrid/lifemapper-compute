@@ -82,6 +82,7 @@ SCRIPTS = \
 	lifemapper.conf
 
 PROGS = \
+	initLMcompute \
 	updateIP-lmcompute \
 	confSysvals \
 	seedLayers \
@@ -91,6 +92,9 @@ lmcompute.sh: lmcompute.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 lmcompute.csh: lmcompute.csh.in
+	$(SED) $(SEDSPEC) $^ > $@
+
+initLMcompute: initLMcompute.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 updateIP-lmcompute: updateIP-lmcompute.in
