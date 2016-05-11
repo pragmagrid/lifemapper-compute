@@ -163,7 +163,7 @@ or (2) to the existing frontend.
        # /opt/rocks/bin/rocks list host attr | grep LM_ 
 
 #. Run command (only on new install, for live frontends, this happens on reboot 
-   in /etc/rc.d/rocksconfig.d/post-99-lifemapper): :: 
+   in /etc/rc.d/rocksconfig.d/post-99-lifemapper-lmcompute): :: 
 
        # /opt/lifemapper/rocks/bin/initLMcompute 
 
