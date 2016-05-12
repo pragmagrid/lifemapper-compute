@@ -184,8 +184,8 @@ Make sure that the python roll is installed (can be downloaded from
    # rocks enable roll lifemapper-compute
    # (cd /export/rocks/install; rocks create distro)  
    # yum clean all
-   # rocks run roll lifemapper-compute > add-roll.sh  
-   # bash add-roll.sh  > add-roll.out 2>&1
+   # rocks run roll lifemapper-compute > add-compute.sh  
+   # bash add-compute.sh  > add-compute.out 2>&1
 
 #. After the  last command  is finished, examine the add-roll.out file for errors
    Set the attributes to point to LmWebserver and LmDbServer, either FQDN or IP can be used: ::  
@@ -198,15 +198,25 @@ Make sure that the python roll is installed (can be downloaded from
 
    # reboot
 
+#. After the frontend boots up, check the success of initialization commands in 
+   log files in /tmp:
+  * initLMcompute.log
+  * updateDB.log,
+  * installComputeCronJobs.log
+  * post-99-lifemapper.debug 
+
 #. After the frontend boots up you can rebuild the compute nodes ::  
 
    # rocks set host boot compute action=install
    # rocks run host compute reboot 
    
-#. **FIXME** Set file permissions for node scratch space ::
+#. **FIXME** If incorrect, set file permissions for node scratch space and 
+   java preferences ::
 
    # rocks run host compute "chgrp -R lmwriter /state/partition1/lm"
    # rocks run host compute "chmod -R g+ws /state/partition1/lm" 
+   # rocks run host compute "chgrp -R lmwriter /opt/lifemapper/.java"
+   # rocks run host compute "chmod -R g+ws /opt/lifemapper/.java"
 
 Where installed roll components are
 -----------------------------------
