@@ -8,7 +8,7 @@
 create_seeded_data () {
   echo "Fetch climate data for seeding"
   LMURL="http://svc.lifemapper.org/dl"
-  curl -L "$LMURL/@SCENARIO_PACKAGE_SEED@.@TARBALL_POSTFIX@" -o ../lmdata-seed/@SCENARIO_PACKAGE_SEED@.@TARBALL_POSTFIX@
+  curl -L "@LMURL@/@SCENARIO_PACKAGE_SEED@.@TARBALL_POSTFIX@" -o ../lmdata-seed/@SCENARIO_PACKAGE_SEED@.@TARBALL_POSTFIX@
 }
 
 ### main ###
