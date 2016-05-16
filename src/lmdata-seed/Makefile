@@ -70,7 +70,10 @@ version.mk:
 
 SEDSPEC += \
         -e 's%@SCENARIO_PACKAGE_SEED@%$(SCENARIO_PACKAGE_SEED)%g' \
+        -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
+        -e 's%@PYTHONVER@%$(PYTHONVER)%g' \
         -e 's%@LMURL@%$(LMURL)%g' \
+        -e 's%@LMHOME@%$(LMHOME)%g' \
         -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g' \
         -e 's%@CSV_POSTFIX@%$(CSV_POSTFIX)%g'
 

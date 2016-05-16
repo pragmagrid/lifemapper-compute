@@ -25,9 +25,9 @@ if [ $# -ne 0 ]; then
 fi 
 
 set_defaults() {
-    LMURL="http://lifemapper.org/dl"
+    LMURL=@LMURL@
     
-    CLIMATE_DIR=@DATADIR_SERVER@/@SEED_DIR@
+    CLIMATE_DIR=@DATADIR_COMPUTE@/@SEED_DIR@
     
     CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
     SITE_CONFIG_FILE=@LMHOME@/config/site.ini
