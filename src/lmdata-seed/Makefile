@@ -74,6 +74,9 @@ SEDSPEC += \
         -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g' \
         -e 's%@CSV_POSTFIX@%$(CSV_POSTFIX)%g'
 
+seedData: seedData.in
+	$(SED) $(SEDSPEC) $^ > $@
+
 prepData.sh: prepData.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
 	chmod 755 $@
@@ -85,6 +88,7 @@ prep:
 	./prepData.sh
 
 build:
+	make seedData
 	echo $(EXPORTDIR)
 
 install::
