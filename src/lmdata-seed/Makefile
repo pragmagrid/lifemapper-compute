@@ -69,7 +69,7 @@ version.mk:
 	cat ../version.mk version.mk.in > version.mk
 
 SEDSPEC += \
-        -e 's%@SCENARIO_PACKAGE@%$(SCENARIO_PACKAGE)%g' \
+        -e 's%@SCENARIO_PACKAGE_SEED@%$(SCENARIO_PACKAGE_SEED)%g' \
         -e 's%@LMURL@%$(LMURL)%g' \
         -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g' \
         -e 's%@CSV_POSTFIX@%$(CSV_POSTFIX)%g'
@@ -90,8 +90,7 @@ build:
 install::
 	mkdir -p $(ROOT)/$(EXPORTDIR)
 	mkdir -p $(ROOT)/$(PKGROOT)/etc
-	tar xzf  $(SCENARIO_PACKAGE).$(TARBALL_POSTFIX)  -C  $(ROOT)/$(EXPORTDIR)/
-	#install -m 644 $(SCENARIO_PACKAGE).$(CSV_POSTFIX)  $(ROOT)/$(PKGROOT)/etc
+	tar xzf  $(SCENARIO_PACKAGE_SEED).$(TARBALL_POSTFIX)  -C  $(ROOT)/$(EXPORTDIR)/
 
 clean::
 	rm -rf version.mk prepData.sh
