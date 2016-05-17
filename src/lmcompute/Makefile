@@ -70,6 +70,7 @@ SEDSPEC += \
         -e 's%@PKGROOT@%$(PKGROOT)%g' \
         -e 's%@PYBIN@%$(PY.PATH)%g' \
         -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
+        -e 's%@SCENARIO_PACKAGE_SEED@%$(SCENARIO_PACKAGE_SEED)%g' \
         -e 's%@LMDISK@%$(LMDISK)%g' \
         -e 's%@LMTEMPDISK@%$(LMTEMPDISK)%g' \
         -e 's%@LMHOME@%$(LMHOME)%g' \

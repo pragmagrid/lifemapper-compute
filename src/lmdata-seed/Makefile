@@ -73,6 +73,7 @@ SEDSPEC += \
         -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
         -e 's%@PYTHONVER@%$(PYTHONVER)%g' \
         -e 's%@LMURL@%$(LMURL)%g' \
+        -e 's%@SEED_DIR@%$(SEED_DIR)%g' \
         -e 's%@LMHOME@%$(LMHOME)%g' \
         -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g' \
         -e 's%@CSV_POSTFIX@%$(CSV_POSTFIX)%g'

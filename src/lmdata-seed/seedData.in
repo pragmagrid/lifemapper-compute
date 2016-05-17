@@ -42,7 +42,7 @@ set_defaults() {
 seed_layers () {
     if [ -f $SEEDPY ] ; then        
         echo "Add layers for $SCEN_PKG ..." | tee -a $LOG
-        /opt/python/bin/@PYTHONVER@ SEEDPY $CLIMATE_DIR/$SCEN_PKG.$CSV_POSTFIX 2>&1 | tee -a $LOG
+        /opt/python/bin/@PYTHONVER@ $SEEDPY $CLIMATE_DIR/$SCEN_PKG.$CSV_POSTFIX 2>&1 | tee -a $LOG
         
     else
         echo "Error: Missing file $SEEDPY" | tee -a $LOG
