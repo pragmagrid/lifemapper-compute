@@ -96,8 +96,8 @@ build:
 
 install::
 	mkdir -p $(ROOT)/$(EXPORTDIR)
-	mkdir -p $(ROOT)/$(PKGROOT)/etc
 	tar xzf  $(SCENARIO_PACKAGE_SEED).$(TARBALL_POSTFIX)  -C  $(ROOT)/$(EXPORTDIR)/
+	mkdir -p $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 seedData $(ROOT)/$(PKGROOT)/rocks/bin
 
 clean::
