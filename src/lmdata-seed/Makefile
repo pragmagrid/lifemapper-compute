@@ -98,6 +98,7 @@ install::
 	mkdir -p $(ROOT)/$(EXPORTDIR)
 	mkdir -p $(ROOT)/$(PKGROOT)/etc
 	tar xzf  $(SCENARIO_PACKAGE_SEED).$(TARBALL_POSTFIX)  -C  $(ROOT)/$(EXPORTDIR)/
+	install -m 755 seedData $(ROOT)/$(PKGROOT)/rocks/bin
 
 clean::
-	rm -rf version.mk prepData.sh
+	rm -rf version.mk prepData.sh seedData
