@@ -1,20 +1,31 @@
 #!/bin/bash
 #
-# This script updates Lifemapper configuration file config/config.lmcompute.ini
+# This script updates Lifemapper configuration file config/config.lmcompute.ini,
+# installs cron jobs, and seeds default climate layers.
 # Run by the roll install process on all nodes of lmcompute cluster
 
 usage () 
 {
     echo "Usage: $0"
-    echo "This script is run during the roll install it will:"
-    echo "     - update config/config.lmcompute.ini file with values from LMdbserver and LM_webserver attributes "
+    echo "This script is run during the roll install, it will:"
+    echo "     - update config/config.lmcompute.ini file with values from "
+    echo "       LMdbserver and LM_webserver attributes "
     echo "     - add [machine] section to config/config.lmcompute.ini  "
     echo "     - add maintenance scripts to /etc/cron.daily/ directory  "
     echo "   "
 }
 
+set_defaults() {
+    BIN=@PKGROOT@/rocks/bin
+
+    LOG=/tmp/`/bin/basename $0`.log
+    touch $LOG
+    TimeStamp "# Start"
+}
+
 # update permissions on config files
 updatePerms () {
+    echo "-- set permissions on config files" >> $LOG
     GID=`grep lmwriter: /etc/group`
     if [ "$GID" != "" ] ; then
         chgrp  lmwriter @PKGROOT@/config/config*.ini*
@@ -24,26 +35,31 @@ updatePerms () {
 
 # update linker paths
 runLdconfig () {
+    echo "-- run ldconfig" >> $LOG
     /sbin/ldconfig
 }
 
 # update config/config.lmcompute.ini
 updateConfig () {
-    @PKGROOT@/rocks/bin/updateIP-lmcompute
+    echo "-- update IP in config file" >> $LOG
+    $BIN/updateIP-lmcompute
 }
 
 # install cron jobs for daily execution
 installCronJobs () {
-    @PKGROOT@/rocks/bin/installComputeCronJobs
+    echo "-- install cron jobs" >> $LOG
+    $BIN/installComputeCronJobs
 }
 
 # install default climate data locally
 seedClimateData () {
-    @PKGROOT@/rocks/bin/seedData
+    echo "-- seed climate layers" >> $LOG
+    $BIN/seedData
 }
 
 # source Lifemapper env
 setEnv () {
+    echo "-- set environment" >> $LOG
     PROF=/etc/profile.d/lmcompute.sh
     if [ -f $PROF ] ; then
 	 . $PROF 
@@ -53,13 +69,17 @@ setEnv () {
     fi
 }
 
+TimeStamp () {
+    echo $1 `/bin/date` >> $LOG
+}
+
 #### Main #####
 if [ $# -ne 0 ]; then
     usage
     exit 0
 fi
 
-# run all updates
+set_defaults
 setEnv
 runLdconfig
 updateConfig 
