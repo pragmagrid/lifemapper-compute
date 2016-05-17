@@ -85,7 +85,6 @@ PROGS = \
 	initLMcompute \
 	updateIP-lmcompute \
 	confSysvals \
-	seedLayers \
 	maintenance-aggregate-logs.cron \
 	maintenance-cleanup-jobs-rocks.cron \
 	maintenance-free-memory-rocks.cron \
@@ -107,9 +106,6 @@ confSysvals: confSysvals.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 lifemapper.conf: lifemapper.conf.in
-	$(SED) $(SEDSPEC) $^ > $@
-
-seedLayers: seedLayers.in
 	$(SED) $(SEDSPEC) $^ > $@
 	
 maintenance-aggregate-logs.cron: maintenance-aggregate-logs.cron.in
