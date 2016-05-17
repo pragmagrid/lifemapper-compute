@@ -37,6 +37,11 @@ installCronJobs () {
     @PKGROOT@/rocks/bin/installComputeCronJobs
 }
 
+# install default climate data locally
+seedClimateData () {
+    @PKGROOT@/rocks/bin/seedData
+}
+
 # source Lifemapper env
 setEnv () {
     PROF=/etc/profile.d/lmcompute.sh
@@ -59,4 +64,5 @@ setEnv
 runLdconfig
 updateConfig 
 installCronJobs
+seedClimateData
 updatePerms
