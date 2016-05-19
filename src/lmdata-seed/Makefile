@@ -76,10 +76,6 @@ SEDSPEC += \
         -e 's%@SEED_DIR@%$(SEED_DIR)%g' \
         -e 's%@LMHOME@%$(LMHOME)%g' \
         -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g' \
-        -e 's%@CSV_POSTFIX@%$(CSV_POSTFIX)%g'
-
-seedData: seedData.in
-	$(SED) $(SEDSPEC) $^ > $@
 
 prepData.sh: prepData.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -92,14 +88,12 @@ prep:
 	./prepData.sh
 
 build:
-	make seedData
 	echo $(EXPORTDIR)
 
 install::
 	mkdir -p $(ROOT)/$(EXPORTDIR)
 	tar xzf  $(SCENARIO_PACKAGE_SEED).$(TARBALL_POSTFIX)  -C  $(ROOT)/$(EXPORTDIR)/
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks/bin
-	install -m 755 seedData $(ROOT)/$(PKGROOT)/rocks/bin
 
 clean::
-	rm -rf version.mk prepData.sh seedData
+	rm -rf version.mk prepData.sh
