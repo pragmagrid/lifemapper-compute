@@ -72,7 +72,14 @@ SEDSPEC += \
 	-e 's%@LMUSER@%$(LMUSER)%g' \
 	-e 's%@LMDISK@%$(LMDISK)%g' \
 	-e 's%@PYBIN@%$(PY.PATH)%g' \
-	-e 's%@VERSION@%$(VERSION)%g'
+	-e 's%@VERSION@%$(VERSION)%g' \
+   -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
+   -e 's%@SCENARIO_PACKAGE_SEED@%$(SCENARIO_PACKAGE_SEED)%g' \
+   -e 's%@LMURL@%$(LMURL)%g' \
+   -e 's%@SEED_DIR@%$(SEED_DIR)%g' \
+   -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g' \
+   -e 's%@CSV_POSTFIX@%$(CSV_POSTFIX)%g'
+
 
 PROFILES = \
 	lmcompute.sh \
@@ -85,40 +92,16 @@ PROGS = \
 	initLMcompute \
 	updateIP-lmcompute \
 	confSysvals \
+	seedData \
 	maintenance-aggregate-logs.cron \
 	maintenance-cleanup-jobs-rocks.cron \
 	maintenance-free-memory-rocks.cron \
 	installComputeCronJobs
 
-lmcompute.sh: lmcompute.sh.in
+%: %.in
 	$(SED) $(SEDSPEC) $^ > $@
 
-lmcompute.csh: lmcompute.csh.in
-	$(SED) $(SEDSPEC) $^ > $@
-
-initLMcompute: initLMcompute.in
-	$(SED) $(SEDSPEC) $^ > $@
-
-updateIP-lmcompute: updateIP-lmcompute.in
-	$(SED) $(SEDSPEC) $^ > $@
-
-confSysvals: confSysvals.in
-	$(SED) $(SEDSPEC) $^ > $@
-
-lifemapper.conf: lifemapper.conf.in
-	$(SED) $(SEDSPEC) $^ > $@
-	
-maintenance-aggregate-logs.cron: maintenance-aggregate-logs.cron.in
-	$(SED) $(SEDSPEC) $^ > $@
-
-maintenance-cleanup-jobs-rocks.cron: maintenance-cleanup-jobs-rocks.cron.in
-	$(SED) $(SEDSPEC) $^ > $@
-
-maintenance-free-memory-rocks.cron: maintenance-free-memory-rocks.cron.in
-	$(SED) $(SEDSPEC) $^ > $@
-
-installComputeCronJobs: installComputeCronJobs.in
-	$(SED) $(SEDSPEC) $^ > $@
+.SUFFIXES:
 
 build: $(SCRIPTS) $(PROFILES) $(PROGS)
 	
