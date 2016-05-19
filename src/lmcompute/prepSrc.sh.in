@@ -27,7 +27,7 @@ download_git () {
 }
 
 apply_patches () {
-  if [ -d patch-files/core-@VERSION@ ]; then
+  if [ -d patch-files/$TOPDIR ]; then
     echo "Applying patches for @VERSION@ "
     (cd patch-files && find . -type f | grep -v CVS | cpio -pduv ..)
   fi
