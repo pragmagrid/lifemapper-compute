@@ -27,7 +27,14 @@ fi
 set_defaults() {
     LMURL=@LMURL@
     
-    CLIMATE_DIR=@DATADIR_COMPUTE@/@SEED_DIR@
+    CLIMATE_DIR=@DATADIR_COMPUTE@/@INPUT_LAYER_DIR@
+    CLIMATE_DB=$CLIMATE_DIR/@INPUT_LAYER_DB@
+    
+    if [ -f $CLIMATE_DB ] ; then
+        EXISTING_DB=true
+    else
+        EXISTING_DB=false
+    fi 
     
     CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
     SITE_CONFIG_FILE=@LMHOME@/config/site.ini
@@ -43,7 +50,11 @@ seed_layers () {
     if [ -f $SEEDPY ] ; then        
         echo "Add layers for $SCEN_PKG ..." | tee -a $LOG
         /opt/python/bin/@PYTHONVER@ $SEEDPY $CLIMATE_DIR/$SCEN_PKG.@CSV_POSTFIX@ 2>&1 | tee -a $LOG
-        
+        if [ $EXISTING_DB = false ] ; then
+            echo "Fix permissions on new layers.db" | tee -a $LOG
+            chgrp lmwriter $CLIMATE_DB
+            chmod g+w $CLIMATE_DB
+        fi
     else
         echo "Error: Missing file $SEEDPY" | tee -a $LOG
         exit 1
