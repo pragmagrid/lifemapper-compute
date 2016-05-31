@@ -76,7 +76,6 @@ SEDSPEC += \
    -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
    -e 's%@INPUT_LAYER_DIR@%$(INPUT_LAYER_DIR)%g' \
    -e 's%@INPUT_LAYER_DB@%$(INPUT_LAYER_DB)%g' \
-   -e 's%@SCENARIO_PACKAGE_SEED@%$(SCENARIO_PACKAGE_SEED)%g' \
    -e 's%@LMURL@%$(LMURL)%g' \
    -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g' \
    -e 's%@CSV_POSTFIX@%$(CSV_POSTFIX)%g'
@@ -94,9 +93,9 @@ PROGS = \
 	updateIP-lmcompute \
 	confSysvals \
 	seedData \
-	maintenance-aggregate-logs.cron \
-	maintenance-cleanup-jobs-rocks.cron \
-	maintenance-free-memory-rocks.cron \
+	lm_aggregate_logs.cron \
+	lm_cleanup_jobs.cron \
+	lm_free_memory.cron \
 	installComputeCronJobs
 
 %: %.in

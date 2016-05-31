@@ -16,7 +16,6 @@ setDefaults () {
     CRON_DIR=/etc/cron.daily/
     LOG=/tmp/`/bin/basename $0`.log
     touch $LOG
-    TimeStamp "# Start"
 }
 
 TimeStamp () {
@@ -29,9 +28,9 @@ installDailyTasks () {
     name1=`hostname`
     name2=`/opt/rocks/bin/rocks list host attr localhost | grep Kickstart_PublicHostname | awk '{print $3}'`
     if [ "$name1" == "$name2" ] ; then
-        install @LMHOME@/rocks/bin/maintenance-aggregate-logs.cron  ${CRON_DIR}
-        install @LMHOME@/rocks/bin/maintenance-cleanup-jobs-rocks.cron  ${CRON_DIR}
-        install @LMHOME@/rocks/bin/maintenance-free-memory-rocks.cron  ${CRON_DIR}
+        install @LMHOME@/rocks/bin/lm_aggregate_logs.cron  ${CRON_DIR}
+        install @LMHOME@/rocks/bin/lm_cleanup_jobs.cron  ${CRON_DIR}
+        install @LMHOME@/rocks/bin/lm_free_memory.cron  ${CRON_DIR}
         echo "Installed tasks in ${CRON_DIR} on frontend ..." | tee -a $LOG
     fi
 }
@@ -43,5 +42,6 @@ if [ $# -ne 0 ]; then
 fi 
 
 setDefaults
+TimeStamp "# Start"
 installDailyTasks
 TimeStamp "# End"
