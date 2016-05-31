@@ -72,7 +72,6 @@ SEDSPEC += \
         -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
         -e 's%@INPUT_LAYER_DIR@%$(INPUT_LAYER_DIR)%g' \
         -e 's%@INPUT_LAYER_DB@%$(INPUT_LAYER_DB)%g' \
-        -e 's%@SCENARIO_PACKAGE_SEED@%$(SCENARIO_PACKAGE_SEED)%g' \
         -e 's%@LMDISK@%$(LMDISK)%g' \
         -e 's%@LMTEMPDISK@%$(LMTEMPDISK)%g' \
         -e 's%@LMHOME@%$(LMHOME)%g' \
