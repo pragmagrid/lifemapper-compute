@@ -69,7 +69,6 @@ SEDSPEC += \
 	-e 's%@PYTHONVER@%$(PYTHONVER)%g' \
 	-e 's%@PKGROOT@%$(PKGROOT)%g' \
 	-e 's%@LMHOME@%$(LMHOME)%g' \
-	-e 's%@LMUSER@%$(LMUSER)%g' \
 	-e 's%@LMDISK@%$(LMDISK)%g' \
 	-e 's%@PYBIN@%$(PY.PATH)%g' \
 	-e 's%@VERSION@%$(VERSION)%g' \
