@@ -3,5 +3,4 @@ ARCHIVENAME    = seeddata
 
 VERSION     	= 1.1
 RELEASE 	= 1
-CSV_POSTFIX       = csv
 TARBALL_POSTFIX   = tar.gz

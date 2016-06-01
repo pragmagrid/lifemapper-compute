@@ -26,22 +26,32 @@ fi
 
 set_defaults() {
     LMURL=@LMURL@
+    CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
+    SITE_CONFIG_FILE=@LMHOME@/config/site.ini
+    SEEDPY=@LMHOME@/LmCompute/tools/layerSeeder.py
     
     CLIMATE_DIR=@DATADIR_COMPUTE@/@INPUT_LAYER_DIR@
-    CLIMATE_DB=$CLIMATE_DIR/@INPUT_LAYER_DB@
-    
+    CLIMATE_DB=@DATADIR_COMPUTE@/@INPUT_LAYER_DIR@/@INPUT_LAYER_DB@    
     if [ -f $CLIMATE_DB ] ; then
         EXISTING_DB=true
     else
         EXISTING_DB=false
     fi 
-    
-    CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
-    SITE_CONFIG_FILE=@LMHOME@/config/site.ini
-    SEEDPY=@LMHOME@/LmCompute/tools/layerSeeder.py
 
     LOG=/tmp/`/bin/basename $0`.log
     touch $LOG
+
+    # get the SCENARIO_PACKAGE_SEED value from site.ini or config.lmserver.ini file
+    echo "Looking for climate data $SCEN_PKG"   | tee -a $LOG  
+    SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+    if [ ! "$SCEN_PKG" ] ; then 
+        SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+    fi
+
+    if [ ! "$SCEN_PKG" ] ; then
+        echo "SCENARIO_PACKAGE_SEED not set in $SITE_CONFIG_FILE or $CONFIG_FILE" | tee -a $LOG
+        exit 1
+    fi
 }
 
 
@@ -50,11 +60,9 @@ seed_layers () {
     if [ -f $SEEDPY ] ; then        
         echo "Add layers for $SCEN_PKG ..." | tee -a $LOG
         /opt/python/bin/@PYTHONVER@ $SEEDPY $CLIMATE_DIR/$SCEN_PKG.@CSV_POSTFIX@ 2>&1 | tee -a $LOG
-        if [ $EXISTING_DB = false ] ; then
-            echo "Fix permissions on new layers.db" | tee -a $LOG
-            chgrp lmwriter $CLIMATE_DB
-            chmod g+w $CLIMATE_DB
-        fi
+        echo "Fix permissions on new layers.db" | tee -a $LOG
+        chgrp lmwriter $CLIMATE_DB
+        chmod 664 $CLIMATE_DB
     else
         echo "Error: Missing file $SEEDPY" | tee -a $LOG
         exit 1
@@ -62,33 +70,21 @@ seed_layers () {
 }
 
 ### Retrieve climate data named in SCENARIO_PACKAGE_SEED
-get_climate_data () {
-    # get the SCENARIO_PACKAGE_SEED value from site.ini or config.lmserver.ini file
-    SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
-    if [ ! "$SCEN_PKG" ] ; then 
-        SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $CONFIG_FILE | grep -v ';' | awk '{print $2}'`
-    fi
-  
-    echo "Looking for climate data $SCEN_PKG"   | tee -a $LOG  
-    if [ "$SCEN_PKG" ] ; then
-    
-        # find metadata file pkgname.csv
-        if [ -f $CLIMATE_DIR/$SCEN_PKG.@CSV_POSTFIX@ ]; then
-            echo "Climate metadata for $SCEN_PKG already present" | tee -a $LOG
-            
-        else  
-            echo "Fetch climate data $SCEN_PKG" | tee -a $LOG
-            curl -L "$LMURL/$SCEN_PKG.@TARBALL_POSTFIX@" -o $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ 
-  
-            # uncompress 
-            if [ -f $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ ] ; then
-                tar xzf $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ -C $CLIMATE_DIR/ 
-            else
-                echo "Failed to retrieve $SCEN_PKG ..." | tee -a $LOG
-            fi
+get_climate_data () {    
+    # find metadata file pkgname.csv
+    if [ -f $CLIMATE_DIR/$SCEN_PKG.@CSV_POSTFIX@ ]; then
+        echo "Climate metadata for $SCEN_PKG already present" | tee -a $LOG
+           
+    else  
+        echo "Fetch climate data $SCEN_PKG" | tee -a $LOG
+        curl -L "$LMURL/$SCEN_PKG.@TARBALL_POSTFIX@" -o $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ 
+
+        # uncompress 
+        if [ -f $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ ] ; then
+            tar xzf $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ -C $CLIMATE_DIR/ 
+        else
+            echo "Failed to retrieve $SCEN_PKG ..." | tee -a $LOG
         fi
-    else
-        echo "SCENARIO_PACKAGE_SEED not set in $SITE_CONFIG_FILE or $CONFIG_FILE" | tee -a $LOG
     fi
 }
 
