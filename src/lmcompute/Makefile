@@ -81,6 +81,7 @@ SEDSPEC += \
         -e 's%@SMTPSENDER@%$(SMTPSENDER)%g' \
         -e 's%@TEMPDIR@%$(TEMPDIR)%g'  \
         -e 's%@REPONAME@%$(REPONAME)%g'  \
+        -e 's%@NAME@%$(NAME)%g' \
         -e 's%@VERSION@%$(VERSION)%g'  \
         -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g'  \
         -e 's%@LMSERVER_FQDN@%$(LMSERVER_FQDN)%g'  \
