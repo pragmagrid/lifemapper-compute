@@ -6,6 +6,7 @@
 SRC=@REPONAME@
 URL=https://github.com/lifemapper/
 TOPDIR=@REPONAME@-@VERSION@
+SRCNAME=@NAME@
 
 # download archive from lifemapper git
 download_git () {
@@ -48,13 +49,13 @@ create_distro () {
   if [ -d $TOPDIR ]; then
       # create lmcompute src distro
       echo "Creating lmcompute src archive from Github archive download"
-      tar czf lifemapper-lmcompute-@VERSION@.@TARBALL_POSTFIX@ $TOPDIR/* \
+      tar czf $SRCNAME-@VERSION@.@TARBALL_POSTFIX@ $TOPDIR/* \
           --exclude=LmDebug \
           --exclude=LmDbServer \
           --exclude=LmServer \
           --exclude=LmWebServer      
   else
-      echo "GIT clone directory $SRC is not present"
+      echo "GIT downloaded directory $TOPDIR is not present"
   fi
 }
 
