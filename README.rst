@@ -170,7 +170,7 @@ Make sure that the python roll is installed (can be downloaded from
 
 #. Execute following commands from the location of the ISO ::
 
-   # rocks add roll lifemapper-compute-6.2-0.x86_64.disk1.iso   
+   # rocks add roll lifemapper-compute-6.2-0.x86_64.disk1.iso  clean=1
    # rocks enable roll lifemapper-compute
    # (cd /export/rocks/install; rocks create distro)  
    # yum clean all
@@ -198,7 +198,8 @@ Make sure that the python roll is installed (can be downloaded from
    log files in /tmp:
   * initLMcompute.log
   * installComputeCronJobs.log
-  * post-99-lifemapper.debug 
+  * seedData.log
+  * post-99-lifemapper-lmcompute.debug 
 
 #. After the frontend boots up you can rebuild the compute nodes ::  
 
@@ -234,14 +235,6 @@ Where installed roll components are
 
    /share/lm/ - jobs/,metrics/,temp/,logs/,layers/,test/
 
-Updating parts of a roll
-------------------------
-
-.. _Updating : docs/Updating.rst
-
-If you are re-installing the lifemapper-lmcompute rpm (Lifemapper source code), 
-and/or the rocks-lmcompute rpm, see **Update code and scripts** at `Updating`_  
-to update the code, configuration and nodes.   
 
 Using a Roll
 ------------
