@@ -76,13 +76,16 @@ and RPMS that are prerequisites for other packages during the roll build stage: 
 
    # ./bootstrap.sh  
 
-When the script finishes, it prints the next step instruction to get the lifemapper source ::  
+When the script finishes, it prints the next step instruction to get the 
+lifemapper source and default climate data ::  
 
    # cd src/lmcompute/
    # make prep
+   # cd src/lmdata-seed/
+   # make prep
 
-This will produce lifemappser-X.tar.gz
-The X is the revision number in lifemapper SVN. The X is recorded in version.mk.in
+The first two instructions will produce lifemapper-X.tar.gz.  The X is the 
+git tag in the lifemapper github repo. The X is recorded in version.mk.in
 Assumption: X is production ready revision and is a working code.
 The roll will be using the X revision of lifemapper code.
 
@@ -128,9 +131,9 @@ The roll (ISO file) can be added (1) during the initial installation of the clus
 or (2) to the existing frontend.
 
 
-1 Adding a roll to a new server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#. Add the updated python roll that Nadya prepared to the frontend: ::
+1 New server pre-Lifemapper setup
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#. If necessary, add the updated python roll that Nadya prepared to the frontend: ::
 
        # rocks add roll python*iso clean=1
        # (cd /export/rocks/install; rocks create distro)
@@ -141,7 +144,6 @@ or (2) to the existing frontend.
 
 #. and then re-install compute nodes or run the previous 2 commands on all compute nodes 
 
- 
 #. Add roll ISO to your existing frontend that is configured to be
    a central server. This procedure is documented in the section ``Frontend 
    Central Server`` of `Rocks Users Guide <http://central6.rocksclusters.org/roll-documentation/base/6.2/>`_.
@@ -151,36 +153,24 @@ or (2) to the existing frontend.
 
 #. During the frontend install choose python and sge rolls, they are a prerequisite for lifemapper roll.
 
-#. If this frontend is NOT being shared with LmServer, set the attributes to 
-   point to LmWebserver and LmDbServer, either FQDN or IP can be used.  If this 
-   frontend is being shared with LmServer, it will set thse attributes to true. ::  
-
-       # /opt/rocks/bin/rocks add host attr localhost LM_webserver value=111.222.333.444
-       # /opt/rocks/bin/rocks add host attr localhost LM_dbserver value=my.host.domain 
-
-#. Check with  : :: 
-
-       # /opt/rocks/bin/rocks list host attr | grep LM_ 
-
-#. Run command (only on new install, for live frontends, this happens on reboot 
-   in /etc/rc.d/rocksconfig.d/post-99-lifemapper-lmcompute): :: 
-
-       # /opt/lifemapper/rocks/bin/initLMcompute 
-
-   **TODO:** Move to command **lm init compute** 
-
 #. Install compute nodes 
 
-2 Adding a roll to a live frontend
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 Adding LmCompute roll to a live frontend
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A roll can be added to the existing frontend.
 Make sure that the python roll is installed (can be downloaded from
 `Rocks Downloads <http://www.rocksclusters.org/wordpress/?page_id=80>`_ )
 
+#. **Stop the jobMediator** as lmwriter: ::
+
+   lmwriter$ $PYTHON /opt/lifemapper/LmCompute/tools/jobMediator.py stop
+
+   **TODO:** Move to command **lm stop jobs** 
+
 #. Execute following commands from the location of the ISO ::
 
-   # rocks add roll lifemapper-compute-6.1-0.x86_64.disk1.iso   
+   # rocks add roll lifemapper-compute-6.2-0.x86_64.disk1.iso  clean=1
    # rocks enable roll lifemapper-compute
    # (cd /export/rocks/install; rocks create distro)  
    # yum clean all
@@ -188,35 +178,43 @@ Make sure that the python roll is installed (can be downloaded from
    # bash add-compute.sh  > add-compute.out 2>&1
 
 #. After the  last command  is finished, examine the add-roll.out file for errors
-   Set the attributes to point to LmWebserver and LmDbServer, either FQDN or IP can be used: ::  
+   Set the attributes to point to LmWebserver and LmDbServer, either FQDN or IP 
+   can be used. If this frontend is being shared with LmServer, set these 
+   attributes to true.: ::  
 
    # /opt/rocks/bin/rocks add host attr localhost LM_webserver value=111.222.333.444
    # /opt/rocks/bin/rocks add host attr localhost LM_dbserver value=my.host.domain 
 
+#. Check with  : :: 
+
+       # /opt/rocks/bin/rocks list host attr | grep LM_ 
+
 #. and then reboot your frontend to run a few initialization commands 
-   (/etc/rc.d/rocksconfig.d/post-99-lifemapper, created by add-roll.sh): ::
+   (/etc/rc.d/rocksconfig.d/post-99-lmcompute, created by add-compute.sh): ::
 
    # reboot
 
 #. After the frontend boots up, check the success of initialization commands in 
    log files in /tmp:
   * initLMcompute.log
-  * updateDB.log,
   * installComputeCronJobs.log
-  * post-99-lifemapper.debug 
+  * seedData.log
+  * post-99-lifemapper-lmcompute.debug 
 
 #. After the frontend boots up you can rebuild the compute nodes ::  
 
    # rocks set host boot compute action=install
    # rocks run host compute reboot 
    
-#. **FIXME** If incorrect, set file permissions for node scratch space and 
-   java preferences ::
+#. **FIXME** This should work now.  If incorrect, set file permissions for node 
+   scratch space and java preferences ::
 
    # rocks run host compute "chgrp -R lmwriter /state/partition1/lm"
    # rocks run host compute "chmod -R g+ws /state/partition1/lm" 
-   # rocks run host compute "chgrp -R lmwriter /opt/lifemapper/.java"
-   # rocks run host compute "chmod -R g+ws /opt/lifemapper/.java"
+
+#. **NOTE** java preferences have moved from /opt/lifemapper/ to 
+   /state/partition1/lm/.  Make sure this .java directory has group=lmwriter and
+   group + ws permission.
 
 Where installed roll components are
 -----------------------------------
@@ -237,21 +235,13 @@ Where installed roll components are
 
    /share/lm/ - jobs/,metrics/,temp/,logs/,layers/,test/
 
-Updating parts of a roll
-------------------------
-
-.. _Updating : docs/Updating.rst
-
-If you are re-installing the lifemapper-lmcompute rpm (Lifemapper source code), 
-and/or the rocks-lmcompute rpm, see **Update code and scripts** at `Updating`_  
-to update the code, configuration and nodes.   
 
 Using a Roll
 ------------
 
 After the roll is installed, the cluster is ready to run lifemapper jobs.  
 
-#. Test the installation.
+#. Test the installation. **This may be obsolete, CJ?**
 
    As 'lmwriter' user on the frontend, execute the following command to run the 
    test script on each node.  Since the nodes are currently using a shared directory,
@@ -264,32 +254,7 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
         $ $PYTHON /opt/lifemapper/LmCompute/tests/scripts/testJobsOnNode.py 2>&1 > /share/lm/logs/testJobsOnNode-0-0.log
    
    **TODO:** Move to command **lm test jobcalcs** 
-    
-#. **Soon to be deprecated** Seed any layers already present on LmCompute instance 
-   (here with example 30sec-present-future-SEA) by following these steps.  
-   
-   * Change to JOB_DATA_PATH/layers::
-   
-        $ cd /share/lm/data/layers
-
-   * Uncompress the package of layers and csv file (created on LmServer by
-     /opt/lifemapper/LmDbServer/populate/createScenarioPackage.py
-     Step 3 of https://github.com/pragmagrid/lifemapper-server/blob/kutest/docs/Using.rst.) 
-     in the JOB_DATA_PATH/layers directory on LmCompute::
-
-        $ unzip -o 30sec-present-future-SEA.zip
-
-     need -o option to overwrite existing tiff files. 
-     
-   * Populate the local Sqlite database by running the seedLayers script::
-
-        $ $PYTHON /opt/lifemapper/LmCompute/tools/layerSeeder.py  30sec-present-future-SEAlayers.csv
-
-   * Check the contents of the resulting sqlite database with::
-   
-        $ sqlite3 layers.db
-        sqlite> select * from layers;
-        
+            
 #. **Optional** Register a different LmServer get jobs from. The default 
    configuration assumes that LmServer has been installed on this 
    same cluster.  
@@ -316,7 +281,7 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
         RETRIEVER_TYPE: server
         JOB_SERVER: http://myserver.pragma.org/jobs
         
-#. Run lmcompute jobs
+#. Run lmcompute jobs.  **Note**: WorkQueue will replace jobMediator.
 
    The jobs are run on the frontend via a job submitter script.  The script 
    requests the jobs from the LM server and sends them to the compute nodes of 
@@ -341,26 +306,11 @@ After the roll is installed, the cluster is ready to run lifemapper jobs.
 
         lmwriter$ $PYTHON /opt/lifemapper/LmCompute/tools/jobMediator.py stop
    
-   **TODO:** Move to command **lm start/stop worker** (WorkQueue will replace 
-   jobMediator)
+   **TODO:** Move to command **lm start/stop worker** 
 
 TODO
 ----
-
-#. automate or create a command that will specify which server to use for lmjobs
-   this is done via initLMcompute script now.  
-   LM_JOB_SERVER  specified in /opt/lifemapper/config/config.lmcompute.ini
-
-#. Simplify steps for creating a layer package for local installation on 
-   LmCompute, of input data with metadata cataloged in LmServer which will be 
-   sending jobs to this LmCompute instance.  This includes creating a CSV file 
-   consisting of lines of the metadataUrl from LmServer and corresponding 
-   relative file location (in the layer package) 
    
-#. Check that rocks-lmcompute/installCronJobs is handled properly in roll build and install 
-    
-#. correct permissions for /share/lm/data/layers/layers.db file
-
 #. establish QUEUE_SIZE on the server frontend
 
 #. Vine - needed for mounting satellite data using overlay network. This is a temp workaround.
