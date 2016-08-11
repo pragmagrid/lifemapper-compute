@@ -1,7 +1,7 @@
 NAME            = lifemapper-lmcompute
 REPONAME        = core
 VERSION         = 1.1.6.lw
-RELEASE         = 0
+RELEASE         = 1
 TARBALL_POSTFIX = tar.gz
 
 RPM.EXTRAS = %define __os_install_post %{nil}
