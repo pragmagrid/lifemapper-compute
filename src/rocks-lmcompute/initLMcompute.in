@@ -51,12 +51,6 @@ installCronJobs () {
     $BIN/installComputeCronJobs
 }
 
-# install default climate data locally
-seedClimateData () {
-    echo "-- seed climate layers" >> $LOG
-    $BIN/seedData
-}
-
 # source Lifemapper env
 setEnv () {
     echo "-- set environment" >> $LOG
@@ -84,5 +78,4 @@ setEnv
 runLdconfig
 updateConfig 
 installCronJobs
-seedClimateData
 updatePerms

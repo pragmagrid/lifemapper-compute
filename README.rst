@@ -131,8 +131,8 @@ The roll (ISO file) can be added (1) during the initial installation of the clus
 or (2) to the existing frontend.
 
 
-1 New server pre-Lifemapper setup
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+New server pre-Lifemapper setup
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #. If necessary, add the updated python roll that Nadya prepared to the frontend: ::
 
        # rocks add roll python*iso clean=1
@@ -155,8 +155,8 @@ or (2) to the existing frontend.
 
 #. Install compute nodes 
 
-2 Adding LmCompute roll to a live frontend
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Adding LmCompute roll to a live frontend
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A roll can be added to the existing frontend.
 Make sure that the python roll is installed (can be downloaded from
@@ -165,8 +165,6 @@ Make sure that the python roll is installed (can be downloaded from
 #. **Stop the jobMediator** as lmwriter: ::
 
    lmwriter$ $PYTHON /opt/lifemapper/LmCompute/tools/jobMediator.py stop
-
-   **TODO:** Move to command **lm stop jobs** 
 
 #. Execute following commands from the location of the ISO ::
 
@@ -198,23 +196,36 @@ Make sure that the python roll is installed (can be downloaded from
    log files in /tmp:
   * initLMcompute.log
   * installComputeCronJobs.log
-  * seedData.log
   * post-99-lifemapper-lmcompute.debug 
+
+Add input layers to the frontend
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#. Seed the data on the frontend::
+
+   # /opt/lifemapper/rocks/bin/seedData
+   
+   
+Rebuild the nodes
+~~~~~~~~~~~~~~~~~
 
 #. After the frontend boots up you can rebuild the compute nodes ::  
 
    # rocks set host boot compute action=install
    # rocks run host compute reboot 
    
-#. **FIXME** This should work now.  If incorrect, set file permissions for node 
-   scratch space and java preferences ::
+Check possible errors
+~~~~~~~~~~~~~~~~~~~~~
+
+#. **FIXME** This should work now.  If incorrect, set file permissions for  
+   node scratch space and java preferences ::
 
    # rocks run host compute "chgrp -R lmwriter /state/partition1/lm"
    # rocks run host compute "chmod -R g+ws /state/partition1/lm" 
 
 #. **NOTE** java preferences have moved from /opt/lifemapper/ to 
-   /state/partition1/lm/.  Make sure this .java directory has group=lmwriter and
-   group + ws permission.
+   /state/partition1/lm/.  Make sure this .java directory (and its parent) 
+   has group=lmwriter and group + ws permission.
 
 Where installed roll components are
 -----------------------------------
