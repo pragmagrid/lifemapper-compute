@@ -61,6 +61,8 @@ chmod -R g+ws /state/partition1/lmscratch
 # scratch space for job computation
 mkdir -p /state/partition1/lm
 mkdir -p /state/partition1/lm/jobs
+chgrp -R lmwriter /state/partition1/lm
+chmod -R g+ws /state/partition1/lm
 
 # these directories allow lock files on each node, lmwriter must have rw
 mkdir -p /state/partition1/lm/.java
