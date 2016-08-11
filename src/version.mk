@@ -11,6 +11,7 @@ PYTHONVER     = python2.7
 PGSQLVER      = 9.1
 LMDISK        = /share/lm
 LMTEMPDISK    = /state/partition1/lm
+LMSCRATCHDISK    = /state/partition1/lmscratch
 UNIXSOCKET    = /var/run/postgresql
 SMTPSERVER    = localhost
 SMTPSENDER    = no-reply-lifemapper@@PUBLIC_FQDN@
