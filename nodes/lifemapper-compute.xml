@@ -33,20 +33,27 @@ else
     /usr/sbin/useradd -c "Lifemapper user" -g lmwriter lmwriter
 fi
 
+# FE directory NOT shared with nodes
+mkdir -p /state/partition1/lmscratch
+mkdir -p /state/partition1/lmscratch/temp
+chgrp -R lmwriter /state/partition1/lmscratch
+chmod -R g+ws /state/partition1/lmscratch
+
+# FE directories shared with nodes
 mkdir -p /state/partition1/lm
+mkdir -p /state/partition1/lm/data/testlayer
+mkdir -p /state/partition1/lm/data/layers/retrieved
+
+# Will go away with MF
 mkdir -p /state/partition1/lm/jobs
 mkdir -p /state/partition1/lm/metrics
-mkdir -p /state/partition1/lm/temp
 mkdir -p /state/partition1/lm/logs
-mkdir -p /state/partition1/lm/dailyLogs
-mkdir -p /state/partition1/lm/data/layers/retrieved
 mkdir -p /state/partition1/lm/tests
-
+mkdir -p /state/partition1/lm/dailyLogs
 mkdir -p /state/partition1/lm/jobRequests
 mkdir -p /state/partition1/lm/holdJobs
 mkdir -p /state/partition1/lm/pushJobs
 
-/bin/cp -p -r /opt/lifemapper/LmCompute/tests/* /state/partition1/lm/tests
 chgrp -R lmwriter /state/partition1/lm
 chmod -R g+ws /state/partition1/lm
 

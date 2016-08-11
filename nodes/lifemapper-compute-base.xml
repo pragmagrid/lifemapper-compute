@@ -51,6 +51,13 @@
 
 /sbin/ldconfig
 
+# Node directory NOT shared from frontend
+mkdir -p /state/partition1/lmscratch
+mkdir -p /state/partition1/lmscratch/job
+mkdir -p /state/partition1/lmscratch/temp
+chgrp -R lmwriter /state/partition1/lmscratch
+chmod -R g+ws /state/partition1/lmscratch
+
 # scratch space for job computation
 mkdir -p /state/partition1/lm
 mkdir -p /state/partition1/lm/jobs
