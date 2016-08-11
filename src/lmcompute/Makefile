@@ -75,6 +75,7 @@ SEDSPEC += \
         -e 's%@SCENARIO_PACKAGE_SEED@%$(SCENARIO_PACKAGE_SEED)%g' \
         -e 's%@LMDISK@%$(LMDISK)%g' \
         -e 's%@LMTEMPDISK@%$(LMTEMPDISK)%g' \
+        -e 's%@LMSCRATCHDISK@%$(LMSCRATCHDISK)%g' \
         -e 's%@LMHOME@%$(LMHOME)%g' \
         -e 's%@LMWEB@%$(LMWEB)%g' \
         -e 's%@SMTPSERVER@%$(SMTPSERVER)%g' \
