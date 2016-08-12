@@ -1,5 +1,6 @@
 ROLLNAME	= lifemapper-compute
-RELEASE		= 0
+VERSION  = $(shell date +%F | tr - _)
+RELEASE  = 0
 COLOR		= oldlace
 
 REDHAT.ROOT	= $(CURDIR)
