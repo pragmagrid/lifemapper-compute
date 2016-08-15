@@ -34,28 +34,29 @@ else
 fi
 
 # FE directory NOT shared with nodes
-mkdir -p /state/partition1/lmscratch
-mkdir -p /state/partition1/lmscratch/temp
-chgrp -R lmwriter /state/partition1/lmscratch
-chmod -R g+ws /state/partition1/lmscratch
+/bin/mkdir -p /state/partition1/lmscratch
+/bin/mkdir -p /state/partition1/lmscratch/log
+/bin/mkdir -p /state/partition1/lmscratch/temp
+/bin/mkdir -p /state/partition1/lmscratch/test
+/bin/chgrp -R lmwriter /state/partition1/lmscratch
+/bin/chmod -R g+ws /state/partition1/lmscratch
 
 # FE directories shared with nodes
-mkdir -p /state/partition1/lm
-mkdir -p /state/partition1/lm/data/testlayer
-mkdir -p /state/partition1/lm/data/layers/retrieved
+/bin/mkdir -p /state/partition1/lm
+/bin/mkdir -p /state/partition1/lm/data/testlayer
+/bin/mkdir -p /state/partition1/lm/data/layers/retrieved
 
 # Will go away with MF
-mkdir -p /state/partition1/lm/jobs
-mkdir -p /state/partition1/lm/metrics
-mkdir -p /state/partition1/lm/logs
-mkdir -p /state/partition1/lm/tests
-mkdir -p /state/partition1/lm/dailyLogs
-mkdir -p /state/partition1/lm/jobRequests
-mkdir -p /state/partition1/lm/holdJobs
-mkdir -p /state/partition1/lm/pushJobs
+/bin/mkdir -p /state/partition1/lm/jobs
+/bin/mkdir -p /state/partition1/lm/metrics
+/bin/mkdir -p /state/partition1/lm/logs
+/bin/mkdir -p /state/partition1/lm/dailyLogs
+/bin/mkdir -p /state/partition1/lm/jobRequests
+/bin/mkdir -p /state/partition1/lm/holdJobs
+/bin/mkdir -p /state/partition1/lm/pushJobs
 
-chgrp -R lmwriter /state/partition1/lm
-chmod -R g+ws /state/partition1/lm
+/bin/chgrp -R lmwriter /state/partition1/lm
+/bin/chmod -R g+ws /state/partition1/lm
 
 # these commands do the same changes as lifemapper-server roll
 # need if both rolls are on the same server 
