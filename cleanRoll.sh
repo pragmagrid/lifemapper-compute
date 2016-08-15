@@ -9,31 +9,33 @@ RM="rpm -evl --quiet --nodeps"
 
 del-lifemapper() {
    echo "Removing lifemapper-* and prerequisite RPMS"
-   $RM roll-lifemapper-usersguide
-   $RM lifemapper-proj
-   $RM lifemapper-geos
-   $RM rocks-lmcompute
-   $RM hdf5-devel hdf5
-   $RM hdf4-devel hdf4
-   $RM gsl-devel gsl
-   $RM lifemapper-tiff
-   $RM lifemapper-spatialindex
-   $RM lifemapper-openmodeller
+   $RM lifemapper-cctools
    $RM lifemapper-gdal
    $RM lifemapper-geos
    $RM lifemapper-lmcompute
+   $RM lifemapper-openmodeller
+   $RM lifemapper-proj
    $RM lifemapper-seed-data
+   $RM lifemapper-spatialindex
+   $RM lifemapper-tiff
+   $RM rocks-lmcompute
+   $RM roll-lifemapper-usersguide
+   $RM hdf5-devel hdf5
+   $RM hdf4-devel hdf4
+   $RM gsl-devel gsl
 }
 
 del-opt-python () {
    echo "Removing opt-* RPMS"
+   $RM opt-lifemapper-dateutil
+   $RM opt-lifemapper-egenix-mx-base
+   $RM opt-lifemapper-futures
    $RM opt-lifemapper-matplotlib
    $RM opt-lifemapper-pyparsing
-   $RM opt-lifemapper-dateutil
-   $RM opt-lifemapper-futures
-   $RM opt-lifemapper-scipy
-   $RM opt-lifemapper-rtree
    $RM opt-lifemapper-pysal
+   $RM opt-lifemapper-requests
+   $RM opt-lifemapper-rtree
+   $RM opt-lifemapper-scipy
 }
 
 del-directories () {
