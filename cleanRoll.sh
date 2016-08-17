@@ -42,8 +42,13 @@ del-directories () {
    echo "Removing /opt/lifemapper"
    rm -rf /opt/lifemapper
 
-   echo "Removing data directories"
+   echo "Removing frontend data directories"
    rm -rf /state/partition1/lm
+   rm -rf /state/partition1/lmscratch
+
+   echo "Removing node data directories"
+   rocks run host compute "rm -rf /state/partition1/lm"
+   rocks run host compute "rm -rf /state/partition1/lmscratch"
 }
 
 del-user-group () {
