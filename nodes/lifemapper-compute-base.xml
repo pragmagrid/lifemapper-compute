@@ -66,6 +66,7 @@
 #!/bin/bash
 # do LM initializaton
 
+# This failed on nodes when run from above, check in logfile created here
 /bin/chgrp -R lmwriter /state/partition1/lmscratch
 /bin/chmod -R g+ws /state/partition1/lmscratch
 /bin/chgrp -R lmwriter /state/partition1/lm
