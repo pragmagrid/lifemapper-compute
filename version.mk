@@ -1,5 +1,5 @@
 ROLLNAME	= lifemapper-compute
-VERSION  = $(shell date +%F | tr - _)
+VERSION  = $(shell date +%F | tr - .)
 RELEASE  = 0
 COLOR		= oldlace
 
