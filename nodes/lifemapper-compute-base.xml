@@ -62,6 +62,11 @@
 /bin/mkdir -p /state/partition1/lm/.java/.systemPrefs
 /bin/mkdir -p /state/partition1/lm/.java/.userPrefs
 
+# PID directory
+/bin/mkdir -p /var/run/lifemapper
+/bin/chgrp -R lmwriter /var/run/lifemapper
+/bin/chmod -R g+ws /var/run/lifemapper
+
 <file name="/etc/rc.d/rocksconfig.d/post-99-lifemapper-lmcompute" perms="0700">
 #!/bin/bash
 # do LM initializaton
