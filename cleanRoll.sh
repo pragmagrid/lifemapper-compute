@@ -43,12 +43,22 @@ del-directories () {
    rm -rf /opt/lifemapper
 
    echo "Removing frontend data directories"
-   rm -rf /state/partition1/lm
-   rm -rf /state/partition1/lmscratch
+   rm -rf /state/partition1/lmcompute
+   LMEXISTS=`rocks list roll | grep lifemapper | head -n1 | awk '{print $1}'
+   if [ ! $LMEXISTS ]; then
+      echo "Removing common data directories"
+      rm -rf /state/partition1/lmscratch
+      rm -rf /state/partition1/lm
+   fi
 
+   echo "Removing apache and process directories"
+   rm -rf /var/run/lifemapper
+  
    echo "Removing node data directories"
+   rocks run host compute "rm -rf /state/partition1/lmcompute"
    rocks run host compute "rm -rf /state/partition1/lm"
    rocks run host compute "rm -rf /state/partition1/lmscratch"
+   rocks run host compute "rm -rf /var/run/lifemapper"
 }
 
 del-user-group () {
