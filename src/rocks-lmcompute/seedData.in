@@ -30,8 +30,8 @@ set_defaults() {
     SITE_CONFIG_FILE=@LMHOME@/config/site.ini
     SEEDPY=@LMHOME@/LmCompute/tools/layerSeeder.py
     
-    CLIMATE_DIR=@DATADIR_COMPUTE@/@INPUT_LAYER_DIR@
-    CLIMATE_DB=@DATADIR_COMPUTE@/@INPUT_LAYER_DIR@/@INPUT_LAYER_DB@    
+    CLIMATE_DIR=@DATADIR_SHARED@/@INPUT_LAYER_DIR@
+    CLIMATE_DB=@DATADIR_SHARED@/@INPUT_LAYER_DIR@/@INPUT_LAYER_DB@    
     if [ -f $CLIMATE_DB ] ; then
         EXISTING_DB=true
     else

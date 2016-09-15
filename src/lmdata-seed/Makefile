@@ -60,7 +60,7 @@ RPM.ARCH = noarch
 
 REDHAT.ROOT = $(CURDIR)/../../
 
-EXPORTDIR=$(subst share,state/partition1,$(DATADIR_COMPUTE))/$(INPUT_LAYER_DIR)
+EXPORTDIR=$(subst share,state/partition1,$(DATADIR_SHARED))/$(INPUT_LAYER_DIR)
 
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
@@ -70,7 +70,7 @@ version.mk:
 
 SEDSPEC += \
         -e 's%@SCENARIO_PACKAGE_SEED@%$(SCENARIO_PACKAGE_SEED)%g' \
-        -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
+        -e 's%@DATADIR_SHARED@%$(DATADIR_SHARED)%g' \
         -e 's%@INPUT_LAYER_DIR@%$(INPUT_LAYER_DIR)%g' \
         -e 's%@PYTHONVER@%$(PYTHONVER)%g' \
         -e 's%@LMURL@%$(LMURL)%g' \
