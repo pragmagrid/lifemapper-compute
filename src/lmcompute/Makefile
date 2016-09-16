@@ -70,8 +70,7 @@ SEDSPEC += \
         -e 's%@PKGROOT@%$(PKGROOT)%g' \
         -e 's%@PYBIN@%$(PY.PATH)%g' \
         -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
-        -e 's%@INPUT_LAYER_DIR@%$(INPUT_LAYER_DIR)%g' \
-        -e 's%@INPUT_LAYER_DB@%$(INPUT_LAYER_DB)%g' \
+        -e 's%@DATADIR_SHARED@%$(DATADIR_SHARED)%g' \
         -e 's%@SCENARIO_PACKAGE_SEED@%$(SCENARIO_PACKAGE_SEED)%g' \
         -e 's%@LMDISK@%$(LMDISK)%g' \
         -e 's%@LMSCRATCHDISK@%$(LMSCRATCHDISK)%g' \
@@ -99,7 +98,7 @@ SCRIPTS = \
 config.lmcompute.ini: $(TOPDIR)/LmCompute/config/config.lmcompute.ini.in
 	$(SED) -i $(SEDSPEC) $^ 
 	cat $^ > $(TOPDIR)/config/$@
-	cp $(TOPDIR)/config/$@   $(TOPDIR)/config/site.ini.lmcompute.example
+	cat $(TOPDIR)/config/site.ini.example $(TOPDIR)/config/$@ > $(TOPDIR)/config/site.ini.lmcompute.example 
 
 lmJobScript: $(TOPDIR)/LmCompute/tools/lmJobScript.in
 	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
@@ -109,7 +108,6 @@ lmMaxent: $(TOPDIR)/LmCompute/apps/lmMaxent.in
 
 maxent.bat: $(TOPDIR)/LmCompute/apps/maxent.bat.in
 	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/apps/$@
-
 
 prepSrc.sh: prepSrc.sh.in 
 	make version.mk

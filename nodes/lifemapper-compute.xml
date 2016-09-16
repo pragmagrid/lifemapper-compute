@@ -33,7 +33,7 @@ else
     /usr/sbin/useradd -c "Lifemapper user" -g lmwriter lmwriter
 fi
 
-# FE directory NOT shared with nodes
+# FE directory NOT exported to /share
 /bin/mkdir -p /state/partition1/lmscratch
 /bin/mkdir -p /state/partition1/lmscratch/log
 /bin/mkdir -p /state/partition1/lmscratch/temp
@@ -41,10 +41,15 @@ fi
 /bin/chgrp -R lmwriter /state/partition1/lmscratch
 /bin/chmod -R g+ws /state/partition1/lmscratch
 
-# FE directories shared with nodes
+# FE directory exported to /share
 /bin/mkdir -p /state/partition1/lm
 /bin/mkdir -p /state/partition1/lm/data/testlayer
 /bin/mkdir -p /state/partition1/lm/data/layers/retrieved
+
+# FE directory exported to /share
+/bin/mkdir -p /state/partition1/lmcompute
+/bin/chgrp -R lmwriter /state/partition1/lmcompute
+/bin/chmod -R g+ws /state/partition1/lmcompute
 
 # Will go away with MF
 /bin/mkdir -p /state/partition1/lm/jobs
@@ -71,6 +76,11 @@ done
 # Mounts /export/lm to /share/lm
 <file name="/etc/auto.share" mode="append">
 lm &Kickstart_PrivateHostname;:/export/&amp;
+</file>
+
+# Mounts /export/lmcompute to /share/lmcompute
+<file name="/etc/auto.share" mode="append">
+lmcompute &Kickstart_PrivateHostname;:/export/&amp;
 </file>
 
 /etc/init.d/autofs restart
