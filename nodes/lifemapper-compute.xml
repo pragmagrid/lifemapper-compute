@@ -46,11 +46,6 @@ fi
 /bin/mkdir -p /state/partition1/lm/data/testlayer
 /bin/mkdir -p /state/partition1/lm/data/layers/retrieved
 
-# FE directory exported to /share
-/bin/mkdir -p /state/partition1/lmcompute
-/bin/chgrp -R lmwriter /state/partition1/lmcompute
-/bin/chmod -R g+ws /state/partition1/lmcompute
-
 # Will go away with MF
 /bin/mkdir -p /state/partition1/lm/jobs
 /bin/mkdir -p /state/partition1/lm/metrics
@@ -76,11 +71,6 @@ done
 # Mounts /export/lm to /share/lm
 <file name="/etc/auto.share" mode="append">
 lm &Kickstart_PrivateHostname;:/export/&amp;
-</file>
-
-# Mounts /export/lmcompute to /share/lmcompute
-<file name="/etc/auto.share" mode="append">
-lmcompute &Kickstart_PrivateHostname;:/export/&amp;
 </file>
 
 /etc/init.d/autofs restart

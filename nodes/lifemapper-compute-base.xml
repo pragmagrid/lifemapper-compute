@@ -69,7 +69,7 @@
 
 <file name="/etc/rc.d/rocksconfig.d/post-99-lifemapper-lmcompute" perms="0700">
 #!/bin/bash
-# do LM initializaton
+# do LM initialization
 
 # This failed on nodes when run from above, check in logfile created here
 /bin/chgrp -R lmwriter /state/partition1/lmscratch

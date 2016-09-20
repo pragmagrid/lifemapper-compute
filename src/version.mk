@@ -4,8 +4,6 @@ MAPSERVER_TMP = /var/www/tmp
 LMWEB         = /var/lib/lm2
 LMURL			  = http://lifemapper.org/dl
 DATADIR_COMPUTE   = /share/lm/data
-# TODO: 
-# DATADIR_COMPUTE   = /share/lmcompute/data
 
 # This variable is identical in the lifemapper-server roll
 DATADIR_SHARED  = /share/lm/data
