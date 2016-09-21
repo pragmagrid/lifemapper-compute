@@ -76,8 +76,23 @@ del-user-group () {
    fi
 }
 
+# remove obsolete Lifemapper cron jobs
+del-cron-jobs () {
+    # only on frontend
+    name1=`hostname`
+    name2=`/opt/rocks/bin/rocks list host attr localhost | grep Kickstart_PublicHostname | awk '{print $3}'`
+    if [ "$name1" == "$name2" ] ; then
+        rm -vf  /etc/cron.daily/lm_*.cron
+        rm -vf  /etc/cron.monthly/lm_*.cron
+        rm -vf  /etc/cron.daily/lmcompute_*
+        rm -vf  /etc/cron.monthly/lmcompute_*
+        echo "Removed old cron jobs in /etc/cron.daily and /etc/cron.monthly on frontend ..." | tee -a $LOG
+    fi
+}
+
 ### main ###
 del-opt-python 
 del-lifemapper
 del-directories
 del-user-group
+del-cron-jobs

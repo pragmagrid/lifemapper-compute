@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# This script removes the accounting and reporting log files SGE creates
+
+LOG_DIR=$SGE_ROOT/$SGE_CELL/common
+
+# If env variables are not set up
+#LOG_DIR=/opt/gridengine/default/common
+
+ACCOUNTING_FILE=$LOG_DIR/accounting
+REPORTING_FILE=$LOG_DIR/reporting
+
+rm -f $ACCOUNTING_FILE
+rm -f $REPORTING_FILE

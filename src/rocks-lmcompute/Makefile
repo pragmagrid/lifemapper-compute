@@ -92,17 +92,20 @@ PROGS = \
 	updateIP-lmcompute \
 	confSysvals \
 	seedData \
-	lm_aggregate_logs.cron \
-	lm_cleanup_jobs.cron \
-	lm_free_memory.cron \
 	installComputeCronJobs
 
+CRONS = \
+	lmcompute_aggregate_logs \
+	lmcompute_cleanup_jobs \
+	lmcompute_free_memory \
+	lmcompute_remove_SGE_logs
+	
 %: %.in
 	$(SED) $(SEDSPEC) $^ > $@
 
 .SUFFIXES:
 
-build: $(SCRIPTS) $(PROFILES) $(PROGS)
+build: $(SCRIPTS) $(PROFILES) $(PROGS) $(CRONS)
 	
 install::
 
@@ -116,6 +119,7 @@ install::
 
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks/etc
 	install -m 644 mountinfo $(ROOT)/$(PKGROOT)/rocks/etc
+	install -m 755 $(CRONS) $(ROOT)/$(PKGROOT)/rocks/etc
 
 	mkdir -p $(ROOT)/etc/ld.so.conf.d
 	install -m 644 lifemapper.conf $(ROOT)/etc/ld.so.conf.d
