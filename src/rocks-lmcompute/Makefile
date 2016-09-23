@@ -73,6 +73,7 @@ SEDSPEC += \
 	-e 's%@PYBIN@%$(PY.PATH)%g' \
 	-e 's%@VERSION@%$(VERSION)%g' \
    -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
+   -e 's%@DATADIR_SHARED@%$(DATADIR_SHARED)%g' \
    -e 's%@INPUT_LAYER_DIR@%$(INPUT_LAYER_DIR)%g' \
    -e 's%@INPUT_LAYER_DB@%$(INPUT_LAYER_DB)%g' \
    -e 's%@LMURL@%$(LMURL)%g' \
