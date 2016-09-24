@@ -1,4 +1,4 @@
-
+echo "This script requires that the lmdata-seed and lmcompute packages have been prepped (i.e. make prep)"
 BASEDIR=/state/partition1/workspace/lifemapper-compute
 
 declare -a easyrpms=("cctools" "dateutil" "egenix" "futures" "gdal" "geos" "lmcompute"
