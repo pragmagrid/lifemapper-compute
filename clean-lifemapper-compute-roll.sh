@@ -6,20 +6,22 @@
 #    group lmwriter
 
 RM="rpm -evl --quiet --nodeps"
-LMROLLS=`rocks list roll | grep lifemapper | wc -l`
+LMROLL_COUNT=`rocks list roll | grep lifemapper | wc -l`
 
 del-lifemapper-shared() {
-   echo "Removing SHARED lifemapper-* and prerequisite RPMS"
-   $RM lifemapper-cctools
-   $RM lifemapper-gdal
-   $RM lifemapper-geos
-   $RM lifemapper-proj
-   $RM lifemapper-spatialindex
-   $RM lifemapper-tiff
-   echo "Removing SHARED opt-* RPMS"
-   $RM opt-lifemapper-egenix-mx-base
-   $RM opt-lifemapper-requests
-   $RM opt-lifemapper-rtree
+   if [ $LMROLL_COUNT = 1 ]; then
+      echo "Removing SHARED lifemapper-* and prerequisite RPMS"
+      $RM lifemapper-cctools
+      $RM lifemapper-gdal
+      $RM lifemapper-geos
+      $RM lifemapper-proj
+      $RM lifemapper-spatialindex
+      $RM lifemapper-tiff
+      echo "Removing SHARED opt-* RPMS"
+      $RM opt-lifemapper-egenix-mx-base
+      $RM opt-lifemapper-requests
+      $RM opt-lifemapper-rtree
+   fi
 }
 
 del-lifemapper() {
@@ -50,7 +52,7 @@ del-directories () {
 
    echo "Removing frontend data directories"
    rm -rf /state/partition1/lmcompute
-   if [ $LMROLLS = 1 ]; then
+   if [ $LMROLL_COUNT = 1 ]; then
       echo "Removing common data directories"
       rm -rf /state/partition1/lmscratch
       rm -rf /state/partition1/lm
@@ -69,7 +71,7 @@ del-directories () {
 del-user-group () {
    needSync=0
    /bin/egrep -i "^lmwriter" /etc/passwd
-   if [ $? -ne 0 ]; then
+   if [ $? -ne 0 ] && [ $LMROLL_COUNT = 1 ]; then
        echo "Remove group lmwriter"
        groupdel lmwriter
        needSync=1
@@ -96,10 +98,7 @@ del-cron-jobs () {
 }
 
 ### main ###
-if [ $LMROLL_COUNT = 1 ]; then
-   del-lifemapper-shared
-fi
-
+del-lifemapper-shared
 del-opt-python 
 del-lifemapper
 del-directories
