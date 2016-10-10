@@ -44,8 +44,8 @@ del-directories () {
 
    echo "Removing frontend data directories"
    rm -rf /state/partition1/lmcompute
-   LMEXISTS=`rocks list roll | grep lifemapper | head -n1 | awk '{print $1}'
-   if [ ! $LMEXISTS ]; then
+   LMROLLS=`rocks list roll | grep lifemapper | wc -l`
+   if [ $LMROLLS = 1 ]; then
       echo "Removing common data directories"
       rm -rf /state/partition1/lmscratch
       rm -rf /state/partition1/lm
