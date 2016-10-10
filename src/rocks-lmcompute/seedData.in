@@ -38,7 +38,7 @@ set_defaults() {
         EXISTING_DB=false
     fi 
 
-    LOG=@DATADIR_SHARED@/log/`/bin/basename $0`.log
+    LOG=/tmp/`/bin/basename $0`.log
     touch $LOG
 
     # get the SCENARIO_PACKAGE_SEED value from site.ini or config.lmserver.ini file

@@ -14,7 +14,7 @@ usage ()
 setDefaults () {
     CRON_DAILY_PATH=/etc/cron.daily/
     CRON_MONTHLY_PATH=/etc/cron.monthly/
-    LOG=@DATADIR_SHARED@/log/`/bin/basename $0`.log
+    LOG=/tmp/`/bin/basename $0`.log
     rm -f $LOG
     touch $LOG
 }
