@@ -53,6 +53,7 @@
 
 # Node directory NOT shared from frontend
 /bin/mkdir -p /state/partition1/lmscratch
+/bin/mkdir -p /state/partition1/lmscratch/log
 /bin/mkdir -p /state/partition1/lmscratch/job
 /bin/mkdir -p /state/partition1/lmscratch/temp
 /bin/mkdir -p /state/partition1/lmscratch/test

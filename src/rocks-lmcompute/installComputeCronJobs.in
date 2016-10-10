@@ -14,7 +14,7 @@ usage ()
 setDefaults () {
     CRON_DAILY_PATH=/etc/cron.daily/
     CRON_MONTHLY_PATH=/etc/cron.monthly/
-    LOG=/tmp/`/bin/basename $0`.log
+    LOG=@LMSCRATCHDISK@/log/`/bin/basename $0`.log
     rm -f $LOG
     touch $LOG
 }
