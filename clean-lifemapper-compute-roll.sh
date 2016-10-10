@@ -6,6 +6,7 @@
 #    group lmwriter
 
 RM="rpm -evl --quiet --nodeps"
+LMROLLS=`rocks list roll | grep lifemapper | wc -l`
 
 del-lifemapper-shared() {
    echo "Removing SHARED lifemapper-* and prerequisite RPMS"
@@ -49,7 +50,6 @@ del-directories () {
 
    echo "Removing frontend data directories"
    rm -rf /state/partition1/lmcompute
-   LMROLLS=`rocks list roll | grep lifemapper | wc -l`
    if [ $LMROLLS = 1 ]; then
       echo "Removing common data directories"
       rm -rf /state/partition1/lmscratch
@@ -105,3 +105,6 @@ del-lifemapper
 del-directories
 del-user-group
 del-cron-jobs
+echo
+echo "To complete cleanup, run the command \"rocks remove roll lifemapper-compute\""
+echo
