@@ -70,11 +70,11 @@ SEDSPEC += \
 	-e 's%@PKGROOT@%$(PKGROOT)%g' \
 	-e 's%@LMHOME@%$(LMHOME)%g' \
 	-e 's%@LMDISK@%$(LMDISK)%g' \
+   -e 's%@LMSCRATCHDISK@%$(LMSCRATCHDISK)%g' \
 	-e 's%@PYBIN@%$(PY.PATH)%g' \
 	-e 's%@VERSION@%$(VERSION)%g' \
    -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
    -e 's%@DATADIR_SHARED@%$(DATADIR_SHARED)%g' \
-   -e 's%@LMSCRATCHDISK@%$(LMSCRATCHDISK)%g' \
    -e 's%@INPUT_LAYER_DIR@%$(INPUT_LAYER_DIR)%g' \
    -e 's%@INPUT_LAYER_DB@%$(INPUT_LAYER_DB)%g' \
    -e 's%@LMURL@%$(LMURL)%g' \
@@ -87,7 +87,8 @@ PROFILES = \
 	lmcompute.csh 
 
 SCRIPTS = \
-	lifemapper.conf
+	lifemapper.conf \
+	clean-lm-compute-roll.sh
 
 PROGS = \
 	initLMcompute \
@@ -99,8 +100,7 @@ PROGS = \
 CRONS = \
 	lmcompute_aggregate_logs \
 	lmcompute_cleanup_jobs \
-	lmcompute_free_memory \
-	lmcompute_remove_SGE_logs
+	lmcompute_free_memory
 	
 %: %.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -121,7 +121,9 @@ install::
 
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks/etc
 	install -m 644 mountinfo $(ROOT)/$(PKGROOT)/rocks/etc
+	install -m 644 clean-lm-compute-roll.sh $(ROOT)/$(PKGROOT)/rocks/etc
 	install -m 755 $(CRONS) $(ROOT)/$(PKGROOT)/rocks/etc
+	install -m 755 lmcompute_remove_SGE_logs $(ROOT)/$(PKGROOT)/rocks/etc
 
 	mkdir -p $(ROOT)/etc/ld.so.conf.d
 	install -m 644 lifemapper.conf $(ROOT)/etc/ld.so.conf.d
