@@ -8,6 +8,14 @@
 RM="rpm -evl --quiet --nodeps"
 LMROLL_COUNT=`rocks list roll | grep lifemapper | wc -l`
 
+del-possible-shared-dependencies() {
+   if [ $LMROLL_COUNT = 1 ]; then
+      echo "Removing SHARED hdf rpms"
+      $RM hdf4-devel hdf4
+      $RM hdf5-devel hdf5
+   fi
+}
+
 del-lifemapper-shared() {
    if [ $LMROLL_COUNT = 1 ]; then
       echo "Removing SHARED lifemapper-* and prerequisite RPMS"
@@ -21,9 +29,6 @@ del-lifemapper-shared() {
       $RM opt-lifemapper-egenix-mx-base
       $RM opt-lifemapper-requests
       $RM opt-lifemapper-rtree
-      echo "Removing SHARED hdf rpms"
-      $RM hdf4-devel hdf4
-      $RM hdf5-devel hdf5
    fi
 }
 
@@ -50,19 +55,19 @@ del-opt-python () {
 del-directories () {
    echo "Removing shared frontend data and PID directories"
    if [ $LMROLL_COUNT = 1 ]; then
-      echo "Removing @LMHOME@"
-      rm -rf @LMHOME@
+      echo "Removing /opt/lifemapper"
+      rm -rf /opt/lifemapper
       echo "Removing common data directories"
-      rm -rf @LMSCRATCHDISK@
-      rm -rf @LMDISK@
+      rm -rf /state/partition1/lmscratch
+      rm -rf /state/partition1/lm
       echo "Removing apache and process directories"
       rm -rf /var/run/lifemapper
    fi
 
    echo "Removing node code, data and PID directories"
-   rocks run host compute "rm -rf @LMHOME@"
-   rocks run host compute "rm -rf @LMDISK@"
-   rocks run host compute "rm -rf @LMSCRATCHDISK@"
+   rocks run host compute "rm -rf /opt/lifemapper"
+   rocks run host compute "rm -rf /state/partition1/lm"
+   rocks run host compute "rm -rf /state/partition1/lmscratch"
    rocks run host compute "rm -rf /var/run/lifemapper"
 }
 
@@ -94,6 +99,7 @@ del-cron-jobs () {
 }
 
 ### main ###
+##del-possible-shared-dependencies
 del-lifemapper-shared
 del-opt-python 
 del-lifemapper

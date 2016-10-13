@@ -87,8 +87,7 @@ PROFILES = \
 	lmcompute.csh 
 
 SCRIPTS = \
-	lifemapper.conf \
-	clean-lm-compute-roll.sh
+	lifemapper.conf
 
 PROGS = \
 	initLMcompute \
