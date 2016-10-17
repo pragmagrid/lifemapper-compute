@@ -26,11 +26,16 @@ set_defaults() {
 
 # update permissions on config files
 updatePerms () {
-    echo "-- set permissions on config files" >> $LOG
+    echo "-- set permissions on config files and layer database" >> $LOG
     GID=`grep lmwriter: /etc/group`
     if [ "$GID" != "" ] ; then
         chgrp  lmwriter @PKGROOT@/config/config*.ini*
         chmod g+ws @PKGROOT@/config/config*.ini*
+        CLIMATE_DB=@DATADIR_SHARED@/@INPUT_LAYER_DIR@/@INPUT_LAYER_DB@    
+        if [ -f $CLIMATE_DB ] ; then
+            chgrp lmwriter $CLIMATE_DB
+            chmod 644 $CLIMATE_DB
+        fi 
     fi
 }
 

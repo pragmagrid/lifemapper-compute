@@ -1,5 +1,5 @@
 NAME    = rocks-lmcompute
-VERSION = 1.1.95
+VERSION = 1.1.96
 RELEASE = 0
 
 CSV_POSTFIX       = csv
