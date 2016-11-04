@@ -93,6 +93,7 @@ del-cron-jobs () {
     name2=`/opt/rocks/bin/rocks list host attr localhost | grep Kickstart_PublicHostname | awk '{print $3}'`
     if [ "$name1" == "$name2" ] ; then
         echo "Remove old cron jobs in /etc/cron.daily and /etc/cron.monthly on frontend ..." | tee -a $LOG
+        rm -vf  /etc/cron.hourly/lmcompute_*
         rm -vf  /etc/cron.daily/lmcompute_*
         rm -vf  /etc/cron.monthly/lmcompute_*
     fi
