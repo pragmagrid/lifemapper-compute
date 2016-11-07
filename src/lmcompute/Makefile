@@ -75,7 +75,6 @@ SEDSPEC += \
         -e 's%@LMDISK@%$(LMDISK)%g' \
         -e 's%@LMSCRATCHDISK@%$(LMSCRATCHDISK)%g' \
         -e 's%@LMHOME@%$(LMHOME)%g' \
-        -e 's%@LMWEB@%$(LMWEB)%g' \
         -e 's%@SMTPSERVER@%$(SMTPSERVER)%g' \
         -e 's%@SMTPSENDER@%$(SMTPSENDER)%g' \
         -e 's%@TEMPDIR@%$(TEMPDIR)%g'  \

@@ -1,7 +1,5 @@
 PKGROOT       = /opt/lifemapper
 LMHOME        = /opt/lifemapper
-MAPSERVER_TMP = /var/www/tmp
-LMWEB         = /var/lib/lm2
 LMURL			  = http://lifemapper.org/dl
 LMDISK        = /share/lm
 # This variable is identical in the lifemapper-server roll
