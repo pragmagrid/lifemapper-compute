@@ -108,5 +108,6 @@ del-directories
 del-user-group
 del-cron-jobs
 echo
-echo "To complete roll cleanup, run the command \"rocks remove roll lifemapper-compute\""
+echo "To complete roll cleanup, first run the command \"rocks remove roll lifemapper-compute\""
+echo "  then run \"(cd /export/rocks/install; rocks create distro; yum clean all)\""
 echo
