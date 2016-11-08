@@ -15,15 +15,20 @@ usage ()
 SetDefaults () {
     # directory
     BASEDIR=/state/partition1/workspace/lifemapper-compute
+    LMGDAL_COUNT=`rpm -qa | grep lifemapper-gdal | wc -l`
+    if [ $LMGDAL_COUNT = 0 ]; then
+        echo "Error: $BASEDIR/bootstrap has not been executed" | tee -a $LOG
+        exit 1
+    fi
 
     # Logfile
     LOG=$BASEDIR/`/bin/basename $0`.log
     rm -f $LOG
     touch $LOG
 
-   declare -a preprpms=("lmdata-seed" "lmcompute")
+    declare -a preprpms=("lmdata-seed" "lmcompute")
 
-   declare -a easyrpms=("cctools" "dateutil" "egenix" "futures" "gdal" "geos" 
+    declare -a easyrpms=("cctools" "dateutil" "egenix" "futures" "gdal" "geos" 
           "matplotlib" "openmodeller" "proj" "pyparsing" "pysal" "requests" 
           "rocks-lmcompute" "rtree" "scipy" "spatialindex" "tiff" "usersguide")
 }
