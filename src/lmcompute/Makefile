@@ -97,7 +97,7 @@ SCRIPTS = \
 config.lmcompute.ini: $(TOPDIR)/LmCompute/config/config.lmcompute.ini.in
 	$(SED) -i $(SEDSPEC) $^ 
 	cat $^ > $(TOPDIR)/config/$@
-	cp $(TOPDIR)/config/$@ $(TOPDIR)/config/site.ini.lmcompute.example 
+	cp $(TOPDIR)/config/$@ $(TOPDIR)/config/config.site.ini.lmcompute_example 
 
 lmJobScript: $(TOPDIR)/LmCompute/tools/lmJobScript.in
 	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
