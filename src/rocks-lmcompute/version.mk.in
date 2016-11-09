@@ -1,6 +1,6 @@
 NAME    = rocks-lmcompute
 VERSION = 1.2.3
-RELEASE = 0
+RELEASE = 1
 
 CSV_POSTFIX       = csv
 TARBALL_POSTFIX   = tar.gz
