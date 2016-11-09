@@ -58,9 +58,20 @@ MakePreppedRpms () {
         echo "Packaging $i..." | tee -a $LOG
         echo "*************************" | tee -a $LOG
         cd $BASEDIR/src/"$i"
+        make prep 2>&1 | tee -a $LOG
         make rpm 2>&1 | tee -a $LOG
     done
 }
+
+### build entire roll
+BuildRoll () {
+    echo "*************************" | tee -a $LOG
+    echo "Building the roll ... " | tee -a $LOG
+    echo "*************************" | tee -a $LOG
+    cd $BASEDIR
+    make roll 2>&1 | tee -a $LOG
+}
+
 
 ### Main ###
 if [ $# -ne 0 ]; then
@@ -71,7 +82,8 @@ fi
 SetDefaults
 TimeStamp "# Start"
 MakeSimpleRpms
-# MakePreppedRpms
+MakePreppedRpms
+BuildRoll
 TimeStamp "# End"
 
 
