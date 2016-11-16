@@ -27,7 +27,7 @@ fi
 set_defaults() {
     LMURL=@LMURL@
     CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
-    SITE_CONFIG_FILE=@LMHOME@/config/site.ini
+    SITE_CONFIG_FILE=@LMHOME@/config/config.site.ini
     SEEDPY=@LMHOME@/LmCompute/tools/layerSeeder.py
     
     CLIMATE_DIR=@DATADIR_SHARED@/@INPUT_LAYER_DIR@
@@ -41,7 +41,7 @@ set_defaults() {
     LOG=@LMSCRATCHDISK@/log/`/bin/basename $0`.log
     touch $LOG
 
-    # get the SCENARIO_PACKAGE_SEED value from site.ini or config.lmserver.ini file
+    # get the SCENARIO_PACKAGE_SEED value from config.site.ini or config.lmserver.ini file
     echo "Looking for climate data $SCEN_PKG"   | tee -a $LOG  
     SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
     if [ ! "$SCEN_PKG" ] ; then 
