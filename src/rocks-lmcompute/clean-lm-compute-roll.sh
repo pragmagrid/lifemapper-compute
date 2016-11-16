@@ -113,6 +113,12 @@ del-cron-jobs () {
     fi
 }
 
+
+del-automount-entry () {
+    cat /etc/auto.share  | grep -v "^lm " > /tmp/auto.share.nolmcompute
+    /bin/cp /tmp/auto.share.nolmcompute /etc/auto.share
+}
+
 ### main ###
 set_defaults
 ##del-possible-shared-dependencies
@@ -122,6 +128,7 @@ del-lifemapper
 del-directories
 del-user-group
 del-cron-jobs
+del-automount-entry
 echo
 echo "Removing roll lifemapper-compute"
 /opt/rocks/bin/rocks remove roll lifemapper-compute
