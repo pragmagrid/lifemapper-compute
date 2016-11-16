@@ -17,7 +17,8 @@ lifemapper-*.iso
 # ignore version* files
 rocks-version.mk
 rocks-version-common.mk
-roll-lifemapper.*
+rocks-lmcompute.spec*
+roll-lifemapper-*.*
 roll-profile.mk
 
 # ignore python files
