@@ -4,7 +4,7 @@
 
 
 	<description>
-	Lifemapper roll (lmcompute)
+	Lifemapper-compute roll 
 	Install on the frontend of the lmcompute cluster. 
 	</description>
 
@@ -19,7 +19,7 @@
 	</changelog>
 
 	<package>roll-lifemapper-usersguide</package>
-	<package>lifemapper-seed-data</package>
+	<package>lifemapper-env-data</package>
 	<package>screen</package>
 
 <post>
@@ -34,10 +34,7 @@ else
 fi
 
 # FE directory NOT exported to /share
-/bin/mkdir -p /state/partition1/lmscratch
-/bin/mkdir -p /state/partition1/lmscratch/log
-/bin/mkdir -p /state/partition1/lmscratch/temp
-/bin/mkdir -p /state/partition1/lmscratch/test
+/bin/mkdir -p /state/partition1/lmscratch/run
 /bin/chgrp -R lmwriter /state/partition1/lmscratch
 /bin/chmod -R g+ws /state/partition1/lmscratch
 
@@ -53,7 +50,6 @@ fi
 /bin/mkdir -p /state/partition1/lm/dailyLogs
 /bin/mkdir -p /state/partition1/lm/jobRequests
 /bin/mkdir -p /state/partition1/lm/holdJobs
-/bin/mkdir -p /state/partition1/lm/pushJobs
 
 /bin/chgrp -R lmwriter /state/partition1/lm
 /bin/chmod -R g+ws /state/partition1/lm

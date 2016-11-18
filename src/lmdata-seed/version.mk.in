@@ -1,6 +1,0 @@
-NAME        	= lifemapper-seed-data
-ARCHIVENAME    = seeddata
-
-VERSION     	= 1.4
-RELEASE		 	= 0
-TARBALL_POSTFIX   = tar.gz

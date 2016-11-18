@@ -15,11 +15,25 @@ usage ()
 SetDefaults () {
     # directory
     BASEDIR=/state/partition1/workspace/lifemapper-compute
+    LMGDAL_COUNT=`rpm -qa | grep lifemapper-gdal | wc -l`
+    if [ $LMGDAL_COUNT = 0 ]; then
+        echo "Error: $BASEDIR/bootstrap has not been executed" | tee -a $LOG
+        exit 1
+    fi
 
     # Logfile
     LOG=$BASEDIR/`/bin/basename $0`.log
     rm -f $LOG
     touch $LOG
+}
+
+### build entire roll
+MakeProfile () {
+    echo "*************************" | tee -a $LOG
+    echo "Making the profile ... " | tee -a $LOG
+    echo "*************************" | tee -a $LOG
+    cd $BASEDIR
+    make profile 2>&1 | tee -a $LOG
 }
 
 TimeStamp () {
@@ -45,7 +59,7 @@ MakeSimpleRpms () {
 
 ### make rpms that need data prep
 MakePreppedRpms () {
-    declare -a preprpms=("lmdata-seed" "lmcompute")
+    declare -a preprpms=("lmdata-env" "lmcompute")
  
     for i in "${preprpms[@]}"
     do
@@ -54,9 +68,20 @@ MakePreppedRpms () {
         echo "Packaging $i..." | tee -a $LOG
         echo "*************************" | tee -a $LOG
         cd $BASEDIR/src/"$i"
+        make prep 2>&1 | tee -a $LOG
         make rpm 2>&1 | tee -a $LOG
     done
 }
+
+### build entire roll
+BuildRoll () {
+    echo "*************************" | tee -a $LOG
+    echo "Building the roll ... " | tee -a $LOG
+    echo "*************************" | tee -a $LOG
+    cd $BASEDIR
+    make roll 2>&1 | tee -a $LOG
+}
+
 
 ### Main ###
 if [ $# -ne 0 ]; then
@@ -66,8 +91,10 @@ fi
 
 SetDefaults
 TimeStamp "# Start"
+MakeProfile
 MakeSimpleRpms
-# MakePreppedRpms
+MakePreppedRpms
+BuildRoll
 TimeStamp "# End"
 
 

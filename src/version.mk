@@ -25,3 +25,6 @@ SCENARIO_PACKAGE_SEED    = 10min-past-present-future
 # Options are local or cluster
 JOB_SUBMITTER_TYPE  = cluster
 JOB_CAPACITY		  = 20
+
+# Code version
+CODEVERSION = 1.2.3.lw
