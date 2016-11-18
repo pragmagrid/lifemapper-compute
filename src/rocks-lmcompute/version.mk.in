@@ -1,5 +1,5 @@
 NAME    = rocks-lmcompute
-VERSION = 1.2.3
+VERSION = $(CODEVERSION)
 RELEASE = 1
 
 CSV_POSTFIX       = csv
