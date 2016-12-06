@@ -85,7 +85,7 @@ del-directories () {
 del-user-group () {
    needSync=0
    /bin/egrep -i "^lmwriter" /etc/passwd
-   if [ $? -ne 0 ] && [ $LMROLL_COUNT = 1 ]; then
+   if [ $? -eq 0 ] && [ $LMROLL_COUNT = 1 ]; then
        echo "Remove lmwriter user/group/dirs" >> $LOG
        userdel lmwriter
        groupdel lmwriter
