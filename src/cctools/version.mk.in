@@ -1,6 +1,6 @@
 NAME            = lifemapper-cctools
-ARCHIVENAME     = cctools
 VERSION         = 6.0.16
+ARCHIVENAME     = cctools-$(VERSION)-source
 RELEASE         = 0
 TARBALL_POSTFIX	= tar.gz
 

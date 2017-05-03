@@ -4,6 +4,8 @@
 # in the database for the current default user.
 # The script can be run at any time to override the previous configuration
 # with a new one. 
+#
+# TODO: This script should take a boom config file for boom input layers
 
 usage () 
 {
