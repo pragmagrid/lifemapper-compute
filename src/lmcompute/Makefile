@@ -120,7 +120,6 @@ build:
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
 	mkdir -p $(ROOT)/$(PKGROOT)/bin
-	install -m 755 $(TOPDIR)/LmCompute/tools/lmJobScript $(ROOT)/$(PKGROOT)/bin
 	install -m 755 $(TOPDIR)/LmCompute/apps/lmMaxent $(ROOT)/$(PKGROOT)/bin
 	mv $(TOPDIR)/LmCompute/apps/maxent.bat  $(ROOT)/$(PKGROOT)/bin
 	mv $(TOPDIR)/*  $(ROOT)/$(PKGROOT) 
