@@ -52,12 +52,13 @@
 /sbin/ldconfig
 
 # Node directory NOT shared from frontend
-/bin/mkdir -p /state/partition1/lmscratch/log
-/bin/mkdir -p /state/partition1/lmscratch/job
-/bin/mkdir -p /state/partition1/lmscratch/temp
-/bin/mkdir -p /state/partition1/lmscratch/test
 /bin/mkdir -p /state/partition1/lmscratch/.java/.systemPrefs
 /bin/mkdir -p /state/partition1/lmscratch/.java/.userPrefs
+/bin/mkdir -p /state/partition1/lmscratch/job
+/bin/mkdir -p /state/partition1/lmscratch/log
+/bin/mkdir -p /state/partition1/lmscratch/temp
+/bin/mkdir -p /state/partition1/lmscratch/test
+/bin/mkdir -p /state/partition1/lmscratch/worker
 /bin/chgrp -R lmwriter /state/partition1/lmscratch
 /bin/chmod -R g+ws /state/partition1/lmscratch
 
