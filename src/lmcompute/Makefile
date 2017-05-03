@@ -90,7 +90,6 @@ SEDSPEC += \
 TOPDIR = $(REPONAME)-$(VERSION)
 
 SCRIPTS = \
-	lmJobScript \
 	lmMaxent \
 	maxent.bat
 
@@ -98,9 +97,6 @@ config.lmcompute.ini: $(TOPDIR)/LmCompute/config/config.lmcompute.ini.in
 	$(SED) -i $(SEDSPEC) $^ 
 	cat $^ > $(TOPDIR)/config/$@
 	cp $(TOPDIR)/config/$@ $(TOPDIR)/config/config.site.ini.lmcompute_example 
-
-lmJobScript: $(TOPDIR)/LmCompute/tools/lmJobScript.in
-	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/tools/$@
 
 lmMaxent: $(TOPDIR)/LmCompute/apps/lmMaxent.in
 	$(SED) $(SEDSPEC) $^ > $(TOPDIR)/LmCompute/apps/$@
