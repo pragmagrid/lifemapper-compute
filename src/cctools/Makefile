@@ -63,6 +63,10 @@ include Rules.mk
 PY.PATH = /opt/python
 PERL.PATH = /opt/perl
 
+SEDSPEC += \
+        -e 's%@ARCHIVENAME@%$(ARCHIVENAME)%g'  \
+        -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g'
+
 version.mk:
 	cat ../version.mk version.mk.in > version.mk
 
