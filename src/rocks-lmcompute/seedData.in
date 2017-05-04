@@ -71,7 +71,7 @@ seed_layers () {
     fi
 }
 
-### Retrieve climate data named in SCENARIO_PACKAGE_SEED
+### Retrieve climate data named in SCENARIO_PACKAGE_SEED **only** if not present
 get_climate_data () {    
     # find metadata file pkgname.csv
     if [ -f $CLIMATE_DIR/$SCEN_PKG.@CSV_POSTFIX@ ]; then
