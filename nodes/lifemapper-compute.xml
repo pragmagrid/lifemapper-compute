@@ -43,6 +43,8 @@ fi
 /bin/mkdir -p /state/partition1/lm
 /bin/mkdir -p /state/partition1/lm/data/testlayer
 /bin/mkdir -p /state/partition1/lm/data/layers/retrieved
+/bin/mkdir -p /state/partition1/lm/metrics
+/bin/mkdir -p /state/partition1/lm/sge
 /bin/chgrp -R lmwriter /state/partition1/lm
 /bin/chmod -R g+ws /state/partition1/lm
 
