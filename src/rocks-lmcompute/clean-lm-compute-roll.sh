@@ -28,7 +28,7 @@ del-possible-shared-dependencies() {
 }
 
 del-lifemapper-shared() {
-   if [ $LMROLL_COUNT = 1 ]; then
+   if [ $LMROLL_COUNT < 2 ]; then
       echo "Removing SHARED lifemapper-* and prerequisite RPMS" >> $LOG
       $RM lifemapper-cctools
       $RM lifemapper-gdal
@@ -123,7 +123,6 @@ del-automount-entry () {
 
 ### main ###
 set_defaults
-##del-possible-shared-dependencies
 del-lifemapper-shared
 del-opt-python 
 del-lifemapper
