@@ -18,6 +18,18 @@ usage ()
 set_defaults() {
     BIN=@PKGROOT@/rocks/bin
 
+    # get the SCENARIO_PACKAGE_SEED value from config.site.ini or config.lmserver.ini file
+    echo "Looking for climate data $SCEN_PKG"   | tee -a $LOG  
+    SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+    if [ ! "$SCEN_PKG" ] ; then 
+        SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+    fi
+
+    if [ ! "$SCEN_PKG" ] ; then
+        echo "SCENARIO_PACKAGE_SEED not set in $SITE_CONFIG_FILE or $CONFIG_FILE" | tee -a $LOG
+        exit 1
+    fi
+
     LOG=@LMSCRATCHDISK@/log/`/bin/basename $0`.log
     rm -f $LOG
     touch $LOG
@@ -51,6 +63,13 @@ updateConfig () {
     $BIN/updateIP-lmcompute
 }
 
+# seed default Lifemapper environmental data
+seedDefaultEnvData () {
+    echo "-- seed environmental data" >> $LOG
+    $BIN/seedData "$SCEN_PKG"
+}
+
+
 # install cron jobs for daily execution
 installCronJobs () {
     echo "-- install cron jobs" >> $LOG
@@ -83,5 +102,6 @@ set_defaults
 setEnv
 runLdconfig
 updateConfig 
+seedDefaultEnvData
 installCronJobs
 updatePerms
