@@ -17,6 +17,9 @@ usage ()
 
 set_defaults() {
     BIN=@PKGROOT@/rocks/bin
+    CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
+    SITE_CONFIG_FILE=@LMHOME@/config/config.site.ini
+
 
     # get the SCENARIO_PACKAGE_SEED value from config.site.ini or config.lmserver.ini file
     echo "Looking for climate data $SCEN_PKG"   | tee -a $LOG  

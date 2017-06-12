@@ -1,6 +1,6 @@
 NAME    = rocks-lmcompute
 VERSION = $(CODEVERSION)
-RELEASE = 1 
+RELEASE = 2
 
 CSV_POSTFIX       = csv
 TARBALL_POSTFIX   = tar.gz
