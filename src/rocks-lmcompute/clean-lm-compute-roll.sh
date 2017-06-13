@@ -13,10 +13,10 @@ TimeStamp () {
 }
 
 set_defaults() {
-    LOG=/tmp/`/bin/basename $0`.log
+    THISNAME=`/bin/basename $0`
+    LOG=/tmp/$THISNAME.log
     rm -f $LOG
     touch $LOG
-    TimeStamp "# Start"
 }
 
 del-possible-shared-dependencies() {
@@ -123,6 +123,7 @@ del-automount-entry () {
 
 ### main ###
 set_defaults
+TimeStamp "# Start"
 del-lifemapper-shared
 del-opt-python 
 del-lifemapper

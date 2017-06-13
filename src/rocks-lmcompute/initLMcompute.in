@@ -16,6 +16,7 @@ usage ()
 }
 
 set_defaults() {
+    THISNAME=`/bin/basename $0`
     BIN=@PKGROOT@/rocks/bin
     CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
     SITE_CONFIG_FILE=@LMHOME@/config/config.site.ini
@@ -33,7 +34,7 @@ set_defaults() {
         exit 1
     fi
 
-    LOG=@LMSCRATCHDISK@/log/`/bin/basename $0`.log
+    LOG=@LMSCRATCHDISK@/log/$THISNAME.log
     rm -f $LOG
     touch $LOG
 }
@@ -100,8 +101,8 @@ if [ $# -ne 0 ]; then
     exit 0
 fi
 
-TimeStamp "# Start"
 set_defaults
+TimeStamp "# Start"
 setEnv
 runLdconfig
 updateConfig 

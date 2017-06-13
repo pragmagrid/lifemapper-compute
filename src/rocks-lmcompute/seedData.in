@@ -30,6 +30,7 @@ fi
 
 set_defaults() {
     SCEN_PKG=$1
+    THISNAME=`/bin/basename $0`
     LMURL=@LMURL@
     PYBIN=/opt/python/bin/@PYTHONVER@
     SEEDPY=@LMHOME@/LmCompute/tools/layerSeeder.py
@@ -43,7 +44,7 @@ set_defaults() {
         EXISTING_DB=false
     fi 
 
-    LOG=@LMSCRATCHDISK@/log/`/bin/basename $0`.log
+    LOG=@LMSCRATCHDISK@/log/$THISNAME.log
     touch $LOG
 }
 
