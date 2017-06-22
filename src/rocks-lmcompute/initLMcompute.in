@@ -66,13 +66,6 @@ updateConfig () {
     $BIN/updateIP-lmcompute
 }
 
-# seed default Lifemapper environmental data
-seedDefaultEnvData () {
-    echo "-- seed environmental data" >> $LOG
-    $BIN/seedData "$SCEN_PKG"
-}
-
-
 # install cron jobs for daily execution
 installCronJobs () {
     echo "-- install cron jobs" >> $LOG
@@ -106,7 +99,6 @@ TimeStamp "# Start"
 setEnv
 runLdconfig
 updateConfig 
-seedDefaultEnvData
 installCronJobs
 updatePerms
 TimeStamp "# End"
