@@ -68,7 +68,7 @@ lm &Kickstart_PrivateHostname;:/export/&amp;
 /opt/rocks/bin/rocks run host compute "service autofs restart"
 
 # Catalogs environmental layers for computations
-# /opt/lifemapper/rocks/bin/seedData
+/opt/lifemapper/rocks/bin/seedData
 
 </post>
 
