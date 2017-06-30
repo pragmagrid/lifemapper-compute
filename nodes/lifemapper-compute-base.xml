@@ -60,7 +60,7 @@
 /bin/mkdir -p /state/partition1/lmscratch/test
 /bin/mkdir -p /state/partition1/lmscratch/worker
 /bin/chgrp -R lmwriter /state/partition1/lmscratch
-/bin/chmod -R g+ws /state/partition1/lmscratch
+/bin/chmod -R g+w /state/partition1/lmscratch
 
 <file name="/etc/rc.d/rocksconfig.d/post-99-lifemapper-lmcompute" perms="0700">
 #!/bin/bash

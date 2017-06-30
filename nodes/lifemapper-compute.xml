@@ -5,7 +5,7 @@
 
 	<description>
 	Lifemapper-compute roll 
-	Install on the frontend of the lmcompute cluster. 
+	Install on the frontend ONLY of the lmcompute cluster. 
 	</description>
 
 	<copyright>
@@ -37,7 +37,7 @@ fi
 /bin/mkdir -p /state/partition1/lmscratch/run
 /bin/mkdir -p /state/partition1/lmscratch/worker
 /bin/chgrp -R lmwriter /state/partition1/lmscratch
-/bin/chmod -R g+ws /state/partition1/lmscratch
+/bin/chmod -R g+w /state/partition1/lmscratch
 
 # FE directory exported to /share
 /bin/mkdir -p /state/partition1/lm

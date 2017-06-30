@@ -38,7 +38,6 @@ set_defaults() {
     
     CLIMATE_DIR=@DATADIR_SHARED@/@INPUT_LAYER_DIR@
     CLIMATE_DB=@DATADIR_SHARED@/@INPUT_LAYER_DIR@/@INPUT_LAYER_DB@
-    NEW_CLIMATE_DATA_DIR=$CLIMATE_DIR/$SCEN_PKG
     
     if [ -f $CLIMATE_DB ] ; then
         EXISTING_DB=true
@@ -110,11 +109,11 @@ fix_permissions () {
         exit 1
     fi
 
-    # This script is run by root, so set group write permission on new data dir
-    echo "Create and set group write permission on new $NEW_CLIMATE_DATA_DIR data dir"   | tee -a $LOG
-    echo "Update lmwriter group permissions on $NEW_CLIMATE_DATA_DIR" | tee -a $LOG
-    /bin/chgrp -R lmwriter $NEW_CLIMATE_DATA_DIR
-    /bin/chmod -R g+ws $NEW_CLIMATE_DATA_DIR
+    # This script is run by root, so set group write permission on parent dir
+    # (do not know top SCEN_PKG dir name)
+    echo "Change group and set write permission on $CLIMATE_DIR and subdirs"   | tee -a $LOG
+    /bin/chgrp -R lmwriter $CLIMATE_DIR
+    /bin/chmod -R g+ws $CLIMATE_DIR
 }
 
 TimeStamp () {
