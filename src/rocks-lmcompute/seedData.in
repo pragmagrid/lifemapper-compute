@@ -23,13 +23,27 @@ usage ()
     echo "   "
 }
 
-if [ $# -ne 1 ]; then
-    usage
-    exit 0
-fi 
-
 set_defaults() {
-    SCEN_PKG=$1
+    if [ $# -eq 1 ]; then
+        SCEN_PKG=$1
+    elif [ $# -eq 0 ]; then
+        usage
+  	     # config files
+        CONFIG_FILE=@LMHOME@/config/config.lmserver.ini
+        SITE_CONFIG_FILE=@LMHOME@/config/config.site.ini
+        # get the SCENARIO_PACKAGE_SEED from config.site.ini or config.lmcompute.ini file
+        echo "Looking for SCENARIO_PACKAGE_SEED in site config file"   | tee -a $LOG  
+        SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+
+        if [ ! "$SCEN_PKG" ] ; then 
+            echo "Looking for SCENARIO_PACKAGE_SEED in installed config file"   | tee -a $LOG  
+            SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+        fi
+    else
+        usage
+        exit 0
+    fi 
+
     THISNAME=`/bin/basename $0`
     LMURL=@LMURL@
     PYBIN=/opt/python/bin/@PYTHONVER@
