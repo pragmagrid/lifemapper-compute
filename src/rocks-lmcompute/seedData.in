@@ -29,7 +29,7 @@ set_defaults() {
     elif [ $# -eq 0 ]; then
         usage
   	     # config files
-        CONFIG_FILE=@LMHOME@/config/config.lmserver.ini
+        CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
         SITE_CONFIG_FILE=@LMHOME@/config/config.site.ini
         # get the SCENARIO_PACKAGE_SEED from config.site.ini or config.lmcompute.ini file
         echo "Looking for SCENARIO_PACKAGE_SEED in site config file"   | tee -a $LOG  
@@ -80,7 +80,7 @@ seed_layers () {
 
 ### Retrieve climate data named in SCENARIO_PACKAGE_SEED **only** if not present
 get_climate_data () {    
-    if [ -d $CLIMATE_DIR/$SCEN_PKG.@CSV_POSTFIX@ ] ; then
+    if [ -f $CLIMATE_DIR/$SCEN_PKG.@CSV_POSTFIX@ ] ; then
         echo "Climate data directory $SCEN_PKG already present" | tee -a $LOG
 
     else  
