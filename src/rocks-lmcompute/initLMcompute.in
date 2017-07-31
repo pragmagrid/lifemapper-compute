@@ -44,13 +44,13 @@ updatePerms () {
     echo "-- set permissions on config files (all) and layer database (FE only)" >> $LOG
     GID=`grep lmwriter: /etc/group`
     if [ "$GID" != "" ] ; then
-        chgrp  lmwriter @PKGROOT@/config/config*.ini*
-        chmod g+ws @PKGROOT@/config/config*.ini*
+        chgrp lmwriter @PKGROOT@/config/config*.ini*
+        chmod 664 @PKGROOT@/config/config*.ini*
         CLIMATE_DB=@DATADIR_SHARED@/@INPUT_LAYER_DIR@/@INPUT_LAYER_DB@ 
         # will only execute on FE with data, fail on nodes sharing dir    
         if [ -f $CLIMATE_DB ] ; then
             chgrp lmwriter $CLIMATE_DB
-            chmod 644 $CLIMATE_DB
+            chmod 664 $CLIMATE_DB
         fi 
     fi
 }
