@@ -7,6 +7,7 @@
 
 RM="rpm -evl --quiet --nodeps"
 LMROLL_COUNT=`rocks list roll | grep lifemapper | wc -l`
+LMUSER_COUNT=`/bin/egrep -i "^lmwriter" /etc/passwd | wc -l`
 
 TimeStamp () {
     echo $1 `/bin/date` >> $LOG
@@ -84,8 +85,7 @@ del-directories () {
 
 del-user-group () {
    needSync=0
-   /bin/egrep -i "^lmwriter" /etc/passwd
-   if [ $? -eq 0 ] && [ $LMROLL_COUNT = 1 ]; then
+   if [ $LMUSER_COUNT = 1 ] && [ $LMROLL_COUNT = 1 ]; then
        echo "Remove lmwriter user/group/dirs" >> $LOG
        userdel lmwriter
        groupdel lmwriter
@@ -116,7 +116,7 @@ del-cron-jobs () {
 
 del-automount-entry () {
     if [ $LMROLL_COUNT = 1 ]; then
-        cat /etc/auto.share  | grep -v "^lmserver " | grep -v "^lm " > /tmp/auto.share.nolmserver
+        cat /etc/auto.share  | grep -v "^lm " > /tmp/auto.share.nolmcompute
         /bin/cp /tmp/auto.share.nolmcompute /etc/auto.share
     fi
 }
