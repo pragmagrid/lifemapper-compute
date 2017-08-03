@@ -31,10 +31,12 @@ set_defaults() {
   	     # config files
         CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
         SITE_CONFIG_FILE=@LMHOME@/config/config.site.ini
-        # get the SCENARIO_PACKAGE_SEED from config.site.ini or config.lmcompute.ini file
-        echo "Looking for SCENARIO_PACKAGE_SEED in site config file"   | tee -a $LOG  
-        SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
-
+        if [ -f $SITE_CONFIG_FILE ] ; then        
+            # get the SCENARIO_PACKAGE_SEED from config.site.ini or config.lmcompute.ini file
+            echo "Looking for SCENARIO_PACKAGE_SEED in site config file"   | tee -a $LOG  
+            SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+        fi
+        
         if [ ! "$SCEN_PKG" ] ; then 
             echo "Looking for SCENARIO_PACKAGE_SEED in installed config file"   | tee -a $LOG  
             SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $CONFIG_FILE | grep -v ';' | awk '{print $2}'`
