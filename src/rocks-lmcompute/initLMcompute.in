@@ -50,7 +50,7 @@ updatePerms () {
         # will only execute on FE with data, fail on nodes sharing dir    
         if [ -f $CLIMATE_DB ] ; then
             chgrp lmwriter $CLIMATE_DB
-            chmod 664 $CLIMATE_DB
+            chmod 664      $CLIMATE_DB
         fi 
     fi
 }
