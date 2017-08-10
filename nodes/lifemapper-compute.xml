@@ -32,6 +32,7 @@ else
     # adding lmwriter user, group already exists
     /usr/sbin/useradd -c "Lifemapper user" -g lmwriter lmwriter
 fi
+/opt/rocks/bin/rocks sync users
 
 # FE directory NOT exported to /share
 /bin/mkdir -p /state/partition1/lmscratch/run
@@ -64,7 +65,6 @@ lm &Kickstart_PrivateHostname;:/export/&amp;
 </file>
 
 /etc/init.d/autofs restart
-/opt/rocks/bin/rocks sync users
 /opt/rocks/bin/rocks run host compute "service autofs restart"
 
 # Catalogs environmental layers for computations
