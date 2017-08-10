@@ -31,10 +31,12 @@ set_defaults() {
   	     # config files
         CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
         SITE_CONFIG_FILE=@LMHOME@/config/config.site.ini
-        # get the SCENARIO_PACKAGE_SEED from config.site.ini or config.lmcompute.ini file
-        echo "Looking for SCENARIO_PACKAGE_SEED in site config file"   | tee -a $LOG  
-        SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
-
+        if [ -f $SITE_CONFIG_FILE ] ; then        
+            # get the SCENARIO_PACKAGE_SEED from config.site.ini or config.lmcompute.ini file
+            echo "Looking for SCENARIO_PACKAGE_SEED in site config file"   | tee -a $LOG  
+            SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+        fi
+        
         if [ ! "$SCEN_PKG" ] ; then 
             echo "Looking for SCENARIO_PACKAGE_SEED in installed config file"   | tee -a $LOG  
             SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $CONFIG_FILE | grep -v ';' | awk '{print $2}'`
@@ -124,8 +126,8 @@ fix_permissions () {
     # (do not know top SCEN_PKG dir name)
     echo "Change group and set write permission on $CLIMATE_DIR, subdirs, and db"   | tee -a $LOG
     /bin/chgrp -R lmwriter $CLIMATE_DIR
-    /bin/chmod -R 775 $CLIMATE_DIR
-    /bin/chmod 664 $CLIMATE_DB
+    /bin/chmod -R g+ws $CLIMATE_DIR
+    /bin/chmod    664  $CLIMATE_DB
 }
 
 TimeStamp () {

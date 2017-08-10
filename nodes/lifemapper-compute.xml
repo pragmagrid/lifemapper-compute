@@ -38,7 +38,7 @@ fi
 /bin/mkdir -p /state/partition1/lmscratch/run
 /bin/mkdir -p /state/partition1/lmscratch/worker
 /bin/chgrp -R lmwriter /state/partition1/lmscratch
-/bin/chmod -R 775 /state/partition1/lmscratch
+/bin/chmod -R g+ws     /state/partition1/lmscratch
 
 # FE directory exported to /share
 /bin/mkdir -p /state/partition1/lm
@@ -47,16 +47,16 @@ fi
 /bin/mkdir -p /state/partition1/lm/metrics
 /bin/mkdir -p /state/partition1/lm/sge
 /bin/chgrp -R lmwriter /state/partition1/lm
-/bin/chmod -R 775 /state/partition1/lm
+/bin/chmod -R g+ws     /state/partition1/lm
 
 # these commands do the same changes as lifemapper-server roll
 # need if both rolls are on the same server 
 /bin/chgrp lmwriter /opt/lifemapper
-/bin/chmod 775 /opt/lifemapper
+/bin/chmod 775      /opt/lifemapper
 
 for item in "config" "Lm*" "__init__.py*" ; do
     /bin/chgrp -R lmwriter /opt/lifemapper/$item
-    /bin/chmod -R 775 /opt/lifemapper/$item
+    /bin/chmod -R g+ws     /opt/lifemapper/$item
 done
 
 # Mounts /export/lm to /share/lm
