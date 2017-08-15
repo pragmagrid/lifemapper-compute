@@ -1,15 +1,25 @@
 #!/bin/bash
 
-# Purpose: Fetch climate data for seeding named in SCENARIO_PACKAGE_SEED  
-# Note that the included CSV file must be created with shasums that will be sent by a 
-#   server within jobs.  The server creates jobs identifying layers by
-#   shasums - these must be the same as those used in the seeding CSV file.  
+# Purpose: In lifemapper-server, fetch climate data named in SCENARIO_PACKAGE  
+# Purpose: In lifemapper-compute, fetch climate data for seeding named in 
+#          SCENARIO_PACKAGE_SEED  
+# Purpose: In both, fetch The Nature Conservancy global ecoregion layer
+# Note: the CSV file in the SCENARIO_PACKAGE must be created with shasums to be   
+#   sent by a Lm server to Lm compute for data verification.  These shasums are  
+#   used in the seeding CSV file.  
+# Note: LMURL, SCENARIO_PACKAGE is defined in lifemapper-server/src/version.mk
 
-create_seeded_data () {
-  echo "Fetch climate data for seeding"
-  LMURL="http://svc.lifemapper.org/dl"
-  curl -L "@LMURL@/@SCENARIO_PACKAGE_SEED@.@TARBALL_POSTFIX@" -o ../lmdata-env/@SCENARIO_PACKAGE_SEED@.@TARBALL_POSTFIX@
+get_ecoregion_data () {
+  echo "Get ecoregion data"
+  curl -L "@TNC_URL@/@ECOREGION_FILE@" -o ../lmdata-env/@ECOREGION_FILE@
+}
+
+create_climate_data () {
+  echo "Fetch climate data"
+  LMURL="http://lifemapper.org/dl"
+  curl -L "@LMURL@/@SCENARIO_PACKAGE@.@TARBALL_POSTFIX@" -o ../lmdata-env/@SCENARIO_PACKAGE@.@TARBALL_POSTFIX@
 }
 
 ### main ###
-create_seeded_data
+create_climate_data
+get_ecoregion_data
