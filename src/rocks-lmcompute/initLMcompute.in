@@ -22,15 +22,15 @@ set_defaults() {
     SITE_CONFIG_FILE=@LMHOME@/config/config.site.ini
 
 
-    # get the SCENARIO_PACKAGE_SEED value from config.site.ini or config.lmserver.ini file
+    # get the SCENARIO_PACKAGE value from config.site.ini or config.lmserver.ini file
     echo "Looking for climate data $SCEN_PKG"   | tee -a $LOG  
-    SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+    SCEN_PKG=`grep SCENARIO_PACKAGE $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
     if [ ! "$SCEN_PKG" ] ; then 
-        SCEN_PKG=`grep SCENARIO_PACKAGE_SEED $CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+        SCEN_PKG=`grep SCENARIO_PACKAGE $CONFIG_FILE | grep -v ';' | awk '{print $2}'`
     fi
 
     if [ ! "$SCEN_PKG" ] ; then
-        echo "SCENARIO_PACKAGE_SEED not set in $SITE_CONFIG_FILE or $CONFIG_FILE" | tee -a $LOG
+        echo "SCENARIO_PACKAGE not set in $SITE_CONFIG_FILE or $CONFIG_FILE" | tee -a $LOG
         exit 1
     fi
 

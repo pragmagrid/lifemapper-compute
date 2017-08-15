@@ -20,7 +20,7 @@ SMTPSENDER    = no-reply-lifemapper@@PUBLIC_FQDN@
 JAVABIN       = /usr/java/latest/bin/java
 
 # This variable matches SCENARIO_PACKAGE in the lifemapper-server roll
-SCENARIO_PACKAGE_SEED    = 10min-past-present-future
+SCENARIO_PACKAGE    = 10min-past-present-future
 
 # Options are local or cluster
 JOB_SUBMITTER_TYPE  = cluster
