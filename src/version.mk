@@ -8,8 +8,8 @@ DATADIR_COMPUTE   = /share/lm/data
 LMSCRATCHDISK    = /state/partition1/lmscratch
 TEMPDIR       = /tmp
 
-# This variable matches ENV_DATA_DIR in the lifemapper-server roll
-INPUT_LAYER_DIR   = layers
+# Matches ENV_DATA_DIR in the lifemapper-server roll
+ENV_DATA_DIR   = layers
 
 INPUT_LAYER_DB    = layers.db
 PYTHONVER     = python2.7
