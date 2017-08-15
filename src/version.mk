@@ -1,6 +1,6 @@
 PKGROOT       = /opt/lifemapper
 LMHOME        = /opt/lifemapper
-LMURL			  = http://lifemapper.org/dl
+LMURL			  = http://yeti.lifemapper.org/dl
 LMDISK        = /share/lm
 # This variable is identical in the lifemapper-server roll
 DATADIR_SHARED  = /share/lm/data
