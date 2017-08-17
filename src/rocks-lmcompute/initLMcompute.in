@@ -41,17 +41,11 @@ set_defaults() {
 
 # update permissions on config files
 updatePerms () {
-    echo "-- set permissions on config files (all) and layer database (FE only)" >> $LOG
+    echo "-- set permissions on config files" >> $LOG
     GID=`grep lmwriter: /etc/group`
     if [ "$GID" != "" ] ; then
         chgrp lmwriter @PKGROOT@/config/config*.ini*
         chmod 664 @PKGROOT@/config/config*.ini*
-        CLIMATE_DB=@DATADIR_SHARED@/@INPUT_LAYER_DIR@/@INPUT_LAYER_DB@ 
-        # will only execute on FE with data, fail on nodes sharing dir    
-        if [ -f $CLIMATE_DB ] ; then
-            chgrp lmwriter $CLIMATE_DB
-            chmod 664      $CLIMATE_DB
-        fi 
     fi
 }
 
@@ -85,6 +79,19 @@ setEnv () {
     fi
 }
 
+# seed data on frontend
+seedLayerDatabase () {
+    hn=`/bin/hostname`
+    idx=`expr index "$hn" .`
+    shortname=${hn:0:idx-1}
+    membership=`rocks list host $shortname | grep -v MEMBERSHIP | awk '{print $1}'`
+    if [ $membership = Frontend ]; then
+       echo "-- seed layer database (FE only)" >> $LOG
+       $BIN/seedData
+    fi
+}
+
+
 TimeStamp () {
     echo $1 `/bin/date` >> $LOG
 }
@@ -101,5 +108,6 @@ setEnv
 runLdconfig
 updateConfig 
 installCronJobs
+seedLayerDatabase
 updatePerms
 TimeStamp "# End"

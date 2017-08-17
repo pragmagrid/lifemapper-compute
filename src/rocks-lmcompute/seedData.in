@@ -27,16 +27,14 @@ set_defaults() {
     if [ $# -eq 1 ]; then
         SCEN_PKG=$1
     elif [ $# -eq 0 ]; then
-        usage
-  	     # config files
-        CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
+        # Get from config file
         SITE_CONFIG_FILE=@LMHOME@/config/config.site.ini
         if [ -f $SITE_CONFIG_FILE ] ; then        
             # get the SCENARIO_PACKAGE from config.site.ini or config.lmcompute.ini file
             echo "Looking for SCENARIO_PACKAGE in site config file"   | tee -a $LOG  
             SCEN_PKG=`grep SCENARIO_PACKAGE $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
         fi
-        
+        CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
         if [ ! "$SCEN_PKG" ] ; then 
             echo "Looking for SCENARIO_PACKAGE in installed config file"   | tee -a $LOG  
             SCEN_PKG=`grep SCENARIO_PACKAGE $CONFIG_FILE | grep -v ';' | awk '{print $2}'`
@@ -46,14 +44,20 @@ set_defaults() {
         exit 0
     fi 
 
+    /bin/egrep -i "^lmwriter" /etc/passwd
+    if [ $? -ne 0 ]; then
+        echo "Error: user lmwriter does not exist" | tee -a $LOG
+        exit 1
+    fi
+
     THISNAME=`/bin/basename $0`
     LMURL=@LMURL@
     PYBIN=/opt/python/bin/@PYTHONVER@
     SEEDPY=@LMHOME@/LmCompute/tools/layerSeeder.py
     BUILD_HASHPY=@LMHOME@/LmDbServer/tools/createClimateHashfile.py     
     
-    CLIMATE_DIR=@DATADIR_SHARED@/@INPUT_LAYER_DIR@
-    CLIMATE_DB=@DATADIR_SHARED@/@INPUT_LAYER_DIR@/@INPUT_LAYER_DB@
+    CLIMATE_DIR=@DATADIR_SHARED@/@ENV_DATA_DIR@
+    CLIMATE_DB=@DATADIR_SHARED@/@ENV_DATA_DIR@/@INPUT_LAYER_DB@
     
     if [ -f $CLIMATE_DB ] ; then
         EXISTING_DB=true
@@ -71,6 +75,7 @@ seed_layers () {
     if [ -f $SEEDPY ] ; then        
         echo "Add layers for $SCEN_PKG ..." | tee -a $LOG
         $PYBIN $SEEDPY $CLIMATE_DIR/$SCEN_PKG.@CSV_POSTFIX@ 2>&1 | tee -a $LOG
+        /bin/chmod    664  $CLIMATE_DB
     else
         echo "Error: Missing file $SEEDPY" | tee -a $LOG
         exit 1
@@ -115,19 +120,17 @@ find_or_build_hashfile () {
     fi
 }
 
-fix_permissions () {
-    /bin/egrep -i "^lmwriter" /etc/passwd
-    if [ $? -ne 0 ]; then
-        echo "Error: user lmwriter does not exist" | tee -a $LOG
-        exit 1
-    fi
-
+fix_file_permissions () {
     # This script is run by root, so set group write permission on parent dir
     # (do not know top SCEN_PKG dir name)
-    echo "Change group and set write permission on $CLIMATE_DIR, subdirs, and db"   | tee -a $LOG
+    echo "Change group and set write permission on $CLIMATE_DIR, subdirs"   | tee -a $LOG
     /bin/chgrp -R lmwriter $CLIMATE_DIR
     /bin/chmod -R g+ws $CLIMATE_DIR
-    /bin/chmod    664  $CLIMATE_DB
+}
+
+fix_db_permissions () {
+    echo "Set group write permission on database"   | tee -a $LOG
+    /bin/chmod    664    $CLIMATE_DB
 }
 
 TimeStamp () {
@@ -139,7 +142,8 @@ set_defaults $1
 TimeStamp "# Start"
 
 get_climate_data
-fix_permissions
+fix_file_permissions
 seed_layers
+fix_db_permissions
 
 TimeStamp "# End"
