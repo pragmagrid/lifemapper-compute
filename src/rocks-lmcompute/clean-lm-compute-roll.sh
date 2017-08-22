@@ -121,6 +121,15 @@ del-automount-entry () {
     fi
 }
 
+del-roll () {
+    echo
+    echo "Removing roll lifemapper-compute"
+    /opt/rocks/bin/rocks remove roll lifemapper-compute
+    echo "Rebuilding the distro"
+    (cd /export/rocks/install; rocks create distro; yum clean all)
+    echo
+}
+
 ### main ###
 set_defaults
 TimeStamp "# Start"
@@ -131,10 +140,5 @@ del-directories
 del-user-group
 del-cron-jobs
 del-automount-entry
-echo
-echo "Removing roll lifemapper-compute"
-/opt/rocks/bin/rocks remove roll lifemapper-compute
-echo "Rebuilding the distro"
-(cd /export/rocks/install; rocks create distro; yum clean all)
-echo
+del-roll
 TimeStamp "# End"

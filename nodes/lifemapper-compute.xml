@@ -65,6 +65,7 @@ lm &Kickstart_PrivateHostname;:/export/&amp;
 </file>
 
 /etc/init.d/autofs restart
+/opt/rocks/bin/rocks sync users
 /opt/rocks/bin/rocks run host compute "service autofs restart"
 
 </post>
