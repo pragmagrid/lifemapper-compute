@@ -68,4 +68,3 @@ echo "    make prep "
 echo "finally download CCTools source code:"
 echo "    cd src/cctools"
 echo "    make prep "
-make 
