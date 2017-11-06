@@ -35,16 +35,17 @@
 	<package>hdf5-devel</package>
 	<package>sqlite-devel</package>
 
+	<!-- python prerequisites -->
 	<package>opt-lifemapper-pysal</package>
 	<package>opt-lifemapper-rtree</package>
 	<package>opt-lifemapper-scipy</package>
 	<package>opt-lifemapper-egenix-mx-base</package>
-
 	<package>opt-lifemapper-dateutil</package>
 	<package>opt-lifemapper-pyparsing</package>
 	<package>opt-lifemapper-matplotlib</package>
 	<package>opt-lifemapper-futures</package>
 	<package>opt-lifemapper-requests</package>
+	<package>opt-lifemapper-dendropy</package>
 
 	<package>rocks-lmcompute</package>
 <post>
