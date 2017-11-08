@@ -131,7 +131,18 @@ del-roll () {
     echo
 }
 
+check_lm_processes () {
+    LMUSER_PROCESSES=`ps -Alf | grep lmwriter | grep -v grep | wc -l`
+    if [ $LMUSER_PROCESSES -ne 1 ]; then
+        echo "Stop all lmwriter processes before running this script"
+        exit 0
+    fi 
+}
+
 ### main ###
+
+check_lm_processes
+
 set_defaults
 TimeStamp "# Start"
 del-lifemapper-shared
