@@ -11,7 +11,7 @@
 
 get_ecoregion_data () {
   echo "Get ecoregion data"
-  wget "@TNC_URL@/@ECOREGION_FILE@" -o ../lmdata-env/@ECOREGION_FILE@
+  curl -L "@TNC_URL@/@ECOREGION_FILE@" -o ../lmdata-env/@ECOREGION_FILE@
 }
 
 create_climate_data () {
