@@ -116,10 +116,8 @@ del-cron-jobs () {
 
 
 del-automount-entry () {
-    if [ $LMROLL_COUNT = 1 ]; then
-        cat /etc/auto.share  | grep -v "^lm " > /tmp/auto.share.nolmcompute
-        /bin/cp /tmp/auto.share.nolmcompute /etc/auto.share
-    fi
+    cat /etc/auto.share  | grep -v "^lm " > /tmp/auto.share.nolmcompute
+    /bin/cp /tmp/auto.share.nolmcompute /etc/auto.share
 }
 
 del-roll () {
