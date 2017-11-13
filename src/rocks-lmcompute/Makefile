@@ -73,7 +73,6 @@ SEDSPEC += \
    -e 's%@LMSCRATCHDISK@%$(LMSCRATCHDISK)%g' \
 	-e 's%@PYBIN@%$(PY.PATH)%g' \
 	-e 's%@VERSION@%$(VERSION)%g' \
-   -e 's%@DATADIR_COMPUTE@%$(DATADIR_COMPUTE)%g' \
    -e 's%@DATADIR_SHARED@%$(DATADIR_SHARED)%g' \
    -e 's%@ENV_DATA_DIR@%$(ENV_DATA_DIR)%g' \
    -e 's%@INPUT_LAYER_DB@%$(INPUT_LAYER_DB)%g' \

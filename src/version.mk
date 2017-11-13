@@ -4,7 +4,6 @@ LMURL			  = http://yeti.lifemapper.org/dl
 LMDISK        = /share/lm
 # This variable is identical in the lifemapper-server roll
 DATADIR_SHARED  = /share/lm/data
-DATADIR_COMPUTE   = /share/lm/data
 LMSCRATCHDISK    = /state/partition1/lmscratch
 TEMPDIR       = /tmp
 
