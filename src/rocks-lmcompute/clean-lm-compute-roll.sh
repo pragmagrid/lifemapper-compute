@@ -66,14 +66,13 @@ del-opt-python () {
 }
 
 del-directories () {
-   echo "Removing shared frontend data and PID directories" >> $LOG
    if [ $LMROLL_COUNT = 1 ]; then
-      echo "Removing /opt/lifemapper" >> $LOG
+      echo "Removing shared /opt/lifemapper" >> $LOG
       rm -rf /opt/lifemapper
-      echo "Removing common data directories" >> $LOG
+      echo "Removing shared data directories" >> $LOG
       rm -rf /state/partition1/lmscratch
       rm -rf /state/partition1/lm
-      echo "Removing apache and process directories" >> $LOG
+      echo "Removing shared PID directory" >> $LOG
       rm -rf /var/run/lifemapper
    fi
 
@@ -144,6 +143,7 @@ check_lm_processes
 set_defaults
 TimeStamp "# Start"
 del-lifemapper-shared
+del-possible-shared-dependencies
 del-opt-python 
 del-lifemapper
 del-directories
