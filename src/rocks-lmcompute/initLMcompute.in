@@ -87,7 +87,7 @@ seedLayerDatabase () {
     membership=`/opt/rocks/bin/rocks list host $shortname | grep -v MEMBERSHIP | awk '{print $1}'`
     if [ $membership = Frontend ]; then
        echo "-- seed layer database (FE only)" >> $LOG
-       $BIN/seedData
+       $BIN/seedData $SCEN_PKG
     fi
 }
 
