@@ -203,7 +203,7 @@ Add input layers to the frontend
 
 #. Seed the data on the frontend::
 
-   # /opt/lifemapper/rocks/bin/seedData
+   # /opt/lifemapper/rocks/bin/transformData
    
    
 Rebuild the nodes

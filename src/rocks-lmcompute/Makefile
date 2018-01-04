@@ -77,8 +77,7 @@ SEDSPEC += \
    -e 's%@ENV_DATA_DIR@%$(ENV_DATA_DIR)%g' \
    -e 's%@INPUT_LAYER_DB@%$(INPUT_LAYER_DB)%g' \
    -e 's%@LMURL@%$(LMURL)%g' \
-   -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g' \
-   -e 's%@CSV_POSTFIX@%$(CSV_POSTFIX)%g'
+   -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g'
 
 
 PROFILES = \
@@ -92,7 +91,7 @@ PROGS = \
 	initLMcompute \
 	updateIP-lmcompute \
 	confSysvals \
-	seedData \
+	transformData \
 	installComputeCronJobs
 
 CRONS = \
