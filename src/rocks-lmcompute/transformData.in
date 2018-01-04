@@ -33,6 +33,7 @@ set_defaults() {
         echo "Error: user lmwriter does not exist" | tee -a $LOG
         exit 1
     fi
+    SCEN_PKG=$1
 
     THISNAME=`/bin/basename $0`
     LMURL=@LMURL@
