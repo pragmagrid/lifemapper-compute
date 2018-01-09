@@ -53,14 +53,22 @@ get_climate_data () {
 
     else  
         echo "Fetch climate data $SCEN_PKG" | tee -a $LOG
-        curl -L "$LMURL/$SCEN_PKG.@TARBALL_POSTFIX@" -o $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ 
-
+        curl -L "$LMURL/$SCEN_PKG.@TARBALL_POSTFIX@" -o $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@
+         
         # uncompress 
         if [ -f $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ ] ; then
             tar xzf $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ -C $CLIMATE_DIR/ 
         else
             echo "Failed to retrieve $SCEN_PKG ..." | tee -a $LOG
         fi
+    fi
+
+    # find top directory from tar listing
+    if [ -f $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ ] ; then
+        TOPDIR=`tar tvf $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ | grep "^d" | awk '{print $6}' | sed -n '1 p'`
+        NEW_CLIMATE_DIR=$CLIMATE_DIR/${TOPDIR%?}
+    else
+        NEW_CLIMATE_DIR=$CLIMATE_DIR
     fi
 }
 
@@ -69,8 +77,8 @@ fix_file_permissions () {
     # This script is run by root, so set group write permission on parent dir
     # (do not know top SCEN_PKG dir name)
     echo "Change group and set write permission on $CLIMATE_DIR, subdirs"   | tee -a $LOG
-    /bin/chgrp -R lmwriter $CLIMATE_DIR
-    /bin/chmod -R g+ws $CLIMATE_DIR
+    /bin/chgrp -R lmwriter $NEW_CLIMATE_DIR
+    /bin/chmod -R g+ws $NEW_CLIMATE_DIR
 }
 
 
@@ -78,7 +86,7 @@ fix_file_permissions () {
 transform_layers () {
     if [ -f $TRANSFORMPY ] ; then        
         echo "Convert layers for $SCEN_PKG to ascii and mxe ..." | tee -a $LOG
-        $PYBIN $TRANSFORMPY $CLIMATE_DIR 2>&1 | tee -a $LOG
+        $PYBIN $TRANSFORMPY $NEW_CLIMATE_DIR 2>&1 | tee -a $LOG
     else
         echo "Error: Missing file $TRANSFORMPY" | tee -a $LOG
         exit 1
