@@ -1,0 +1,57 @@
+#!/bin/bash
+#
+# This script downloads a climate data package, installs it, and catalogs it 
+# in the database for the current default user.
+# The script can be run at any time to override the previous configuration
+# with a new one. 
+#
+# TODO: This script should take a boom config file for boom input layers
+
+usage () 
+{
+    echo "Usage: $0"
+    echo "This script is run on an existing lifemapper-compute installation. "
+    echo "Run from the frontend to change group and set write permissions for "
+    echo "lmwriter on @LMSCRATCHDISK@ on compute nodes"
+    echo "   "
+}
+
+if [ $# -ne 0 ]; then
+    usage
+    exit 0
+fi 
+
+set_defaults() {
+    /bin/egrep -i "^lmwriter" /etc/passwd
+    if [ $? -ne 0 ]; then
+        echo "Error: user lmwriter does not exist" | tee -a $LOG
+        exit 1
+    fi
+   
+    THISNAME=`/bin/basename $0`
+    LOG=@LMSCRATCHDISK@/log/$THISNAME.log
+    touch $LOG
+}
+
+### Make lmwriter-group writeable
+fix_file_permissions () {
+    # This script is run by root
+    echo "Change group and set write permission on node @LMSCRATCHDISK@, subdirs"   | tee -a $LOG
+    rocks run host compute "/bin/chgrp -R lmwriter @LMSCRATCHDISK@"
+    rocks run host compute "/bin/chmod -R g+ws @LMSCRATCHDISK@"
+    echo "New permissions on node @LMSCRATCHDISK@"   | tee -a $LOG
+    rocks run host compute "(hostname; ls -lahtr @LMSCRATCHDISK@)"   | tee -a $LOG
+}
+
+
+TimeStamp () {
+    echo $1 `/bin/date` >> $LOG
+}
+
+####### Main #######
+set_defaults $1
+TimeStamp "# Start"
+
+fix_file_permissions
+
+TimeStamp "# End"
