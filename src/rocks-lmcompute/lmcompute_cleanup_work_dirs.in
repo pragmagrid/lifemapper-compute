@@ -5,5 +5,5 @@ touch $LOG
 
 # Delete workers that haven't been touched in 10 minutes
 #TODO: May want to use string replacement for rocks path
-/opt/rocks/bin/rocks run host compute "find @LMSCRATCHDISK@/worker/ -maxdepth 1 -mmin +10 -exec rm -rf {} \;"
+/opt/rocks/bin/rocks run host compute "find @LMSCRATCHDISK@/worker/ -maxdepth 1 -mmin +10 -exec rm -rf {} \;" > $LOG 2>&1
 
