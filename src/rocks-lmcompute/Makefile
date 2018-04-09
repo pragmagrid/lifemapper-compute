@@ -92,7 +92,6 @@ PROGS = \
 	updateIP-lmcompute \
 	confSysvals \
 	transformData \
-	fixNodePermissions \
 	installComputeCronJobs
 
 CRONS = \
