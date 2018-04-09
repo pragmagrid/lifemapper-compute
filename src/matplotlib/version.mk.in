@@ -4,5 +4,3 @@ VERSION = 1.3.1
 RELEASE = 0
 
 RPM.EXTRAS = "AutoReq: no"
-
-RPM.FILES   = /opt/python/lib/$(PYTHONVER)/site-packages/*
