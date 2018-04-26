@@ -54,10 +54,10 @@ module unload opt-python
 install lifemapper-gdal
 /sbin/ldconfig
 
-# for pysal, rtree
-#compile setuptools
-module load opt-python
-(cd src/setuptools; /opt/python/bin/python2.7 setup.py install)
+# # for pysal, rtree
+# #compile setuptools
+# module load opt-python
+# (cd src/setuptools; /opt/python/bin/python2.7 setup.py install)
 
 # for rtree
 module load opt-python
