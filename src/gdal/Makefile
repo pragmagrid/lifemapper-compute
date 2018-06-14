@@ -56,34 +56,40 @@
 #
 # $Log$
 
-PKGROOT	        = /opt/lifemapper
-
 REDHAT.ROOT = $(CURDIR)/../../
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
 
-PY.PATH = /opt/python/bin/$(PYTHONVER)
-
 version.mk:
 	cat ../version.mk version.mk.in > version.mk
 
+PY.PATH = /opt/python/bin/$(PYTHONVER)
+
 build:
-	gunzip -c $(ARCHIVENAME)-$(VERSION).$(TARBALL_POSTFIX) | $(TAR) -xf -
-	cd patch-files && find . -type f | grep -v CVS | cpio -pduv ..
+	$(TAR) -xzvf $(ARCHIVENAME)-$(VERSION).$(TARBALL_POSTFIX)
 	( 							\
-		cd $(ARCHIVENAME)-$(VERSION);				\
-		export PYTHON=$(PY.PATH);             		\
-		export PATH=/opt/lifemapper/bin:$(PATH);		\
-		./configure --with-python --with-ogr --with-geos=yes  --prefix=$(PKGROOT); \
+		cd $(ARCHIVENAME)-$(VERSION);			\
+		module load opt-python;				\
+		export PATH=$(PKGROOT)/bin:$(PATH);		\
+		./configure --with-python=$(PY.PATH) --with-ogr --with-geos=yes  --prefix=$(PKGROOT);	\
 		$(MAKE);					\
+		cd swig/python;					\
+		module load opt-python;				\
+		$(PY.PATH) setup.py build; 			\
+		module unload opt-python;			\
 	)
 	
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
-	(							\
+	(								\
 		cd $(ARCHIVENAME)-$(VERSION);				\
-		export PYTHON=$(PY.PATH);             		\
+		module load opt-python;					\
+		export PATH=$(PKGROOT)/bin:$(PATH);			\
 		$(MAKE) prefix=$(ROOT)/$(PKGROOT) ROOT=$(ROOT)/ install; \
+		cd swig/python;						\
+		module load opt-python;					\
+		$(PY.PATH) setup.py $@ --root=$(ROOT)/;			\
+		module unload opt-python;				\
 	)
 
 clean::

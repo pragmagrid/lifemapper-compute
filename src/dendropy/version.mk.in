@@ -4,4 +4,8 @@ ARCHIVENAME     = DendroPy
 RELEASE         = 0
 TARBALL_POSTFIX = tar.gz
 
-RPM.FILES   = /opt/python/lib/$(PYTHONVER)/site-packages/*
+RPM.EXTRAS = "AutoReq: no"
+
+RPM.FILES = \
+    /opt/python/bin         \n\
+    $(PYTHON27_PACKAGES)/*
