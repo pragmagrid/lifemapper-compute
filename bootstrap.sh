@@ -7,40 +7,37 @@
 
 # Do once for roll repo
 #(cd src/RPMS; 
+## ??yumdownloader --resolve --enablerepo base gsl.x86_64; \
+## ??yumdownloader --resolve --enablerepo base gsl-devel.x86_64; \
 #yumdownloader --resolve --enablerepo base screen.x86_64; \
-#yumdownloader --resolve --enablerepo base gsl.x86_64; \
-#yumdownloader --resolve --enablerepo base gsl-devel.x86_64; \
-#yumdownloader --resolve --enablerepo base sqlite-devel.x86_64; \
-#yumdownloader --resolve --enablerepo rpmforge hdf4.x86_64; \
-#yumdownloader --resolve --enablerepo rpmforge hdf4-devel.x86_64; \
-#yumdownloader --resolve --enablerepo rpmforge hdf5.x86_64; \
-#yumdownloader --resolve --enablerepo rpmforge hdf5-devel.x86_64; \
+#yumdownloader --resolve --enablerepo epel hdf5.x86_64 hdf5-devel.x86_64; \
+#yumdownloader --resolve --enablerepo epel proj.x86_64; \
 #)
 
 echo "/opt/lifemapper/lib" > /etc/ld.so.conf.d/lifemapper.conf
+/sbin/ldconfig
+
+module unload opt-python
+rpm -i src/RPMS/screen*rpm
 
 # for gdal
 rpm -i src/RPMS/hdf5*rpm
-rpm -i src/RPMS/gsl*rpm 
-rpm -i src/RPMS/hdf4*rpm
-rpm -i src/RPMS/sqlite-devel*rpm
-rpm -i src/RPMS/screen*rpm
+# rpm -i src/RPMS/gsl*rpm 
 
-# install proj
+# install proj, tiff, geos (for gdal?)
 module load opt-python
 compile proj
 module unload opt-python
 install lifemapper-proj
 /sbin/ldconfig
 
-# install tiff
 module load opt-python
 compile tiff
 module unload opt-python
 install lifemapper-tiff
 /sbin/ldconfig
 
-# need for gdal
+# geos for gdal
 module load opt-python
 compile geos
 module unload opt-python
@@ -55,18 +52,20 @@ install lifemapper-gdal
 /sbin/ldconfig
 
 # # for pysal, rtree
+# setuptools 36.2.7 included in /opt/python 2.7
+# setuptools 20.7, needed for cherrypy build (on devapp, not in LM install)
 # #compile setuptools
 # module load opt-python
 # (cd src/setuptools; /opt/python/bin/python2.7 setup.py install)
 
-# for rtree
+# spatialindex for rtree
 module load opt-python
 compile spatialindex
 module unload opt-python
 install lifemapper-spatialindex
 /sbin/ldconfig
 
-# for pysal
+# scipy for pysal
 module load opt-python
 compile scipy
 module unload opt-python
