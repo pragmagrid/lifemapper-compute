@@ -24,7 +24,7 @@ rpm -i src/RPMS/screen*rpm
 rpm -i src/RPMS/hdf5*rpm
 # rpm -i src/RPMS/gsl*rpm 
 
-# install proj, tiff, geos (for gdal?)
+# install proj, tiff, geos for gdal
 module load opt-python
 compile proj
 module unload opt-python
@@ -37,7 +37,6 @@ module unload opt-python
 install lifemapper-tiff
 /sbin/ldconfig
 
-# geos for gdal
 module load opt-python
 compile geos
 module unload opt-python
