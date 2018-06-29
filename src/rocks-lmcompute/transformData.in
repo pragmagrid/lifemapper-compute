@@ -93,6 +93,13 @@ transform_layers () {
     fi
 }
 
+instruct_user () {
+    echo ""   | tee -a $LOG
+    echo "*****************"   | tee -a $LOG
+    echo "This script transformed data in $SCEN_PKG for any user"   | tee -a $LOG
+    echo "*****************"   | tee -a $LOG
+}
+
 TimeStamp () {
     echo $1 `/bin/date` >> $LOG
 }
@@ -104,5 +111,6 @@ TimeStamp "# Start"
 get_climate_data
 fix_file_permissions
 transform_layers
+instruct_user
 
 TimeStamp "# End"
