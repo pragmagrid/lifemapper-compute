@@ -10,6 +10,9 @@
 ## ??yumdownloader --resolve --enablerepo base gsl.x86_64; \
 ## ??yumdownloader --resolve --enablerepo base gsl-devel.x86_64; \
 #yumdownloader --resolve --enablerepo base screen.x86_64; \
+#yumdownloader --resolve --enablerepo base atlas.x86_64 atlas-devel.x86_64; \
+#yumdownloader --resolve --enablerepo base blas.x86_64 blas-devel.x86_64; \
+#
 #yumdownloader --resolve --enablerepo epel hdf5.x86_64 hdf5-devel.x86_64; \
 #yumdownloader --resolve --enablerepo epel proj.x86_64; \
 #)
@@ -19,6 +22,10 @@ echo "/opt/lifemapper/lib" > /etc/ld.so.conf.d/lifemapper.conf
 
 module unload opt-python
 rpm -i src/RPMS/screen*rpm
+
+# for scipy
+rpm -i src/RPMS/atlas*rpm
+rpm -i src/RPMS/blas*rpm
 
 # for gdal
 rpm -i src/RPMS/hdf5*rpm
