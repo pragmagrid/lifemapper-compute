@@ -80,4 +80,4 @@ install::
 	)
 
 clean::
-	rm -rf $(PKGNAME)-$(VERSION)
+	rm -rf $(PKGNAME)-$(VERSION)  version.mk
