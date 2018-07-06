@@ -65,30 +65,14 @@ version.mk:
 
 PY.PATH = /opt/python/bin/$(PYTHONVER)
 
-SOURCE = $(ARCHIVENAME)-$(VERSION)
+// SOURCE = $(ARCHIVENAME)-$(VERSION)
 
-COMPILERLIB = /usr/lib64
-COMMENTMKL =
-CPPCOMP = g++
-COMPILE_FLAGS = -O2 -shared -fPIC
-SETUPOPTS = --compiler=unix --fcompiler=gnu95
 
-alllibs:
-	make version.mk
-	tar zxf lapack-$(LAPACKVER).tgz
-	cp patch-files/make.inc lapack-$(LAPACKVER)
-	(\
-	    cd lapack-$(LAPACKVER); \
-	    make blaslib; \
-	    make lapacklib; \
-	)
-
-build: alllibs
-	tar zxf $(SOURCE).tar.gz
-	/bin/cp patch-files/site.cfg $(SOURCE)
+build: 
+	tar zxf $(ARCHIVENAME)-$(VERSION).tar.gz
 	(\
 	    export BLAS=$(PWD)/lapack-$(LAPACKVER)/BLAS/SRC/librefblas.a; \
-	    export LAPACK=$(PWD)/lapack-$(LAPACKVER)/liblapack.a; \
+	    export ATLAS=$(PWD)/lapack-$(LAPACKVER)/liblapack.a; \
 	    cd $(SOURCE);   \
 	    $(PY.PATH) setup.py config --noisy $(SETUPOPTS) \
 			build_clib  -g $(SETUPOPTS) \
@@ -106,3 +90,44 @@ install::
 clean::
 	rm -rf $(SOURCE) version.mk
 	rm -rf lapack-$(LAPACKVER)
+
+
+// COMPILERLIB = /usr/lib64
+// COMMENTMKL =
+// CPPCOMP = g++
+// COMPILE_FLAGS = -O2 -shared -fPIC
+// SETUPOPTS = --compiler=unix --fcompiler=gnu95
+// 
+// alllibs:
+// 	make version.mk
+// 	tar zxf lapack-$(LAPACKVER).tgz
+// 	cp patch-files/make.inc lapack-$(LAPACKVER)
+// 	(\
+// 	    cd lapack-$(LAPACKVER); \
+// 	    make blaslib; \
+// 	    make lapacklib; \
+// 	)
+// 
+// build: alllibs
+// 	tar zxf $(SOURCE).tar.gz
+// 	/bin/cp patch-files/site.cfg $(SOURCE)
+// 	(\
+// 	    export BLAS=$(PWD)/lapack-$(LAPACKVER)/BLAS/SRC/librefblas.a; \
+// 	    export LAPACK=$(PWD)/lapack-$(LAPACKVER)/liblapack.a; \
+// 	    cd $(SOURCE);   \
+// 	    $(PY.PATH) setup.py config --noisy $(SETUPOPTS) \
+// 			build_clib  -g $(SETUPOPTS) \
+// 			build_ext $(SETUPOPTS); \
+// 	)
+// 
+// install::
+// 	(\
+// 	    export BLAS=$(PWD)/lapack-$(LAPACKVER)/BLAS/SRC/librefblas.a; \
+// 	    export LAPACK=$(PWD)/lapack-$(LAPACKVER)/liblapack.a; \
+// 	    cd $(SOURCE);   \
+// 	    $(PY.PATH) setup.py $@ --root=$(ROOT)/; \
+// 	)
+// 
+// clean::
+// 	rm -rf $(SOURCE) version.mk
+// 	rm -rf lapack-$(LAPACKVER)
