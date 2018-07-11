@@ -27,13 +27,14 @@
 	<package>lifemapper-lmcompute</package>
 	<package>lifemapper-spatialindex</package>
 
-	<package>gsl</package>
-	<package>gsl-devel</package>
-	<package>hdf4</package>
-	<package>hdf4-devel</package>
+	<package>blas</package>
+	<package>blas-devel</package>
+	<package>atlas</package>
+	<package>atlas-devel</package>
+	<package>lapack</package>
+	<package>lapack-devel</package>
 	<package>hdf5</package>
 	<package>hdf5-devel</package>
-	<package>sqlite-devel</package>
 
 	<!-- python prerequisites -->
 	<package>opt-lifemapper-pysal</package>

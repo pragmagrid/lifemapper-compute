@@ -25,13 +25,12 @@ module unload opt-python
 rpm -i src/RPMS/screen*rpm
 
 # for scipy
-rpm -i src/RPMS/atlas*rpm
 rpm -i src/RPMS/blas*rpm
+rpm -i src/RPMS/atlas*rpm
 rpm -i src/RPMS/lapack*rpm
 
 # for gdal
 rpm -i src/RPMS/hdf5*rpm
-# rpm -i src/RPMS/gsl*rpm 
 
 # install proj, tiff, geos for gdal
 module load opt-python
