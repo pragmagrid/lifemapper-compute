@@ -12,4 +12,46 @@ RPM.EXTRAS = "AutoReq: no"
 #    $(PYTHON27_PACKAGES)/*
 
 RPM.FILES = \
-    $(PKGROOT)/cctools/*
+    $(PKGROOT)/bin/allpairs_*  \n\ 
+    $(PKGROOT)/bin/catalog_*
+    $(PKGROOT)/bin/cctools_*
+    $(PKGROOT)/bin/chirp*
+    $(PKGROOT)/bin/chroot_package_run
+    $(PKGROOT)/bin/*_submit_*
+    $(PKGROOT)/bin/confuga_adm
+    $(PKGROOT)/bin/deltadb_query
+    $(PKGROOT)/bin/disk_allocator
+    $(PKGROOT)/bin/jx2*
+    $(PKGROOT)/bin/makeflow*
+    $(PKGROOT)/bin/make_growfs
+    $(PKGROOT)/bin/mf_mesos_*
+    $(PKGROOT)/bin/parrot_*
+    $(PKGROOT)/bin/pbs_submit_workers
+    $(PKGROOT)/bin/piggybacker
+    $(PKGROOT)/bin/prune_worker
+    $(PKGROOT)/bin/resource_monitor*
+    $(PKGROOT)/bin/rmonitor_*
+    $(PKGROOT)/bin/sand_*
+    $(PKGROOT)/bin/starch
+    $(PKGROOT)/bin/umbrella
+    $(PKGROOT)/bin/watchdog
+    $(PKGROOT)/bin/wavefront*
+    $(PKGROOT)/bin/weaver
+    $(PKGROOT)/bin/work_queue_*
+    $(PKGROOT)/bin/wq_maker
+    $(PKGROOT)/etc/config.mk
+    $(PKGROOT)/include/cctools/*
+    $(PKGROOT)/lib/lib64/*
+    $(PKGROOT)/lib/libbatch_job.a
+    $(PKGROOT)/lib/libchirp.a
+    $(PKGROOT)/lib/libconfuga.a
+    $(PKGROOT)/lib/libdttools.a
+    $(PKGROOT)/lib/libforce_halt_enospc.so
+    $(PKGROOT)/lib/libftp_lite.a
+    $(PKGROOT)/lib/libparrot_client.a
+    $(PKGROOT)/lib/libparrot_helper.so
+    $(PKGROOT)/lib/librmonitor_helper.so
+    $(PKGROOT)/lib/libwork_queue.a
+    $(PKGROOT)/lib/python2.6/*
+    $(PKGROOT)/share/cctools/*
+    $(PKGROOT)/share/man/man1/*
