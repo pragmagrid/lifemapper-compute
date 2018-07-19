@@ -81,22 +81,11 @@ prep: prepSrc.sh
 	./prepSrc.sh
 
 build:
-	$(TAR) -xzvf $(ARCHIVENAME).$(TARBALL_POSTFIX) 
-	( 									\
-		cd $(ARCHIVENAME);						\
-		export PYTHON=$(PYTHON27);             				\
-		./configure   --with-python-path $(PY.PATH) --prefix=$(PKGROOT);\
-		$(MAKE);							\
-	)
-	
+	echo $(ARCHIVENAME)
+
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
-	(														\
-		cd $(ARCHIVENAME);											\
-		export PYTHON=$(PYTHON27);             									\
-		export PATH=$(PKGROOT)/bin:$(PATH);									\
-		$(MAKE) CCTOOLS_INSTALL_DIR=$(ROOT)/$(PKGROOT) CCTOOLS_PYTHON_PATH=$(ROOT)/$(PYTHON27_PACKAGES) install;\
-	)
+	tar xzvf  $(ARCHIVENAME).$(TARBALL_POSTFIX)  -C $(ROOT)/$(PKGROOT)/
 
 clean::
-	rm -rf $(ARCHIVENAME) version.mk prepSrc.sh
+	rm -rf $(ARCHIVENAME) $(ARCHIVENAME).$(TARBALL_POSTFIX) version.mk prepSrc.sh 
