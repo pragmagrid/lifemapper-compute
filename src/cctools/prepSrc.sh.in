@@ -7,7 +7,8 @@ CCTOOLS_PKG=@ARCHIVENAME@.@TARBALL_POSTFIX@
 
 get_source_files () {
   echo "Fetch CCTools source code"
-  wget "$CCTOOLS_URL/$CCTOOLS_PKG" 
+  #wget "$CCTOOLS_URL/$CCTOOLS_PKG" 
+  wget http://ccl.cse.nd.edu/software/files/cctools-7.0.2-x86_64_centos6.6.tar.gz
 }
 
 ### main ###
