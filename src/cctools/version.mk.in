@@ -1,6 +1,7 @@
 NAME            = lifemapper-cctools
 VERSION         = 7.0.2
-ARCHIVENAME     = cctools-$(VERSION)-source
+#ARCHIVENAME     = cctools-$(VERSION)-source
+ARCHIVENAME     = cctools-$(VERSION)-x86_64_centos6.6
 RELEASE         = 0
 TARBALL_POSTFIX	= tar.gz
 
