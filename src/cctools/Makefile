@@ -93,6 +93,7 @@ install::
 	mkdir -p $(ROOT)/$(PKGROOT)/include
 	mkdir -p $(ROOT)/$(PKGROOT)/lib
 	mkdir -p $(ROOT)/$(PKGROOT)/share
+	mkdir -p $(ROOT)/$(PKGROOT)/share/cctools
 	mkdir -p $(ROOT)/$(PKGROOT)/share/man
 	mkdir -p $(ROOT)/$(PKGROOT)/share/man/man1
 
@@ -102,7 +103,7 @@ install::
 	mv $(ROOT)/$(PKGROOT)/$(ARCHIVENAME)/include/*  $(ROOT)/$(PKGROOT)/include/
 	mv $(ROOT)/$(PKGROOT)/$(ARCHIVENAME)/lib/*  $(ROOT)/$(PKGROOT)/lib/
 	mv $(ROOT)/$(PKGROOT)/$(ARCHIVENAME)/share/man/man1/*  $(ROOT)/$(PKGROOT)/share/man/man1/
-	mv $(ROOT)/$(PKGROOT)/$(ARCHIVENAME)/share/*  $(ROOT)/$(PKGROOT)/share/
+	mv $(ROOT)/$(PKGROOT)/$(ARCHIVENAME)/share/cctools/*  $(ROOT)/$(PKGROOT)/share/cctools/
 
 	
 clean::
