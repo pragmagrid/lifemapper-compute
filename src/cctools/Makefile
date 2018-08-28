@@ -79,11 +79,9 @@ prep: prepSrc.sh
 
 build: version.mk
 
-
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)/cctools
 	tar xzvf  $(ARCHIVENAME).$(TARBALL_POSTFIX) --strip 1 -C $(ROOT)/$(PKGROOT)/cctools
 
-	
 clean::
 	rm -rf $(ARCHIVENAME) version.mk prepSrc.sh 
