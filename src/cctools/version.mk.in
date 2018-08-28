@@ -7,50 +7,5 @@ TARBALL_POSTFIX	= tar.gz
 
 RPM.EXTRAS = "AutoReq: no"
 
-#RPM.FILES = \
-#    $(PKGROOT)/*  \n\
-#    $(PYTHON27_PACKAGES)/*
+RPM.FILES = $(PKGROOT)/cctools/  
 
-RPM.FILES = \
-    $(PKGROOT)/bin/allpairs_*  \n\
-    $(PKGROOT)/bin/catalog_*  \n\
-    $(PKGROOT)/bin/cctools_*  \n\
-    $(PKGROOT)/bin/chirp*  \n\
-    $(PKGROOT)/bin/chroot_package_run  \n\
-    $(PKGROOT)/bin/*_submit_*  \n\
-    $(PKGROOT)/bin/confuga_adm  \n\
-    $(PKGROOT)/bin/deltadb_query  \n\
-    $(PKGROOT)/bin/disk_allocator  \n\
-    $(PKGROOT)/bin/jx2*  \n\
-    $(PKGROOT)/bin/makeflow*  \n\
-    $(PKGROOT)/bin/make_growfs  \n\
-    $(PKGROOT)/bin/mf_mesos_*  \n\
-    $(PKGROOT)/bin/parrot_*  \n\
-    $(PKGROOT)/bin/piggybacker  \n\
-    $(PKGROOT)/bin/prune_worker  \n\
-    $(PKGROOT)/bin/resource_monitor*  \n\
-    $(PKGROOT)/bin/rmonitor_*  \n\
-    $(PKGROOT)/bin/sand_*  \n\
-    $(PKGROOT)/bin/starch  \n\
-    $(PKGROOT)/bin/umbrella  \n\
-    $(PKGROOT)/bin/watchdog  \n\
-    $(PKGROOT)/bin/wavefront*  \n\
-    $(PKGROOT)/bin/weaver  \n\
-    $(PKGROOT)/bin/work_queue_*  \n\
-    $(PKGROOT)/bin/wq_maker  \n\
-    $(PKGROOT)/etc/config.mk  \n\
-    $(PKGROOT)/include/cctools/*  \n\
-    $(PKGROOT)/lib/lib64/*  \n\
-    $(PKGROOT)/lib/libbatch_job.a  \n\
-    $(PKGROOT)/lib/libchirp.a  \n\
-    $(PKGROOT)/lib/libconfuga.a  \n\
-    $(PKGROOT)/lib/libdttools.a  \n\
-    $(PKGROOT)/lib/libforce_halt_enospc.so  \n\
-    $(PKGROOT)/lib/libftp_lite.a  \n\
-    $(PKGROOT)/lib/libparrot_client.a  \n\
-    $(PKGROOT)/lib/libparrot_helper.so  \n\
-    $(PKGROOT)/lib/librmonitor_helper.so  \n\
-    $(PKGROOT)/lib/libwork_queue.a  \n\
-    $(PKGROOT)/lib/python2.6/*  \n\
-    $(PKGROOT)/share/cctools/*  \n\
-    $(PKGROOT)/share/man/man1/*
