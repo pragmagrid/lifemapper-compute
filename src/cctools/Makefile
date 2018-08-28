@@ -84,27 +84,9 @@ build:
 	echo $(ARCHIVENAME)
 
 install::
-	mkdir -p $(ROOT)/$(PKGROOT)
+	mkdir -p $(ROOT)/$(PKGROOT)/cctools
 	tar xzvf  $(ARCHIVENAME).$(TARBALL_POSTFIX)  -C $(ROOT)/$(PKGROOT)/
-
-	mkdir -p $(ROOT)/$(PKGROOT)/bin
-	mkdir -p $(ROOT)/$(PKGROOT)/doc
-	mkdir -p $(ROOT)/$(PKGROOT)/etc
-	mkdir -p $(ROOT)/$(PKGROOT)/include
-	mkdir -p $(ROOT)/$(PKGROOT)/lib
-	mkdir -p $(ROOT)/$(PKGROOT)/share
-	mkdir -p $(ROOT)/$(PKGROOT)/share/cctools
-	mkdir -p $(ROOT)/$(PKGROOT)/share/man
-	mkdir -p $(ROOT)/$(PKGROOT)/share/man/man1
-
-	mv $(ROOT)/$(PKGROOT)/$(ARCHIVENAME)/bin/*  $(ROOT)/$(PKGROOT)/bin/
-	mv $(ROOT)/$(PKGROOT)/$(ARCHIVENAME)/doc/*  $(ROOT)/$(PKGROOT)/doc/
-	mv $(ROOT)/$(PKGROOT)/$(ARCHIVENAME)/etc/*  $(ROOT)/$(PKGROOT)/etc/
-	mv $(ROOT)/$(PKGROOT)/$(ARCHIVENAME)/include/*  $(ROOT)/$(PKGROOT)/include/
-	mv $(ROOT)/$(PKGROOT)/$(ARCHIVENAME)/lib/*  $(ROOT)/$(PKGROOT)/lib/
-	mv $(ROOT)/$(PKGROOT)/$(ARCHIVENAME)/share/man/man1/*  $(ROOT)/$(PKGROOT)/share/man/man1/
-	mv $(ROOT)/$(PKGROOT)/$(ARCHIVENAME)/share/cctools/*  $(ROOT)/$(PKGROOT)/share/cctools/
-
+	mv $(ROOT)/$(PKGROOT)/$(ARCHIVENAME)/*  $(ROOT)/$(PKGROOT)/cctools/
 	
 clean::
 	rm -rf $(ARCHIVENAME) version.mk prepSrc.sh 
