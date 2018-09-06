@@ -6,3 +6,5 @@ RELEASE = 0
 LAPACKVER = 3.5.0
 
 RPM.EXTRAS = "AutoReq: no"
+
+RPM.FILES   = /opt/python/lib/$(PYTHONVER)/site-packages/*
