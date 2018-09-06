@@ -60,9 +60,6 @@ REDHAT.ROOT = $(CURDIR)/../../
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
 
-PY.PATH = /opt/python
-PERL.PATH = /opt/perl
-
 version.mk:
 	cat ../version.mk version.mk.in > version.mk
 
@@ -85,6 +82,6 @@ build: version.mk
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)/cctools
 	tar xzvf  $(ARCHIVENAME).$(TARBALL_POSTFIX) --strip 1 -C $(ROOT)/$(PKGROOT)/cctools
-	
+
 clean::
 	rm -rf $(ARCHIVENAME) version.mk prepSrc.sh 
