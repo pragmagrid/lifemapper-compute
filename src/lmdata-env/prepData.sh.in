@@ -7,16 +7,18 @@
 # Note: the CSV file in the SCENARIO_PACKAGE must be created with shasums to be   
 #   sent by a Lm server to Lm compute for data verification.  These shasums are  
 #   used in the seeding CSV file.  
-# Note: LMURL, SCENARIO_PACKAGE is defined in lifemapper-compute/src/version.mk
+# Note: LMURL, SCENARIO_PACKAGE is defined in lifemapper-server/src/version.mk
 
 get_ecoregion_data () {
+  echo ""
   echo "Get ecoregion data"
   curl -L "@TNC_URL@/@ECOREGION_FILE@" -o ../lmdata-env/@ECOREGION_FILE@
 }
 
 create_climate_data () {
+  echo ""
   echo "Fetch climate data"
-  curl -L "@LMURL@/@SCENARIO_PACKAGE@.@TARBALL_POSTFIX@" -o ../lmdata-env/@SCENARIO_PACKAGE@.@TARBALL_POSTFIX@
+  curl -L "@LMURL@/@SCENARIO_PACKAGE@-@VERSION@.@TARBALL_POSTFIX@" -o ../lmdata-env/@SCENARIO_PACKAGE@.@TARBALL_POSTFIX@
 }
 
 ### main ###
