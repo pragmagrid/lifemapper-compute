@@ -41,6 +41,7 @@ set_defaults() {
     TRANSFORMPY=@LMHOME@/LmBackend/tools/convert_layers_in_package.py
     
     CLIMATE_DIR=@DATADIR_SHARED@/@ENV_DATA_DIR@
+    NEW_CLIMATE_DIR=$CLIMATE_DIR/$SCEN_PKG
 
     LOG=@LMSCRATCHDISK@/log/$THISNAME.log
     touch $LOG
@@ -63,13 +64,13 @@ get_climate_data () {
         fi
     fi
 
-    # find top directory from tar listing
-    if [ -f $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ ] ; then
-        TOPDIR=`tar tvf $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ | grep "^d" | awk '{print $6}' | sed -n '1 p'`
-        NEW_CLIMATE_DIR=$CLIMATE_DIR/${TOPDIR%?}
-    else
-        NEW_CLIMATE_DIR=$CLIMATE_DIR
-    fi
+#     # find top directory from tar listing
+#     if [ -f $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ ] ; then
+#         TOPDIR=`tar tvf $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ | grep "^d" | awk '{print $6}' | sed -n '1 p'`
+#         NEW_CLIMATE_DIR=$CLIMATE_DIR/${TOPDIR%?}
+#     else
+#         NEW_CLIMATE_DIR=$CLIMATE_DIR
+#     fi
 }
 
 ### Make lmwriter-group writeable
