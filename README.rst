@@ -119,9 +119,9 @@ Install the resulting RPM with: ::
 
    # rpm -el lifemapper
    # rpm -i  path-to-new-lifemapper.rpm
-   # /opt/lifemapper/rocks/bin/updateIP-lmcompute
+   # /opt/lifemapper/rocks/bin/updateCfg-lmcompute
 
-The ``updateIP-lmcompute`` is needed for this specfic RPM because  a newly 
+The ``updateCfg-lmcompute`` is needed for this specfic RPM because  a newly 
 installed config.lmcompute.ini file needs template IP addressees updated. 
 
 

@@ -89,7 +89,7 @@ SCRIPTS = \
 
 PROGS = \
 	initLMcompute \
-	updateIP-lmcompute \
+	updateCfg-lmcompute \
 	confSysvals \
 	transformData \
 	fixNodePermissions \
