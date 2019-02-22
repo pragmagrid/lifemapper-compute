@@ -58,7 +58,7 @@ runLdconfig () {
 # update config/config.lmcompute.ini
 updateConfig () {
     echo "-- update IP in config file" >> $LOG
-    $BIN/updateIP-lmcompute
+    $BIN/updateCfg-lmcompute
 }
 
 # install cron jobs for daily execution
