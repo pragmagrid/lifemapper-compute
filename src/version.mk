@@ -29,5 +29,3 @@ JOB_CAPACITY		= 20
 
 # Code version
 CODEVERSION		= 3.2.0
-
-
