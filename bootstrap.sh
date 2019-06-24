@@ -72,6 +72,7 @@ module unload opt-python
 install lifemapper-spatialindex
 /sbin/ldconfig
 
+# TODO: delete from bootstrap, leave in roll
 # scipy for pysal
 module load opt-python
 compile scipy

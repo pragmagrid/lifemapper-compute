@@ -37,7 +37,7 @@
 	<package>hdf5-devel</package>
 
 	<!-- python prerequisites -->
-	<package>opt-lifemapper-pysal</package>
+	<!-- <package>opt-lifemapper-pysal</package> -->
 	<package>opt-lifemapper-scipy</package>
 	<package>opt-lifemapper-egenix-mx-base</package>
 	<package>opt-lifemapper-dateutil</package>
