@@ -35,13 +35,11 @@ del-lifemapper-shared() {
       $RM lifemapper-gdal
       $RM lifemapper-geos
       $RM lifemapper-proj
-      $RM lifemapper-spatialindex
       $RM lifemapper-tiff
       $RM lifemapper-env-data
       echo "Removing SHARED opt-* RPMS" >> $LOG
       $RM opt-lifemapper-egenix-mx-base
       $RM opt-lifemapper-requests
-      $RM opt-lifemapper-rtree
       $RM opt-lifemapper-dendropy
    fi
 }
