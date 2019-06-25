@@ -25,7 +25,7 @@
 	<package>lifemapper-tiff</package>
 	<package>lifemapper-openmodeller</package>
 	<package>lifemapper-lmcompute</package>
-	<package>lifemapper-spatialindex</package>
+	<!-- <package>lifemapper-spatialindex</package> -->
 
 	<package>blas</package>
 	<package>blas-devel</package>
@@ -42,7 +42,7 @@
 	<package>opt-lifemapper-egenix-mx-base</package>
 	<package>opt-lifemapper-dateutil</package>
 	<package>opt-lifemapper-pyparsing</package>
-	<package>opt-lifemapper-matplotlib</package>
+	<!-- <package>opt-lifemapper-matplotlib</package> -->
 	<package>opt-lifemapper-futures</package>
 	<package>opt-lifemapper-requests</package>
 	<package>opt-lifemapper-dendropy</package>
@@ -86,3 +86,4 @@ rm -rf /etc/rc.d/rocksconfig.d/post-99-lifemapper-lmcompute
 </post>
 
 </kickstart>
+ 

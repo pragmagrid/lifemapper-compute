@@ -23,7 +23,6 @@ set_defaults() {
 del-possible-shared-dependencies() {
    if [ $LMROLL_COUNT = 1 ]; then
       echo "Removing SHARED hdf rpms" >> $LOG
-      $RM hdf4-devel hdf4
       $RM hdf5-devel hdf5
    fi
 }
@@ -57,9 +56,7 @@ del-opt-python () {
    echo "Removing opt-* RPMS" >> $LOG
    $RM opt-lifemapper-dateutil
    $RM opt-lifemapper-futures
-   $RM opt-lifemapper-matplotlib
    $RM opt-lifemapper-pyparsing
-   $RM opt-lifemapper-pysal
    $RM opt-lifemapper-scipy
 }
 
