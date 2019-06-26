@@ -32,6 +32,11 @@ rpm -i src/RPMS/lapack*rpm
 # for gdal
 rpm -i src/RPMS/hdf5*rpm
 
+# install futures for mcpa calcs with python2
+module load opt-python
+rpm -i src/RPMS/python2-futures*rpm
+module unload opt-python
+
 # install proj, tiff, geos for gdal
 module load opt-python
 compile proj
