@@ -43,7 +43,7 @@
 	<package>opt-lifemapper-dateutil</package>
 	<package>opt-lifemapper-pyparsing</package>
 	<!-- <package>opt-lifemapper-matplotlib</package> -->
-	<package>opt-lifemapper-futures</package>
+	<!-- <package>opt-lifemapper-futures</package> -->
 	<package>opt-lifemapper-requests</package>
 	<package>opt-lifemapper-dendropy</package>
 
