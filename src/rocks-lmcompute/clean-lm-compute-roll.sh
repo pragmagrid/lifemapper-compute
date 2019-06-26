@@ -54,8 +54,6 @@ del-lifemapper() {
 
 del-opt-python () {
    echo "Removing opt-* RPMS" >> $LOG
-   $RM opt-lifemapper-dateutil
-   $RM opt-lifemapper-futures
    $RM opt-lifemapper-pyparsing
    $RM opt-lifemapper-scipy
 }
