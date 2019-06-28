@@ -20,27 +20,57 @@ set_defaults() {
     touch $LOG
 }
 
-del-possible-shared-dependencies() {
-   if [ $LMROLL_COUNT = 1 ]; then
-      echo "Removing SHARED hdf rpms" >> $LOG
-      $RM hdf5-devel hdf5
-   fi
+
+del-shared-geospatial-dependencies() {
+   echo "Removing shared geos, proj, tiff, and gdal dependencies RPMS" >> $LOG
+   $RM CharLS
+   $RM SuperLU
+   $RM armadillo
+   $RM arpack
+   $RM blas
+   $RM atlas
+   $RM cfitsio
+   $RM freexl
+   $RM gpsbabel
+   $RM lapack
+   $RM geos geos-devel  geos-python
+   $RM hdf5-devel
+   $RM libaec
+   $RM glibc     
+   $RM jbigkit-libs     
+   $RM libgcc     
+   $RM libjpeg-turbo     
+   $RM libstdc++
+   $RM libtiff  libtiff-devel  
+   $RM nss-softokn-freebl     
+   $RM zlib
+   $RM libgeotiff libgeotiff-devel
+   $RM libdap
+   $RM libusb
+   $RM libgta
+   $RM ogdi
+   $RM netcdf
+   $RM openblas-openmp     
+   $RM postgresql-libs
+   $RM openjpeg2
+   $RM unixODBC
+   $RM xerces-c
+   $RM proj49 proj49-devel proj49-epsg proj49-nad
+   $RM shapelib
+   $RM gdal gdal-libs gdal-devel gdal-python 
+   $RM python-nose     
+   $RM numpy     
+   $RM gdal-python
 }
 
 del-lifemapper-shared() {
-   if [ $LMROLL_COUNT = 1 ]; then
-      echo "Removing SHARED lifemapper-* and prerequisite RPMS" >> $LOG
-      $RM lifemapper-cctools
-      $RM lifemapper-gdal
-      $RM lifemapper-geos
-      $RM lifemapper-proj
-      $RM lifemapper-tiff
-      $RM lifemapper-env-data
-      echo "Removing SHARED opt-* RPMS" >> $LOG
-      $RM opt-lifemapper-egenix-mx-base
-      $RM opt-lifemapper-requests
-      $RM opt-lifemapper-dendropy
-   fi
+   echo "Removing SHARED lifemapper-* and prerequisite RPMS" >> $LOG
+   $RM lifemapper-cctools
+   $RM lifemapper-env-data
+   echo "Removing SHARED opt-* RPMS" >> $LOG
+   $RM opt-lifemapper-egenix-mx-base
+   $RM opt-lifemapper-requests
+   $RM opt-lifemapper-dendropy
 }
 
 del-lifemapper() {
@@ -49,7 +79,6 @@ del-lifemapper() {
    $RM lifemapper-openmodeller
    $RM rocks-lmcompute
    $RM roll-lifemapper-usersguide
-   $RM gsl-devel gsl
 }
 
 del-opt-python () {
@@ -135,8 +164,11 @@ check_lm_processes
 
 set_defaults
 TimeStamp "# Start"
-del-lifemapper-shared
-del-possible-shared-dependencies
+if [ $LMROLL_COUNT = 1 ]; then
+	del-shared-geospatial-dependencies
+	del-lifemapper-shared
+fi
+
 del-opt-python 
 del-lifemapper
 del-directories

@@ -19,14 +19,14 @@ during the roll build.
 
 #. RPMs from standard yum repos:
 
-   :base:     cmake, screen, subversion, gsl, gsl-devel, sqlite-devel
-   :rpmforge: hdf4, hdf4-devel, hdf5, hdf5-devel 
+   :base:     atlas, atlas_devel, blas, blas_devel, 
+   :rpmforge: hdf5, hdf5-devel, proj
 
 
 #. Source distributions:
 
-   :binaries: proj, tiff, openmodeller, gdal, spatialindex
-   :python modules: setuptools, scipy, numpy, pysal, rtree
+   :non-python: cctools, gdal, geos, openmodeller, proj, tiff
+   :python modules: dendropy, egenix, pyparsing, requests, scipy
 
 Downloads
 ~~~~~~~~~
