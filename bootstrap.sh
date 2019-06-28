@@ -85,8 +85,6 @@ rpm -i src/RPMS/gdal-python-1.11.4-12.rhel7.x86_64.rpm
 # futures backport for mcpa calcs with python2
 rpm -i src/RPMS/python2-futures*rpm
 
-module unload opt-python
-
 
 echo "You will need to download source code, data and dependencies."
 echo "    lmcompute"
