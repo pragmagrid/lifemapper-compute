@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Purpose: Fetch Geos source
-DL_URL=https://download.osgeo.org/@ARCHIVENAME@/@VERSION@/
+DL_URL=https://download.osgeo.org/@ARCHIVENAME@
 DL_PKG=@ARCHIVENAME@-@VERSION@.@TARBALL_POSTFIX@
 
 get_source_files () {
