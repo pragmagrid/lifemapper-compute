@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Purpose: Fetch tiff source
+
+DL_URL=https://github.com/@ARCHIVENAME@/@ARCHIVENAME@/archive
+DL_PKG=v@VERSION@.@TARBALL_POSTFIX@
+
+get_source_files () {
+  echo "Fetch tiff source code"
+  wget "$DL_URL/$DL_PKG"
+}
+
+### main ###
+get_source_files

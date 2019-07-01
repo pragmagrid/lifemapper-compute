@@ -1,5 +1,5 @@
 NAME = opt-lifemapper-scipy
-VERSION = 1.1.0
+VERSION = 1.2.2
 ARCHIVENAME = scipy
 RELEASE = 0
 
