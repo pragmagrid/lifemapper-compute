@@ -1,7 +1,8 @@
 NAME		= opt-lifemapper-cython
-VERSION		= 0.29.11
 ARCHIVENAME = Cython
+VERSION		= 0.29.11
 RELEASE		= 0
+TARBALL_POSTFIX	= tar.gz
 
 RPM.FILES	= $(PYTHON27_PACKAGES)/*
 
