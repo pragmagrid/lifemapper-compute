@@ -95,4 +95,4 @@ install::
 	)
 
 clean::
-	rm -rf $(PKGNAME)-$(VERSION) version.mk
+	rm -rf $(PKGNAME)-$(VERSION) version.mk prepSrc.sh
