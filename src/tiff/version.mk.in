@@ -1,5 +1,6 @@
 NAME        	= lifemapper-tiff
-ARCHIVENAME     = tiff
+PKGNAME     	= tiff
+ARCHIVENAME     = libtiff
 VERSION     	= 4.0.3
 RELEASE 	= 0
 TARBALL_POSTFIX	= tar.gz
