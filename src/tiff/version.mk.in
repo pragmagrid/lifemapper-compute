@@ -1,5 +1,5 @@
 NAME        	= lifemapper-tiff
-PKGNAME        	= tiff
+ARCHIVENAME     = tiff
 # Try replacing old 4.0.3
 VERSION     	= 4.0.4
 RELEASE 	= 0

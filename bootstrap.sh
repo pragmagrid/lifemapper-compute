@@ -35,15 +35,21 @@ rpm -i src/RPMS/hdf5-1.8.12-10.el7.x86_64.rpm
 rpm -i src/RPMS/hdf5-devel-1.8.12-10.el7.x86_64.rpm
 
 # for postgis
-rpm -i src/RPMS/proj*rpm
+rpm -i src/RPMS/proj-4.8.0-4.el7.x86_64.rpm
 
 # install proj, tiff, geos for gdal
+cd src/proj
+make prep
+cd ../..
 module load opt-python
 compile proj
 module unload opt-python
 install lifemapper-proj
 /sbin/ldconfig
 
+cd src/tiff
+make prep
+cd ../..
 module load opt-python
 compile tiff
 module unload opt-python

@@ -80,9 +80,9 @@ version.mk:
 	cat ../version.mk version.mk.in > version.mk
 
 build:
-	gunzip -c $(PKGNAME)-$(VERSION).$(TARBALL_POSTFIX) | $(TAR) -xf -
+	gunzip -c $(ARCHIVENAME)-$(VERSION).$(TARBALL_POSTFIX) | $(TAR) -xf -
 	( 							\
-		cd $(PKGNAME)-$(VERSION);				\
+		cd $(ARCHIVENAME)-$(VERSION);				\
 		./configure --prefix=$(PKGROOT)/;		\
 		$(MAKE);					\
 	)
@@ -90,9 +90,9 @@ build:
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
 	(							\
-		cd $(PKGNAME)-$(VERSION);				\
+		cd $(ARCHIVENAME)-$(VERSION);				\
 		$(MAKE) prefix=$(ROOT)/$(PKGROOT) install;	\
 	)
 
 clean::
-	rm -rf $(PKGNAME)-$(VERSION)  version.mk
+	rm -rf $(ARCHIVENAME)-$(VERSION)  version.mk
