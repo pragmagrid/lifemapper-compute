@@ -1,8 +1,9 @@
-NAME = opt-lifemapper-scipy
+NAME 			= opt-lifemapper-scipy
+ARCHIVENAME 	= scipy
 # Last version for python 2.7
-VERSION = 1.2.2
-ARCHIVENAME = scipy
-RELEASE = 0
+VERSION 		= 1.2.2
+RELEASE 		= 0
+TARBALL_POSTFIX	= tar.gz
 
 RPM.EXTRAS = "AutoReq: no"
 
