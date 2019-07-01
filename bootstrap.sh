@@ -56,6 +56,9 @@ module unload opt-python
 install lifemapper-tiff
 /sbin/ldconfig
 
+cd src/geos
+make prep
+cd ../..
 module load opt-python
 compile geos
 module unload opt-python
