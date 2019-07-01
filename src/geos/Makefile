@@ -65,7 +65,6 @@ version.mk:
 
 SEDSPEC += \
         -e 's%@ARCHIVENAME@%$(ARCHIVENAME)%g'  \
-        -e 's%@PKGNAME@%$(PKGNAME)%g'  \
         -e 's%@VERSION@%$(VERSION)%g'  \
         -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g'
 
@@ -80,9 +79,9 @@ prep: prepSrc.sh
 	./prepSrc.sh
 
 build:
-	tar xjvf $(PKGNAME)-$(VERSION).$(TARBALL_POSTFIX)
+	tar xjvf $(ARCHIVENAME)-$(VERSION).$(TARBALL_POSTFIX)
 	(											\
-	    cd $(PKGNAME)-$(VERSION);			\
+	    cd $(ARCHIVENAME)-$(VERSION);			\
 	    ./configure --prefix=$(PKGROOT);		\
 	    $(MAKE);								\
 	)
@@ -90,9 +89,9 @@ build:
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
 	(												\
-	    cd $(PKGNAME)-$(VERSION);				\
+	    cd $(ARCHIVENAME)-$(VERSION);				\
 	    $(MAKE) prefix=$(ROOT)/$(PKGROOT) install;	\
 	)
 
 clean::
-	rm -rf $(PKGNAME)-$(VERSION) version.mk prepSrc.sh
+	rm -rf $(ARCHIVENAME)-$(VERSION) version.mk

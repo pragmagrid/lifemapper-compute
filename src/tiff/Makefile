@@ -62,6 +62,7 @@ REDHAT.ROOT = $(CURDIR)/../../
 include Rules.mk
 
 SEDSPEC += \
+        -e 's%@PKGNAME@%$(PKGNAME)%g'  \
         -e 's%@ARCHIVENAME@%$(ARCHIVENAME)%g'  \
         -e 's%@VERSION@%$(VERSION)%g'  \
         -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g'
@@ -80,9 +81,9 @@ version.mk:
 	cat ../version.mk version.mk.in > version.mk
 
 build:
-	gunzip -c $(ARCHIVENAME)-$(VERSION).$(TARBALL_POSTFIX) | $(TAR) -xf -
+	gunzip -c $(PKGNAME)-$(VERSION).$(TARBALL_POSTFIX) | $(TAR) -xf -
 	( 							\
-		cd $(ARCHIVENAME)-$(VERSION);				\
+		cd $(PKGNAME)-$(VERSION);				\
 		./configure --prefix=$(PKGROOT)/;		\
 		$(MAKE);					\
 	)
@@ -90,9 +91,9 @@ build:
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
 	(							\
-		cd $(ARCHIVENAME)-$(VERSION);				\
+		cd $(PKGNAME)-$(VERSION);				\
 		$(MAKE) prefix=$(ROOT)/$(PKGROOT) install;	\
 	)
 
 clean::
-	rm -rf $(ARCHIVENAME)-$(VERSION)  version.mk prepSrc.sh
+	rm -rf $(PKGNAME)-$(VERSION)  version.mk prepSrc.sh
