@@ -2,11 +2,11 @@
 
 # Purpose: Fetch DendroPy source
 
-DL_URL=https://pypi.python.org/packages/58/14/d4559893d72675b322c1d60229ef3490bc5c2f5b28c5cc339956aaf8f507
+DL_URL=https://files.pythonhosted.org/packages/87/26/6f8a63fda4743d9e405c17c2872ac3242b63b5eba79c475ddf1777f17b9e
 DL_PKG=@ARCHIVENAME@-@VERSION@.@TARBALL_POSTFIX@
 
 get_source_files () {
-  echo "Fetch DendroPy source code"
+  echo "Fetch Cython source code"
   wget "$DL_URL/$DL_PKG"
 }
 
