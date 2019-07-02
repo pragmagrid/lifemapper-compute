@@ -2,12 +2,9 @@
 
 . /opt/rocks/share/devel/src/roll/etc/bootstrap-functions.sh
 
-# download needed RPMS
-#yum --enablerepo base install cmake.x86_64;
-
-# Do once for roll repo
-#(cd src/RPMS; 
-
+## Download needed RPMS - do once for roll repo
+#cd src/RPMS
+#
 #yumdownloader --resolve --enablerepo base gsl.x86_64
 #yumdownloader --resolve --enablerepo base gsl-devel.x86_64
 #
@@ -15,9 +12,10 @@
 #yumdownloader --resolve --enablerepo base blas.x86_64 blas-devel.x86_64
 #yumdownloader --resolve --enablerepo base lapack.x86_64 lapack-devel.x86_64
 #
+#yumdownloader --resolve --enablerepo epel libaec.x86_64  libaec-devel.x86_64
 #yumdownloader --resolve --enablerepo epel hdf5.x86_64 hdf5-devel.x86_64
 #yumdownloader --resolve --enablerepo epel proj.x86_64
-#)
+#
 
 echo "/opt/lifemapper/lib" > /etc/ld.so.conf.d/lifemapper.conf
 /sbin/ldconfig
@@ -45,31 +43,24 @@ rpm -i src/RPMS/gsl-devel-1.15-13.el7.x86_64.rpm
 cd src/proj
 make prep
 cd ../..
-module load opt-python
 compile proj
-module unload opt-python
 install lifemapper-proj
 /sbin/ldconfig
 
 cd src/tiff
 make prep
 cd ../..
-module load opt-python
 compile tiff
-module unload opt-python
 install lifemapper-tiff
 /sbin/ldconfig
 
 cd src/geos
 make prep
 cd ../..
-module load opt-python
 compile geos
-module unload opt-python
 install lifemapper-geos
 /sbin/ldconfig
 
-# need for modules
 cd src/gdal
 make prep
 cd ../..
@@ -88,7 +79,6 @@ compile cython
 module unload opt-python
 install opt-lifemapper-cython
 
-# scipy 
 cd src/scipy
 make prep
 cd ../..
