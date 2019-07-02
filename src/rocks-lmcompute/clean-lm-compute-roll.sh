@@ -68,17 +68,12 @@ del-shared-user-group () {
 }
 
 del-lifemapper() {
-   echo "Removing lifemapper-* and prerequisite RPMS" >> $LOG
+   echo "Removing lifemapper-*, opt-lifemapper-*, and prerequisite RPMS" >> $LOG
    $RM lifemapper-lmcompute
    $RM lifemapper-openmodeller
+   $RM opt-lifemapper-scipy
    $RM rocks-lmcompute
    $RM roll-lifemapper-usersguide
-}
-
-del-opt-python () {
-   echo "Removing opt-* RPMS" >> $LOG
-#    $RM opt-lifemapper-pyparsing
-   $RM opt-lifemapper-scipy
 }
 
 del-node-directories () {
@@ -138,7 +133,6 @@ if [ $LMROLL_COUNT = 1 ]; then
 	del-shared-user-group
 fi
 
-del-opt-python 
 del-lifemapper
 del-node-directories
 del-user-group

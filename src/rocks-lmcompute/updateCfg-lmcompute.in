@@ -1,68 +1,19 @@
 #!/bin/bash 
 #
-# Update @LMHOME@/config/config.lmcompute.ini file with correct ip info  
+# Update @LMHOME@/config/config.lmcompute.ini file with machine info  
 #
 usage () 
 {
     echo "Usage: $0"
-    echo "This script updates IPs in @LMHOME@/LmCompute/config/config.lmcompute.ini"
-    echo "file from the values set in rocks attributes LM_dbserver and LM_webserver."
-    echo "If attributes are not set then the server public IP is used"
-
+    echo "This script updates Machine info in @LMHOME@/LmCompute/config/config.lmcompute.ini"
 }
 
-setDefaults () {
-    Error=0
-}
-
-getAddress () {
-    # public host address
-    Addr=`/opt/rocks/bin/rocks list host attr localhost | grep Kickstart_PublicHostname  | grep -v _old | awk '{print $3}'`
-
-    # check for attribute for lifemapper dbserver 
-    AddrDbserver=`/opt/rocks/bin/rocks list host attr frontend | grep LM_dbserver | grep -v _old | awk '{print $3}'`
-    if [ "$AddrDbserver" = "true" ] ; then
-        AddrDbserver=$Addr
-    fi
-
-    if [ "$AddrDbserver" = "" ] ; then
-	Error=1
-    fi
-
-    # check for attribute for lifemapper webserver 
-    AddrWebserver=`/opt/rocks/bin/rocks list host attr frontend | grep LM_webserver | grep -v _old | awk '{print $3}'`
-    if [ "$AddrWebserver" = "true" ] ; then
-        AddrWebserver=$Addr
-    fi
-
-    if [ "$AddrWebserver" = "" ] ; then
-	Error=1
-    fi
-}
-
-### changed line 48 from  "s%@PUBLIC_FQDN@%$AddrWebserver%g;\
-updateConfig () {
-    infile=@LMHOME@/LmCompute/config/config.lmcompute.ini.in
-    outfile=@LMHOME@/config/config.lmcompute.ini
-    if [ -f $infile ]; then
-        sed  "s%@PUBLIC_FQDN@%$Addr%g;\
-              s%@WEB_FQDN@%$AddrWebserver%g; \
-              s%@DB_FQDN@%$AddrDbserver%g" $infile > $outfile
-    else
-       echo "ERROR: File $infile does not exist"
-    fi
-
+readLMEnvironment () {
     # Source profile for environment
     . /etc/profile.d/lmcompute.sh
 }
 
 updateAddress () {
-    if [ "$Error" = "1" ]; then
-        echo "ERROR: LM_dbserver or LM_webserver attribute is not set"
-	echo "Set both attributes on the frontend and rerun  $0"
-	exit 1
-    fi
-
     @LMHOME@/rocks/bin/confSysvals 
 }
 
@@ -81,7 +32,6 @@ if [ $# -ne 0 ]; then
     exit 0
 fi 
 
-getAddress
-updateConfig
+readLMEnvironment
 updateAddress
 updatePerms

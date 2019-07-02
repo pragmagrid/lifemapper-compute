@@ -8,8 +8,6 @@ usage ()
 {
     echo "Usage: $0"
     echo "This script is run during the roll install, it will:"
-    echo "     - update config/config.lmcompute.ini file with values from "
-    echo "       LMdbserver and LM_webserver attributes "
     echo "     - add [machine] section to config/config.lmcompute.ini  "
     echo "     - add maintenance scripts to /etc/cron.daily/ directory  "
     echo "   "
@@ -20,7 +18,7 @@ set_defaults() {
     BIN=@PKGROOT@/rocks/bin
     CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
     SITE_CONFIG_FILE=@LMHOME@/config/config.site.ini
-
+    PROF=/etc/profile.d/lmcompute.sh
 
     # get the SCENARIO_PACKAGE value from config.site.ini or config.lmserver.ini file
     echo "Looking for climate data $SCEN_PKG"   | tee -a $LOG  
@@ -57,7 +55,7 @@ runLdconfig () {
 
 # update config/config.lmcompute.ini
 updateConfig () {
-    echo "-- update IP in config file" >> $LOG
+    echo "-- update machine info in config file" >> $LOG
     $BIN/updateCfg-lmcompute
 }
 
@@ -70,7 +68,6 @@ installCronJobs () {
 # source Lifemapper env
 setEnv () {
     echo "-- set environment" >> $LOG
-    PROF=/etc/profile.d/lmcompute.sh
     if [ -f $PROF ] ; then
 	 . $PROF 
     else
