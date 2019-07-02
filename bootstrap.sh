@@ -12,7 +12,7 @@
 #yumdownloader --resolve --enablerepo base blas.x86_64 blas-devel.x86_64
 #yumdownloader --resolve --enablerepo base lapack.x86_64 lapack-devel.x86_64
 #
-#yumdownloader --resolve --enablerepo epel hdf5-devel.x86_64
+#yumdownloader --resolve --enablerepo epel hdf5.x86_64 hdf5-devel.x86_64
 #yumdownloader --resolve --enablerepo epel proj.x86_64
 #)
 
@@ -33,9 +33,6 @@ rpm -i src/RPMS/lapack-devel-3.4.2-8.el7.x86_64.rpm
 rpm -i src/RPMS/libaec-1.0.4-1.el7.x86_64.rpm
 rpm -i src/RPMS/hdf5-1.8.12-10.el7.x86_64.rpm
 rpm -i src/RPMS/hdf5-devel-1.8.12-10.el7.x86_64.rpm
-
-# for postgis
-rpm -i src/RPMS/proj-4.8.0-4.el7.x86_64.rpm
 
 # install proj, tiff, geos for gdal
 cd src/proj
@@ -66,17 +63,35 @@ install lifemapper-geos
 /sbin/ldconfig
 
 # need for modules
+cd src/gdal
+make prep
+cd ../..
 module load opt-python
 compile gdal
 module unload opt-python
 install lifemapper-gdal
 /sbin/ldconfig
 
-# scipy for pysal
+# cython > 0.23.4 for scipy 
+cd src/cython
+make prep
+cd ../..
+module load opt-python
+compile cython
+module unload opt-python
+install opt-lifemapper-cython
+
+# scipy 
+cd src/scipy
+make prep
+cd ../..
 module load opt-python
 compile scipy
 module unload opt-python
 install opt-lifemapper-scipy
+
+# Leave with opt-python loaded
+module load opt-python
 
 echo "You will need to download source code, data and dependencies."
 echo "    lmcompute"

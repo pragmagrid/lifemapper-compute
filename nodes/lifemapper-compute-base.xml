@@ -18,36 +18,40 @@
 	$Log$
 	</changelog>
 
-	<package>lifemapper-cctools</package>
-	<package>lifemapper-proj</package>
-	<package>lifemapper-geos</package>
-	<package>lifemapper-gdal</package>
-	<package>lifemapper-tiff</package>
-	<package>lifemapper-openmodeller</package>
-	<package>lifemapper-lmcompute</package>
-	<package>lifemapper-spatialindex</package>
-
+	<!-- gdal and scipy prerequisites -->
 	<package>blas</package>
 	<package>blas-devel</package>
 	<package>atlas</package>
 	<package>atlas-devel</package>
 	<package>lapack</package>
 	<package>lapack-devel</package>
+	<package>libaec</package>
+	<package>libaec-devel</package>
 	<package>hdf5</package>
 	<package>hdf5-devel</package>
 
-	<!-- python prerequisites -->
-	<package>opt-lifemapper-pysal</package>
-	<package>opt-lifemapper-scipy</package>
-	<package>opt-lifemapper-egenix-mx-base</package>
-	<package>opt-lifemapper-dateutil</package>
-	<package>opt-lifemapper-pyparsing</package>
-	<package>opt-lifemapper-matplotlib</package>
-	<package>opt-lifemapper-futures</package>
-	<package>opt-lifemapper-requests</package>
-	<package>opt-lifemapper-dendropy</package>
+	<!-- lifemapper dependency rpms -->
+	<package>python2-futures</package>
 
+	<!-- lifemapper dependencies built from source -->
+	<package>lifemapper-cctools</package>
+	<package>lifemapper-proj</package>
+	<package>lifemapper-gdal</package>
+	<package>lifemapper-geos</package>
+	<package>lifemapper-lmcompute</package>
+	<package>lifemapper-openmodeller</package>
+	<package>lifemapper-proj</package>
 	<package>rocks-lmcompute</package>
+	<package>lifemapper-tiff</package>
+
+	<!-- python prerequisites -->
+	<package>opt-lifemapper-cython</package>
+	<package>opt-lifemapper-dendropy</package>
+	<package>opt-lifemapper-egenix-mx-base</package>
+	<!-- <package>opt-lifemapper-pyparsing</package> -->
+	<package>opt-lifemapper-requests</package>
+	<package>opt-lifemapper-scipy</package>
+
 <post>
 
 /sbin/ldconfig
