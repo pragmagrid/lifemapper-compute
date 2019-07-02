@@ -35,7 +35,6 @@
 
 	<!-- lifemapper dependencies built from source -->
 	<package>lifemapper-cctools</package>
-	<package>lifemapper-proj</package>
 	<package>lifemapper-gdal</package>
 	<package>lifemapper-geos</package>
 	<package>lifemapper-lmcompute</package>
