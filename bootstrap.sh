@@ -8,6 +8,9 @@
 # Do once for roll repo
 #(cd src/RPMS; 
 
+#yumdownloader --resolve --enablerepo base gsl.x86_64
+#yumdownloader --resolve --enablerepo base gsl-devel.x86_64
+#
 #yumdownloader --resolve --enablerepo base atlas.x86_64 atlas-devel.x86_64
 #yumdownloader --resolve --enablerepo base blas.x86_64 blas-devel.x86_64
 #yumdownloader --resolve --enablerepo base lapack.x86_64 lapack-devel.x86_64
@@ -33,6 +36,10 @@ rpm -i src/RPMS/lapack-devel-3.4.2-8.el7.x86_64.rpm
 rpm -i src/RPMS/libaec-1.0.4-1.el7.x86_64.rpm
 rpm -i src/RPMS/hdf5-1.8.12-10.el7.x86_64.rpm
 rpm -i src/RPMS/hdf5-devel-1.8.12-10.el7.x86_64.rpm
+
+# for openmodeller
+rpm -i src/RPMS/gsl-1.15-13.el7.x86_64.rpm
+rpm -i src/RPMS/gsl-devel-1.15-13.el7.x86_64.rpm
 
 # install proj, tiff, geos for gdal
 cd src/proj

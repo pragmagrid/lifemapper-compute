@@ -82,4 +82,4 @@ install::
 	)
 
 clean::
-	rm -rf $(NAME_SRC)-$(VERSION)
+	rm -rf $(NAME_SRC)-$(VERSION) version.mk
