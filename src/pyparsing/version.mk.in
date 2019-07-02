@@ -1,6 +1,0 @@
-NAME = opt-lifemapper-pyparsing
-ARCHIVENAME = pyparsing
-VERSION = 2.0.2
-RELEASE = 0
-
-RPM.FILES   = /opt/python/lib/$(PYTHONVER)/site-packages/*
