@@ -29,6 +29,9 @@
 	<package>libaec-devel</package>
 	<package>hdf5</package>
 	<package>hdf5-devel</package>
+	<!-- for openmodeller -->
+	<package>gsl</package>
+	<package>gsl-devel</package>
 
 	<!-- lifemapper dependency rpms -->
 	<package>python2-futures</package>
