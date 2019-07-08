@@ -32,6 +32,7 @@ rpm -i src/RPMS/lapack-devel-3.4.2-8.el7.x86_64.rpm
 
 # for gdal
 rpm -i src/RPMS/libaec-1.0.4-1.el7.x86_64.rpm
+rpm -i src/RPMS/libaec-devel-1.0.4-1.el7.x86_64.rpm
 rpm -i src/RPMS/hdf5-1.8.12-10.el7.x86_64.rpm
 rpm -i src/RPMS/hdf5-devel-1.8.12-10.el7.x86_64.rpm
 

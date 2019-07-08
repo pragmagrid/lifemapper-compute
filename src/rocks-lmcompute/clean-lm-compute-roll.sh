@@ -23,9 +23,6 @@ set_defaults() {
 
 del-lifemapper-shared() {
    echo "Removing shared geos, proj, tiff, and gdal dependencies RPMS" >> $LOG
-   $RM atlas atlas-devel
-   $RM blas blas-devel
-   $RM lapack lapack-devel
    $RM libaec libaec-devel
    $RM hdf5 hdf5-devel
    
@@ -68,12 +65,17 @@ del-shared-user-group () {
 }
 
 del-lifemapper() {
-   echo "Removing lifemapper-*, opt-lifemapper-*, and prerequisite RPMS" >> $LOG
+   echo "Removing lifemapper prerequisite RPMS" >> $LOG
+   $RM atlas atlas-devel
+   $RM blas blas-devel
+   $RM lapack lapack-devel
+   echo "Removing lifemapper-*, opt-lifemapper-* RPMS" >> $LOG
    $RM lifemapper-lmcompute
    $RM lifemapper-openmodeller
    $RM opt-lifemapper-scipy
    $RM rocks-lmcompute
    $RM roll-lifemapper-usersguide
+   $RM roll-lifemapper-compute-kickstart
 }
 
 del-node-directories () {

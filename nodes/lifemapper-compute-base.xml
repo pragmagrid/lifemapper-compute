@@ -18,18 +18,19 @@
 	$Log$
 	</changelog>
 
-	<!-- gdal and scipy prerequisites -->
+	<!-- gdal prerequisites -->
+	<package>libaec</package>
+	<package>libaec-devel</package>
+	<package>hdf5</package>
+	<package>hdf5-devel</package>
+	<!-- scipy prerequisites -->
 	<package>blas</package>
 	<package>blas-devel</package>
 	<package>atlas</package>
 	<package>atlas-devel</package>
 	<package>lapack</package>
 	<package>lapack-devel</package>
-	<package>libaec</package>
-	<package>libaec-devel</package>
-	<package>hdf5</package>
-	<package>hdf5-devel</package>
-	<!-- for openmodeller -->
+	<!-- openmodeller prerequisites -->
 	<package>gsl</package>
 	<package>gsl-devel</package>
 
