@@ -60,6 +60,15 @@ REDHAT.ROOT = $(CURDIR)/../../
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
 
+PY.PATH = /opt/python/bin/$(PYTHONVER)
+
+COMPILERLIB = /usr/lib64
+COMMENTMKL =
+CPPCOMP = g++
+COMPILE_FLAGS = -O2 -shared -fPIC
+SETUPOPTS = --compiler=unix --fcompiler=gnu95
+
+
 SEDSPEC += \
         -e 's%@ARCHIVENAME@%$(ARCHIVENAME)%g'  \
         -e 's%@VERSION@%$(VERSION)%g'  \
@@ -78,17 +87,18 @@ prep: prepSrc.sh
 version.mk:
 	cat ../version.mk version.mk.in > version.mk
 
-PY.PATH = /opt/python/bin/$(PYTHONVER)
-
-
-COMPILERLIB = /usr/lib64
-
 build: 
+    make version.mk
 	tar zxf $(ARCHIVENAME)-$(VERSION).tar.gz
+	/bin/cp patch-files/site.cfg $(SOURCE)
 	(\
 	    cd $(ARCHIVENAME)-$(VERSION);   \
-	    $(PY.PATH) setup.py config; \
-	    $(PY.PATH) setup.py build; \
+	    $(PY.PATH) setup.py config \
+	        --noisy $(SETUPOPTS) \
+			build_clib  -g $(SETUPOPTS) \
+			build_ext $(SETUPOPTS); \
+// 	    $(PY.PATH) setup.py config; \
+// 	    $(PY.PATH) setup.py build; \
 	)
 
 install::
