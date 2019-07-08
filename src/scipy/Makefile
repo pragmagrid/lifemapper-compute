@@ -90,21 +90,23 @@ version.mk:
 build: 
     make version.mk
 	tar zxf $(ARCHIVENAME)-$(VERSION).tar.gz
-	/bin/cp patch-files/site.cfg $(SOURCE)
+	/bin/cp patch-files/site.cfg $(ARCHIVENAME)-$(VERSION)
 	(\
+		module load opt-python;			\
 	    cd $(ARCHIVENAME)-$(VERSION);   \
 	    $(PY.PATH) setup.py config \
 	        --noisy $(SETUPOPTS) \
 			build_clib  -g $(SETUPOPTS) \
 			build_ext $(SETUPOPTS); \
-// 	    $(PY.PATH) setup.py config; \
-// 	    $(PY.PATH) setup.py build; \
+		module unload opt-python;			\
 	)
 
 install::
 	(\
+		module load opt-python;			\
 	    cd $(ARCHIVENAME)-$(VERSION);   \
 	    $(PY.PATH) setup.py $@ --root=$(ROOT)/; \
+		module unload opt-python;			\
 	)
 
 clean::
