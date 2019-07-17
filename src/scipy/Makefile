@@ -87,8 +87,7 @@ prep: prepSrc.sh
 version.mk:
 	cat ../version.mk version.mk.in > version.mk
 
-build: 
-    make version.mk
+build: version.mk
 	tar zxf $(ARCHIVENAME)-$(VERSION).tar.gz
 	/bin/cp patch-files/site.cfg $(ARCHIVENAME)-$(VERSION)
 	(\
