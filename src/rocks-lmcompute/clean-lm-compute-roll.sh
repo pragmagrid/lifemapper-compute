@@ -110,6 +110,7 @@ del-roll () {
     echo "Removing roll lifemapper-compute"
     /opt/rocks/bin/rocks remove roll lifemapper-compute
     echo "Rebuilding the distro"
+    module unload opt-python
     (cd /export/rocks/install; rocks create distro; yum clean all)
     echo
 }
@@ -129,17 +130,18 @@ check_lm_processes
 set_defaults
 TimeStamp "# Start"
 
+del-lifemapper
+del-node-directories
+del-user-group
+del-cron-jobs
+del-automount-entry
+
 if [ $LMROLL_COUNT = 1 ]; then
 	del-lifemapper-shared
 	del-shared-directories
 	del-shared-user-group
 fi
 
-del-lifemapper
-del-node-directories
-del-user-group
-del-cron-jobs
-del-automount-entry
 del-roll
 
 TimeStamp "# End"
