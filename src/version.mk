@@ -18,7 +18,7 @@ PGSQLVER		= 9.1
 UNIXSOCKET		= /var/run/postgresql
 SMTPSERVER		= localhost
 SMTPSENDER		= no-reply-lifemapper@@PUBLIC_FQDN@
-JAVABIN			= /usr/java/latest/bin/java
+JAVABIN			= /etc/alternatives/java
 
 # This variable matches SCENARIO_PACKAGE in the lifemapper-server roll
 SCENARIO_PACKAGE	= 10min-past-present-future
