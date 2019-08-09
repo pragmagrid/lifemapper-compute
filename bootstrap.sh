@@ -20,7 +20,9 @@
 echo "/opt/lifemapper/lib" > /etc/ld.so.conf.d/lifemapper.conf
 /sbin/ldconfig
 
+# No opt-python for yum
 module unload opt-python
+yum install cmake
 
 # for scipy
 rpm -i src/RPMS/blas-3.4.2-8.el7.x86_64.rpm
