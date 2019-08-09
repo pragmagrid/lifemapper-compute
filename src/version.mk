@@ -14,7 +14,7 @@ INPUT_LAYER_DB		= layers.db
 PYTHONVER		= python2.7
 PYTHON27		= /opt/python/bin/$(PYTHONVER)
 PYTHON27_PACKAGES	= /opt/python/lib/$(PYTHONVER)/site-packages
-PGSQLVER		= 9.1
+PGSQLVER		= 9.6
 UNIXSOCKET		= /var/run/postgresql
 SMTPSERVER		= localhost
 SMTPSENDER		= no-reply-lifemapper@@PUBLIC_FQDN@
@@ -28,4 +28,4 @@ JOB_SUBMITTER_TYPE	= cluster
 JOB_CAPACITY		= 20
 
 # Code version
-CODEVERSION		= 3.2.4
+CODEVERSION		= 3.2.5
