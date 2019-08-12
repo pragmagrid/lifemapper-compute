@@ -85,7 +85,8 @@ fix_file_permissions () {
 
 ### Create ASCII and MXE layers from TIFFs
 transform_layers () {
-    if [ -f $TRANSFORMPY ] ; then        
+    if [ -f $TRANSFORMPY ] ; then
+    	module load opt-python
         echo "Convert layers for $SCEN_PKG to ascii and mxe ..." | tee -a $LOG
         $PYBIN $TRANSFORMPY $NEW_CLIMATE_DIR 2>&1 | tee -a $LOG
     else
