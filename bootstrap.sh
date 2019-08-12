@@ -25,6 +25,8 @@ echo "/opt/lifemapper/lib" > /etc/ld.so.conf.d/lifemapper.conf
 # No opt-python for yum
 module unload opt-python
 yum install src/RPMS/screen-4.1.0-0.25.20120314git3c2946.el7.x86_64.rpm
+module unload opt-python
+yum install cmake
 
 # for scipy
 rpm -i src/RPMS/blas-3.4.2-8.el7.x86_64.rpm
