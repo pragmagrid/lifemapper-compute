@@ -39,6 +39,10 @@ del-lifemapper-shared() {
    $RM opt-lifemapper-cython
    $RM opt-lifemapper-dendropy
    $RM opt-lifemapper-egenix-mx-base
+   $RM opt-lifemapper-chardet
+   $RM opt-lifemapper-certifi
+   $RM opt-lifemapper-idna
+   $RM opt-lifemapper-urllib3
    $RM opt-lifemapper-requests
 }
 

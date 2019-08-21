@@ -51,8 +51,14 @@
 	<package>opt-lifemapper-cython</package>
 	<package>opt-lifemapper-dendropy</package>
 	<package>opt-lifemapper-egenix-mx-base</package>
-	<package>opt-lifemapper-requests</package>
 	<package>opt-lifemapper-scipy</package>
+	<!-- # for requests -->
+	<!-- <package>python-ipaddress</package> -->
+	<package>opt-lifemapper-certifi</package>
+	<package>opt-lifemapper-chardet</package>
+	<package>opt-lifemapper-idna</package>
+	<package>opt-lifemapper-urllib3</package>
+	<package>opt-lifemapper-requests</package>
 
 <post>
 

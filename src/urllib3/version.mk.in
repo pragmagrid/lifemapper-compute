@@ -1,0 +1,9 @@
+NAME            = opt-lifemapper-urllib3
+VERSION         = 1.25.3
+ARCHIVENAME     = urllib3
+RELEASE         = 0
+TARBALL_POSTFIX = tar.gz
+
+RPM.EXTRAS = "AutoReq: no"
+
+RPM.FILES =    $(PYTHON27_PACKAGES)/*

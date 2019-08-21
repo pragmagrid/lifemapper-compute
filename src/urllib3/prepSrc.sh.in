@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Purpose: Fetch python-urllib3 source
+SRC_URL=https://files.pythonhosted.org/packages/4c/13/2386233f7ee40aa8444b47f7463338f3cbdf00c316627558784e3f542f07
+SRC_PKG=@ARCHIVENAME@-@VERSION@.@TARBALL_POSTFIX@
+
+get_source_files () {
+  echo "Fetch @ARCHIVENAME@ source code"
+  wget "$SRC_URL/$SRC_PKG"
+}
+
+### main ###
+get_source_files
