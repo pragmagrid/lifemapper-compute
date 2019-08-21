@@ -28,4 +28,4 @@ JOB_SUBMITTER_TYPE	= cluster
 JOB_CAPACITY		= 20
 
 # Code version
-CODEVERSION		= 3.2.5
+CODEVERSION		= 3.2.7
