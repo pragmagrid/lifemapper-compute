@@ -6,7 +6,8 @@
 #    group lmwriter
 
 RM="rpm -evl --quiet --nodeps"
-LMROLL_COUNT=`rocks list roll | grep lifemapper | wc -l`
+ROCKS_CMD=/opt/rocks/bin/rocks
+LMROLL_COUNT=`$ROCKS_CMD list roll | grep lifemapper | wc -l`
 LMUSER_COUNT=`/bin/egrep -i "^lmwriter" /etc/passwd | wc -l`
 
 TimeStamp () {
@@ -18,6 +19,7 @@ set_defaults() {
     LOG=/tmp/$THISNAME.log
     rm -f $LOG
     touch $LOG
+    ROCKS_CMD=$ROCKS_CMD
 }
 
 
@@ -31,6 +33,7 @@ del-lifemapper-shared() {
    $RM lifemapper-gdal
    $RM lifemapper-geos
    $RM lifemapper-proj
+   $RM lifemapper-tiff
    
    echo "Removing SHARED data RPMS" >> $LOG
    $RM lifemapper-env-data
@@ -64,7 +67,7 @@ del-shared-user-group () {
        /bin/rm -f /var/spool/mail/lmwriter
        /bin/rm -rf /export/home/lmwriter
        echo "Syncing users info" >> $LOG
-       rocks sync users
+       $ROCKS_CMD sync users
    fi
 }
 
@@ -84,17 +87,17 @@ del-lifemapper() {
 
 del-node-directories () {
    echo "Removing node code, data and PID directories" >> $LOG
-   rocks run host compute "rm -rf /opt/lifemapper"
-   rocks run host compute "rm -rf /state/partition1/lm"
-   rocks run host compute "rm -rf /state/partition1/lmscratch"
-   rocks run host compute "rm -rf /var/run/lifemapper"
+   $ROCKS_CMD run host compute "rm -rf /opt/lifemapper"
+   $ROCKS_CMD run host compute "rm -rf /state/partition1/lm"
+   $ROCKS_CMD run host compute "rm -rf /state/partition1/lmscratch"
+   $ROCKS_CMD run host compute "rm -rf /var/run/lifemapper"
 }
 
 # remove obsolete Lifemapper cron jobs
 del-cron-jobs () {
     # only on frontend
     name1=`hostname`
-    name2=`/opt/rocks/bin/rocks list host attr localhost | grep Kickstart_PublicHostname | awk '{print $3}'`
+    name2=`$ROCKS_CMD list host attr localhost | grep Kickstart_PublicHostname | awk '{print $3}'`
     if [ "$name1" == "$name2" ] ; then
         echo "Remove old cron jobs in /etc/cron.daily and /etc/cron.monthly on frontend ..." >> $LOG
         rm -vf  /etc/cron.hourly/lmcompute_*
@@ -112,10 +115,10 @@ del-automount-entry () {
 del-roll () {
     echo
     echo "Removing roll lifemapper-compute"
-    /opt/rocks/bin/rocks remove roll lifemapper-compute
+    $ROCKS_CMD remove roll lifemapper-compute
     echo "Rebuilding the distro"
     module unload opt-python
-    (cd /export/rocks/install; rocks create distro; yum clean all)
+    (cd /export/rocks/install; $ROCKS_CMD create distro; yum clean all)
     echo
 }
 

@@ -14,6 +14,11 @@ readLMEnvironment () {
 }
 
 updateAddress () {
+	# load opt-python
+	bash /usr/share/Modules/init/bash
+	module load opt-python
+	export PYTHONPATH=@LMHOME@
+
     @LMHOME@/rocks/bin/confSysvals 
 }
 
@@ -26,7 +31,7 @@ updatePerms () {
     fi
 }
 
-#### Main ####
+####### Main #######
 if [ $# -ne 0 ]; then
     usage
     exit 0

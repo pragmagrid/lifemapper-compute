@@ -28,16 +28,21 @@ if [ $# -ne 1 ]; then
 fi 
 
 set_defaults() {
+    SCEN_PKG=$1
+
     /bin/egrep -i "^lmwriter" /etc/passwd
     if [ $? -ne 0 ]; then
         echo "Error: user lmwriter does not exist" | tee -a $LOG
         exit 1
     fi
-    SCEN_PKG=$1
+
+	# load opt-python
+	bash /usr/share/Modules/init/bash
+	module load opt-python
+	export PYTHONPATH=@LMHOME@
 
     THISNAME=`/bin/basename $0`
     LMURL=@LMURL@
-    PYBIN=/opt/python/bin/@PYTHONVER@
     TRANSFORMPY=@LMHOME@/LmBackend/tools/convert_layers_in_package.py
     
     CLIMATE_DIR=@DATADIR_SHARED@/@ENV_DATA_DIR@
@@ -88,7 +93,7 @@ transform_layers () {
     if [ -f $TRANSFORMPY ] ; then
     	module load opt-python
         echo "Convert layers for $SCEN_PKG to ascii and mxe ..." | tee -a $LOG
-        $PYBIN $TRANSFORMPY $NEW_CLIMATE_DIR 2>&1 | tee -a $LOG
+        @PYBIN@ $TRANSFORMPY $NEW_CLIMATE_DIR 2>&1 | tee -a $LOG
     else
         echo "Error: Missing file $TRANSFORMPY" | tee -a $LOG
         exit 1
