@@ -17,7 +17,7 @@ updateAddress () {
 	# load opt-python
 	bash /usr/share/Modules/init/bash
 	module load opt-python
-	export PYTHONPATH=@LMHOME@
+	. /etc/profile.d/lmcompute.sh
 
     @LMHOME@/rocks/bin/confSysvals 
 }

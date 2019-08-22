@@ -37,10 +37,10 @@ set_defaults() {
 fix_file_permissions () {
     # This script is run by root
     echo "Change group and set write permission on node @LMSCRATCHDISK@, subdirs"   | tee -a $LOG
-    rocks run host compute "/bin/chgrp -R lmwriter @LMSCRATCHDISK@"
-    rocks run host compute "/bin/chmod -R g+ws @LMSCRATCHDISK@"
+    /opt/rocks/bin/rocks run host compute "/bin/chgrp -R lmwriter @LMSCRATCHDISK@"
+    /opt/rocks/bin/rocks run host compute "/bin/chmod -R g+ws @LMSCRATCHDISK@"
     echo "New permissions on node @LMSCRATCHDISK@"   | tee -a $LOG
-    rocks run host compute "(hostname; ls -lahtr @LMSCRATCHDISK@)"   | tee -a $LOG
+    /opt/rocks/bin/rocks run host compute "(hostname; ls -lahtr @LMSCRATCHDISK@)"   | tee -a $LOG
 }
 
 

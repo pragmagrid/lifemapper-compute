@@ -17,14 +17,21 @@ set_defaults() {
 	# load opt-python
 	bash /usr/share/Modules/init/bash
 	module load opt-python
-	export PYTHONPATH=@LMHOME@
+
+    PROF=/etc/profile.d/lmcompute.sh
+    echo "-- set environment" >> $LOG
+    if [ -f $PROF ] ; then
+	 . $PROF 
+    else
+    	echo "ERROR: file $PROF not found" 
+    	exit
+    fi
 
     THISNAME=`/bin/basename $0`
     BIN=@PKGROOT@/rocks/bin
     CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
     SITE_CONFIG_FILE=@LMHOME@/config/config.site.ini
-    PROF=/etc/profile.d/lmcompute.sh
-
+    
     # get the SCENARIO_PACKAGE value from config.site.ini or config.lmserver.ini file
     echo "Looking for climate data $SCEN_PKG"   | tee -a $LOG  
     SCEN_PKG=`grep SCENARIO_PACKAGE $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
@@ -42,6 +49,7 @@ set_defaults() {
     touch $LOG
 }
 
+
 # update permissions on config files
 updatePerms () {
     echo "-- set permissions on config files" >> $LOG
@@ -52,11 +60,13 @@ updatePerms () {
     fi
 }
 
+
 # update linker paths
 runLdconfig () {
     echo "-- run ldconfig" >> $LOG
     /sbin/ldconfig
 }
+
 
 # update config/config.lmcompute.ini
 updateConfig () {
@@ -64,22 +74,13 @@ updateConfig () {
     $BIN/updateCfg-lmcompute
 }
 
+
 # install cron jobs for daily execution
 installCronJobs () {
     echo "-- install cron jobs" >> $LOG
     $BIN/installComputeCronJobs
 }
 
-# source Lifemapper env
-setEnv () {
-    echo "-- set environment" >> $LOG
-    if [ -f $PROF ] ; then
-	 . $PROF 
-    else
-    	echo "ERROR: file $PROF not found" 
-    	exit
-    fi
-}
 
 # transform data on frontend
 transformLayers () {
@@ -98,7 +99,8 @@ TimeStamp () {
     echo $1 `/bin/date` >> $LOG
 }
 
-#### Main #####
+
+####### Main #######
 if [ $# -ne 0 ]; then
     usage
     exit 0
@@ -106,10 +108,11 @@ fi
 
 set_defaults
 TimeStamp "# Start"
-setEnv
+
 runLdconfig
 updateConfig 
 installCronJobs
 transformLayers
 updatePerms
+
 TimeStamp "# End"
