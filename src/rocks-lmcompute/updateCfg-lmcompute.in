@@ -11,14 +11,13 @@ usage ()
 readLMEnvironment () {
     # Source profile for environment
     . /etc/profile.d/lmcompute.sh
+    # load opt-python
+    source /usr/share/Modules/init/bash
+    module load opt-python
+
 }
 
 updateAddress () {
-	# load opt-python
-	bash /usr/share/Modules/init/bash
-	module load opt-python
-	. /etc/profile.d/lmcompute.sh
-
     @LMHOME@/rocks/bin/confSysvals 
 }
 

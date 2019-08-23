@@ -14,9 +14,12 @@ usage ()
 }
 
 set_defaults() {
-	# load opt-python
-	bash /usr/share/Modules/init/bash
-	module load opt-python
+    LOG=@LMSCRATCHDISK@/log/`/bin/basename $0`.log
+    rm -f $LOG
+    touch $LOG
+
+    echo "-- enable modules"  >>  $LOG
+    source /usr/share/Modules/init/bash
 
     PROF=/etc/profile.d/lmcompute.sh
     echo "-- set environment" >> $LOG
@@ -27,31 +30,34 @@ set_defaults() {
     	exit
     fi
 
-    THISNAME=`/bin/basename $0`
     BIN=@PKGROOT@/rocks/bin
     CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
     SITE_CONFIG_FILE=@LMHOME@/config/config.site.ini
     
     # get the SCENARIO_PACKAGE value from config.site.ini or config.lmserver.ini file
-    echo "Looking for climate data $SCEN_PKG"   | tee -a $LOG  
-    SCEN_PKG=`grep SCENARIO_PACKAGE $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+    echo "Find scenario package"   >> $LOG  
+    SCEN_PKG=`grep ^SCENARIO_PACKAGE $SITE_CONFIG_FILE | awk '{print $2}'`
     if [ ! "$SCEN_PKG" ] ; then 
-        SCEN_PKG=`grep SCENARIO_PACKAGE $CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+        SCEN_PKG=`grep ^SCENARIO_PACKAGE $CONFIG_FILE | awk '{print $2}'`
     fi
 
     if [ ! "$SCEN_PKG" ] ; then
         echo "SCENARIO_PACKAGE not set in $SITE_CONFIG_FILE or $CONFIG_FILE" | tee -a $LOG
         exit 1
     fi
+}
 
-    LOG=@LMSCRATCHDISK@/log/$THISNAME.log
-    rm -f $LOG
-    touch $LOG
+
+cmd_opt_python () {
+    cmd=$1
+    echo "-- $1 opt-python"  | tee -a $LOG
+    module $1 opt-python
+    @PYBIN@ --version | tee -a $LOG
 }
 
 
 # update permissions on config files
-updatePerms () {
+update_perms () {
     echo "-- set permissions on config files" >> $LOG
     GID=`grep lmwriter: /etc/group`
     if [ "$GID" != "" ] ; then
@@ -62,14 +68,14 @@ updatePerms () {
 
 
 # update linker paths
-runLdconfig () {
+run_ldconfig () {
     echo "-- run ldconfig" >> $LOG
     /sbin/ldconfig
 }
 
 
 # update config/config.lmcompute.ini
-updateConfig () {
+update_config () {
     echo "-- update machine info in config file" >> $LOG
     $BIN/updateCfg-lmcompute
 }
@@ -83,13 +89,14 @@ installCronJobs () {
 
 
 # transform data on frontend
-transformLayers () {
+transform_layers () {
     hn=`/bin/hostname`
     idx=`expr index "$hn" .`
     shortname=${hn:0:idx-1}
     membership=`/opt/rocks/bin/rocks list host $shortname | grep -v MEMBERSHIP | awk '{print $1}'`
     if [ $membership = Frontend ]; then
        echo "-- transform environmental layers (FE only)" >> $LOG
+       cmd_opt_python load
        $BIN/transformData $SCEN_PKG
     fi
 }
@@ -109,10 +116,10 @@ fi
 set_defaults
 TimeStamp "# Start"
 
-runLdconfig
-updateConfig 
-installCronJobs
-transformLayers
-updatePerms
+run_ldconfig
+update_config 
+install_cron_jobs
+transform_layers
+update_perms
 
 TimeStamp "# End"

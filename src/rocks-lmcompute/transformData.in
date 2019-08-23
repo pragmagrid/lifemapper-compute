@@ -36,20 +36,19 @@ set_defaults() {
         exit 1
     fi
 
-	# load opt-python
-	bash /usr/share/Modules/init/bash
+    LOG=@LMSCRATCHDISK@/log/`/bin/basename $0`.log
+    touch $LOG
+
+    echo "-- load opt-python and environment"  | tee -a $LOG
+    source /usr/share/Modules/init/bash
 	module load opt-python
 	. /etc/profile.d/lmcompute.sh
 
-    THISNAME=`/bin/basename $0`
     LMURL=@LMURL@
     TRANSFORMPY=@LMHOME@/LmBackend/tools/convert_layers_in_package.py
     
     CLIMATE_DIR=@DATADIR_SHARED@/@ENV_DATA_DIR@
     NEW_CLIMATE_DIR=$CLIMATE_DIR/$SCEN_PKG
-
-    LOG=@LMSCRATCHDISK@/log/$THISNAME.log
-    touch $LOG
 }
 
 ### Retrieve climate data named in SCENARIO_PACKAGE **iff** metadata not present
@@ -68,20 +67,11 @@ get_climate_data () {
             echo "Failed to retrieve $SCEN_PKG ..." | tee -a $LOG
         fi
     fi
-
-#     # find top directory from tar listing
-#     if [ -f $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ ] ; then
-#         TOPDIR=`tar tvf $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ | grep "^d" | awk '{print $6}' | sed -n '1 p'`
-#         NEW_CLIMATE_DIR=$CLIMATE_DIR/${TOPDIR%?}
-#     else
-#         NEW_CLIMATE_DIR=$CLIMATE_DIR
-#     fi
 }
 
 ### Make lmwriter-group writeable
 fix_file_permissions () {
-    # This script is run by root, so set group write permission on parent dir
-    # (do not know top SCEN_PKG dir name)
+    # This script is run by root, so set group write permission on new scen dir
     echo "Change group and set write permission on $CLIMATE_DIR, subdirs"   | tee -a $LOG
     /bin/chgrp -R lmwriter $NEW_CLIMATE_DIR
     /bin/chmod -R g+ws $NEW_CLIMATE_DIR
