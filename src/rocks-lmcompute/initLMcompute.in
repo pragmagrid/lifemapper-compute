@@ -26,7 +26,7 @@ set_defaults() {
     if [ -f $PROF ] ; then
 	 . $PROF 
     else
-    	echo "ERROR: file $PROF not found" 
+    	echo "ERROR: file $PROF not found" >> $LOG 
     	exit
     fi
 
@@ -42,7 +42,7 @@ set_defaults() {
     fi
 
     if [ ! "$SCEN_PKG" ] ; then
-        echo "SCENARIO_PACKAGE not set in $SITE_CONFIG_FILE or $CONFIG_FILE" | tee -a $LOG
+        echo "SCENARIO_PACKAGE not set in $SITE_CONFIG_FILE or $CONFIG_FILE" >> $LOG
         exit 1
     fi
 }
@@ -50,9 +50,9 @@ set_defaults() {
 
 cmd_opt_python () {
     cmd=$1
-    echo "-- $1 opt-python"  | tee -a $LOG
+    echo "-- $1 opt-python" >> $LOG
     module $1 opt-python
-    @PYBIN@ --version | tee -a $LOG
+    @PYBIN@ --version >> $LOG
 }
 
 
