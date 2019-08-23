@@ -15,8 +15,7 @@ TimeStamp () {
 }
 
 set_defaults() {
-    THISNAME=`/bin/basename $0`
-    LOG=/tmp/$THISNAME.log
+    LOG=/tmp/`/bin/basename $0`.log
     rm -f $LOG
     touch $LOG
     ROCKS_CMD=$ROCKS_CMD

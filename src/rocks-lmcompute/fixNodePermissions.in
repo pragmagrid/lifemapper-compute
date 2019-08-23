@@ -27,20 +27,24 @@ set_defaults() {
         echo "Error: user lmwriter does not exist" | tee -a $LOG
         exit 1
     fi
+
+    RKS_CMD=/opt/rocks/bin/rocks
    
-    THISNAME=`/bin/basename $0`
-    LOG=@LMSCRATCHDISK@/log/$THISNAME.log
+    LOG=@LMSCRATCHDISK@/log/`/bin/basename $0`.log
+    rm -f $LOG
     touch $LOG
 }
 
 ### Make lmwriter-group writeable
 fix_file_permissions () {
+    
     # This script is run by root
     echo "Change group and set write permission on node @LMSCRATCHDISK@, subdirs"   | tee -a $LOG
-    /opt/rocks/bin/rocks run host compute "/bin/chgrp -R lmwriter @LMSCRATCHDISK@"
-    /opt/rocks/bin/rocks run host compute "/bin/chmod -R g+ws @LMSCRATCHDISK@"
+    $RKS_CMD run host compute "/bin/chgrp -R lmwriter @LMSCRATCHDISK@"
+    $RKS_CMD run host compute "/bin/chmod -R g+ws @LMSCRATCHDISK@"
+    
     echo "New permissions on node @LMSCRATCHDISK@"   | tee -a $LOG
-    /opt/rocks/bin/rocks run host compute "(hostname; ls -lahtr @LMSCRATCHDISK@)"   | tee -a $LOG
+    $RKS_CMD run host compute "(hostname; ls -lahtr @LMSCRATCHDISK@)"   | tee -a $LOG
 }
 
 

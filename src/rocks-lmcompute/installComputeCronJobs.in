@@ -12,10 +12,9 @@ usage ()
 
 ### define varibles
 setDefaults () {
-    THISNAME=`/bin/basename $0`
     CRON_DAILY_PATH=/etc/cron.daily/
     CRON_MONTHLY_PATH=/etc/cron.monthly/
-    LOG=@LMSCRATCHDISK@/log/$THISNAME.log
+    LOG=@LMSCRATCHDISK@/log/`/bin/basename $0`.log
     rm -f $LOG
     touch $LOG
 }
