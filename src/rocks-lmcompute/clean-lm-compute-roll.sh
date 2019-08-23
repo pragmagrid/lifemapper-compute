@@ -18,7 +18,9 @@ set_defaults() {
     LOG=/tmp/`/bin/basename $0`.log
     rm -f $LOG
     touch $LOG
-    ROCKS_CMD=$ROCKS_CMD
+    
+    echo "-- enable modules"  | tee -a $LOG
+    source /usr/share/Modules/init/bash
 }
 
 
