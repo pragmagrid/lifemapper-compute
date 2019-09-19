@@ -82,7 +82,7 @@ update_config () {
 
 
 # install cron jobs for daily execution
-installCronJobs () {
+install_cron_jobs () {
     echo "-- install cron jobs" >> $LOG
     $BIN/installComputeCronJobs
 }

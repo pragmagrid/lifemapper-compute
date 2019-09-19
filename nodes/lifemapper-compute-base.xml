@@ -34,7 +34,8 @@
 	<package>gsl</package>
 	<package>gsl-devel</package>
 
-	<!-- lifemapper dependency rpms -->
+	<!-- On roll build, this RPM is incorrectly left out.  Copy the 
+	     file from src/RPMS to RPMS/noarch to include in roll.  -->
 	<package>python2-futures</package>
 
 	<!-- lifemapper dependencies built from source -->

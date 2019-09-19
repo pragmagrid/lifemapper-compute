@@ -38,9 +38,14 @@ removeOldTasks () {
 # install cron jobs
 installDailyTasks () {
     # install only on frontend, no need for compute nodes
+    
+    # hostname = FQDN
     name1=`hostname`
+    # Kickstart_PublicHostname = shortname
     name2=`/opt/rocks/bin/rocks list host attr localhost | grep Kickstart_PublicHostname | awk '{print $3}'`
-    if [[ $name2 = *$name2* ] ; then
+    
+    # Equivalent test: $name1 =~ $name2
+    if [[ $name1 == *"$name2"* ]] ; then
         install @LMHOME@/rocks/etc/lmcompute_aggregate_logs  ${CRON_DAILY_PATH}
         install @LMHOME@/rocks/etc/lmcompute_cleanup_jobs  ${CRON_DAILY_PATH}
         install @LMHOME@/rocks/etc/lmcompute_free_memory  ${CRON_DAILY_PATH}
