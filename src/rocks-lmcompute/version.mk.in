@@ -1,5 +1,5 @@
 NAME    = rocks-lmcompute
-VERSION = $(CODEVERSION)
+VERSION = $(LMCODE_VERSION)
 RELEASE = 2
 
 TARBALL_POSTFIX   = tar.gz
