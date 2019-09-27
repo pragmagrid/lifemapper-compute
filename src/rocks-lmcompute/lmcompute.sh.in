@@ -3,8 +3,6 @@
 PYBIN=/opt/python/bin
 export PYTHON=$PYBIN/@PYTHONVER@
 export NODE_PYTHON=$PYBIN/@PYTHONVER@
-
-source /usr/share/Modules/init/bash
 module load opt-python
 
 export LIFEMAPPER_COMPUTE_CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini

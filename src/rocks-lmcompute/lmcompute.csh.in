@@ -3,6 +3,7 @@
 PYBIN=/opt/python/bin
 setenv PYTHON=$PYBIN/@PYTHONVER@
 setenv NODE_PYTHON=$PYBIN/@PYTHONVER@
+module load opt-python
 
 setenv LIFEMAPPER_COMPUTE_CONFIG_FILE @LMHOME@/config/config.lmcompute.ini
 setenv LIFEMAPPER_SITE_CONFIG_FILE @LMHOME@/config/config.site.ini
