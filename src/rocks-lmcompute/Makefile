@@ -111,7 +111,6 @@ install::
 
 	mkdir -p $(ROOT)/etc/profile.d
 	install -m 755 $(PROFILES) $(ROOT)/etc/profile.d
-	. $(ROOT)/etc/profile.d/lmcompute.sh
 
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 $(PROGS) $(ROOT)/$(PKGROOT)/rocks/bin

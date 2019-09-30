@@ -4,8 +4,6 @@ PYBIN=/opt/python/bin
 export PYTHON=$PYBIN/@PYTHONVER@
 export NODE_PYTHON=$PYBIN/@PYTHONVER@
 
-# TODO: put a conditional around this module initialization script
-# Load modules needed for bash init, but fails in rpm build
 source /usr/share/Modules/init/bash
 module load opt-python
 

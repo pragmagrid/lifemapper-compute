@@ -77,6 +77,7 @@ del-lifemapper() {
    $RM atlas atlas-devel
    $RM blas blas-devel
    $RM lapack lapack-devel
+   $RM gsl gsl-devel
    echo "Removing lifemapper-*, opt-lifemapper-* RPMS" >> $LOG
    $RM lifemapper-lmcompute
    $RM lifemapper-openmodeller
@@ -140,7 +141,6 @@ TimeStamp "# Start"
 
 del-lifemapper
 del-node-directories
-del-user-group
 del-cron-jobs
 del-automount-entry
 
