@@ -32,9 +32,10 @@ else
     # adding lmwriter user, group already exists
     /usr/sbin/useradd -c "Lifemapper user" -g lmwriter lmwriter
 fi
-/etc/init.d/autofs restart
+
+/usr/bin/systemctl restart autofs.service
 /opt/rocks/bin/rocks sync users
-/opt/rocks/bin/rocks run host compute "service autofs restart"
+/opt/rocks/bin/rocks run host compute "/usr/bin/systemctl restart autofs.service"
 
 # FE directory NOT exported to /share
 /bin/mkdir -p /state/partition1/lmscratch/run
@@ -65,10 +66,6 @@ done
 <file name="/etc/auto.share" mode="append">
 lm &Kickstart_PrivateHostname;:/export/&amp;
 </file>
-
-# /etc/init.d/autofs restart
-# /opt/rocks/bin/rocks sync users
-# /opt/rocks/bin/rocks run host compute "service autofs restart"
 
 </post>
 
