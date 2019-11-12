@@ -18,6 +18,8 @@
 	$Log$
 	</changelog>
 
+    <package>screen</package>
+
 	<package>roll-lifemapper-compute-kickstart</package>
 	<package>roll-lifemapper-usersguide</package>
 	<package>lifemapper-env-data</package>
