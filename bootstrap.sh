@@ -17,6 +17,15 @@
 #yumdownloader --resolve --enablerepo epel hdf5.x86_64 hdf5-devel.x86_64
 #yumdownloader --resolve --enablerepo epel proj.x86_64
 #
+# yumdownloader --resolve libxslt-1.1.28-5.el7.x86_64
+# yumdownloader --resolve  python-lxml-3.2.1-4.el7.x86_64 
+# yumdownloader --resolve python-javapackages-3.4.1-11.el7.noarch 
+# yumdownloader --resolve javapackages-tools-3.4.1-11.el7.noarch 
+# yumdownloader --resolve lksctp-tools-1.0.17-2.el7.x86_64 
+# yumdownloader --resolve pcsc-lite-libs-1.8.8-8.el7.x86_64 
+# yumdownloader --resolve tzdata-java-2019b-1.el7.noarch 
+# yumdownloader --resolve copy-jdk-configs-3.3-10.el7_5.noarch 
+# yumdownloader --resolve java-1.8.0-openjdk-headless-1.8.0.222.b10-0.el7_6.x86_64
 
 echo "/opt/lifemapper/lib" > /etc/ld.so.conf.d/lifemapper.conf
 /sbin/ldconfig

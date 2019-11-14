@@ -18,6 +18,17 @@
 	$Log$
 	</changelog>
 
+    <!-- java for nodes -->
+    <package>libxslt</package>
+    <package>python-lxml</package>
+    <package>python-javapackages</package>
+    <package>javapackages-tools</package>
+    <package>lksctp-tools</package>
+    <package>pcsc-lite-libs</package>
+    <package>tzdata-java</package>
+    <package>copy-jdk-configs</package>
+    <package>java-1.8.0-openjdk-headless</package>
+
 	<!-- gdal prerequisites -->
 	<package>libaec</package>
 	<package>libaec-devel</package>
