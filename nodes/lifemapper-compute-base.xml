@@ -65,6 +65,7 @@
 	<package>opt-lifemapper-egenix-mx-base</package>
 	<package>opt-lifemapper-scipy</package>
     <package>opt-lifemapper-unicodecsv</package>
+    <package>opt-lifemapper-futures</package>
 	<!-- # for requests -->
 	<!-- <package>python-ipaddress</package> -->
 	<package>opt-lifemapper-certifi</package>
