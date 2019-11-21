@@ -45,10 +45,6 @@
 	<package>gsl</package>
 	<package>gsl-devel</package>
 
-	<!-- On roll build, this RPM is incorrectly left out.  Copy the 
-	     file from src/RPMS to RPMS/noarch to include in roll.  -->
-	<package>python2-futures</package>
-
 	<!-- lifemapper dependencies built from source -->
 	<package>lifemapper-cctools</package>
 	<package>lifemapper-gdal</package>
@@ -66,6 +62,7 @@
     <package>opt-lifemapper-lmpy</package>
     <package>opt-lifemapper-scipy</package>
     <package>opt-lifemapper-unicodecsv</package>
+    <!-- python2-futures included in /usr/lib/python2.7 so build in /opt/python  -->
     <package>opt-lifemapper-futures</package>
 	<!-- # for requests -->
 	<!-- <package>python-ipaddress</package> -->
