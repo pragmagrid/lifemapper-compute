@@ -82,7 +82,7 @@ prep: prepSrc.sh
 	./prepSrc.sh
 
 build: 
-	tar xzvf $(ARCHIVENAME)-$(VERSION).tar.gz  
+	tar xzvf v$(VERSION).tar.gz  
 	(\
         cd $(ARCHIVENAME)-$(VERSION);   \
         module load opt-python;         \
