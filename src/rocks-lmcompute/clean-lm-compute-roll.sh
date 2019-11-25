@@ -45,7 +45,6 @@ del-lifemapper-shared() {
    $RM opt-lifemapper-egenix-mx-base
    $RM opt-lifemapper-chardet
    $RM opt-lifemapper-certifi
-   $RM opt-lifemapper-futures
    $RM opt-lifemapper-idna
    $RM opt-lifemapper-lmpy
    $RM opt-lifemapper-urllib3
@@ -82,6 +81,7 @@ del-lifemapper() {
    $RM gsl gsl-devel
    echo "Removing lifemapper-*, opt-lifemapper-* RPMS" >> $LOG
    $RM opt-lifemapper-biotaphy.analyses
+   $RM opt-lifemapper-futures
    $RM lifemapper-lmcompute
    $RM lifemapper-openmodeller
    $RM opt-lifemapper-scipy
