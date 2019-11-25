@@ -28,6 +28,8 @@
     <package>tzdata-java</package>
     <package>copy-jdk-configs</package>
     <package>java-1.8.0-openjdk-headless</package>
+    
+    <package>python2-subprocess32</package>
 
 	<!-- gdal prerequisites -->
 	<package>libaec</package>
