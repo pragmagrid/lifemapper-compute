@@ -89,6 +89,7 @@ SCRIPTS = \
 
 PROGS = \
 	initLMcompute \
+	clean-lm-compute-roll.sh \
 	updateCfg-lmcompute \
 	confSysvals \
 	transformData \
