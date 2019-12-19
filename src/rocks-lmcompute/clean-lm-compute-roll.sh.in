@@ -57,7 +57,7 @@ del-lifemapper-shared() {
 
 del-shared-directories() {
    echo "Removing lifemapper installation directory" >> $LOG
-   rm -rf /opt/lifemapper
+   rm -rf @LMHOME@
    echo "Removing shared lifemapper temp and data directories" >> $LOG
    rm -rf /state/partition1/lmscratch
    rm -rf /state/partition1/lm
@@ -95,7 +95,7 @@ del-lifemapper() {
 
 del-node-directories () {
    echo "Removing node code, data and PID directories" >> $LOG
-   $ROCKS_CMD run host compute "rm -rf /opt/lifemapper"
+   $ROCKS_CMD run host compute "rm -rf @LMHOME@"
    $ROCKS_CMD run host compute "rm -rf /state/partition1/lm"
    $ROCKS_CMD run host compute "rm -rf /state/partition1/lmscratch"
    $ROCKS_CMD run host compute "rm -rf /var/run/lifemapper"
