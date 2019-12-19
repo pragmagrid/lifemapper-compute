@@ -26,6 +26,9 @@ set_defaults() {
 
 del-lifemapper-shared() {
    echo "Removing shared geos, proj, tiff, and gdal dependencies RPMS" >> $LOG
+   $RM atlas atlas-devel
+   $RM blas blas-devel
+   $RM lapack lapack-devel
    $RM libaec libaec-devel
    $RM hdf5 hdf5-devel
    
@@ -40,6 +43,7 @@ del-lifemapper-shared() {
    $RM lifemapper-env-data
    
    echo "Removing SHARED opt-* RPMS" >> $LOG
+   $RM opt-lifemapper-biotaphypy
    $RM opt-lifemapper-cython
    $RM opt-lifemapper-dendropy
    $RM opt-lifemapper-egenix-mx-base
@@ -80,7 +84,6 @@ del-lifemapper() {
    $RM lapack lapack-devel
    $RM gsl gsl-devel
    echo "Removing lifemapper-*, opt-lifemapper-* RPMS" >> $LOG
-   $RM opt-lifemapper-biotaphy.analyses
    $RM opt-lifemapper-futures
    $RM lifemapper-lmcompute
    $RM lifemapper-openmodeller
