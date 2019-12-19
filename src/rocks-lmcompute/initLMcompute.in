@@ -40,7 +40,6 @@ set_defaults() {
     if [ ! "$SCEN_PKG" ] ; then 
         SCEN_PKG=`grep ^SCENARIO_PACKAGE $CONFIG_FILE | awk '{print $2}'`
     fi
-
     if [ ! "$SCEN_PKG" ] ; then
         echo "SCENARIO_PACKAGE not set in $SITE_CONFIG_FILE or $CONFIG_FILE" >> $LOG
         exit 1
