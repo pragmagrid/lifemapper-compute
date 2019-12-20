@@ -79,9 +79,6 @@ del-shared-user-group () {
 
 del-lifemapper() {
    echo "Removing lifemapper prerequisite RPMS" >> $LOG
-   $RM atlas atlas-devel
-   $RM blas blas-devel
-   $RM lapack lapack-devel
    $RM gsl gsl-devel
    echo "Removing lifemapper-*, opt-lifemapper-* RPMS" >> $LOG
    $RM opt-lifemapper-futures
