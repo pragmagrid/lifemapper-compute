@@ -61,6 +61,8 @@ REDHAT.ROOT = $(CURDIR)/../../
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
 
+version.mk:
+	cat ../version.mk version.mk.in > version.mk
 
 build:
 	gunzip -c $(NAME_SRC)-$(VERSION).$(TARBALL_POSTFIX) | $(TAR) -xf -
@@ -80,4 +82,4 @@ install::
 	)
 
 clean::
-	rm -rf $(NAME_SRC)-$(VERSION)
+	rm -rf $(NAME_SRC)-$(VERSION) version.mk

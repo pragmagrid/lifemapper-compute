@@ -8,39 +8,55 @@ usage ()
 {
     echo "Usage: $0"
     echo "This script is run during the roll install, it will:"
-    echo "     - update config/config.lmcompute.ini file with values from "
-    echo "       LMdbserver and LM_webserver attributes "
     echo "     - add [machine] section to config/config.lmcompute.ini  "
     echo "     - add maintenance scripts to /etc/cron.daily/ directory  "
     echo "   "
 }
 
 set_defaults() {
-    THISNAME=`/bin/basename $0`
+    LOG=@LMSCRATCHDISK@/log/`/bin/basename $0`.log
+    rm -f $LOG
+    touch $LOG
+
+    echo "-- enable modules"  >>  $LOG
+    source /usr/share/Modules/init/bash
+
+    PROF=/etc/profile.d/lmcompute.sh
+    echo "-- set environment" >> $LOG
+    if [ -f $PROF ] ; then
+	 . $PROF 
+    else
+    	echo "ERROR: file $PROF not found" >> $LOG 
+    	exit
+    fi
+
     BIN=@PKGROOT@/rocks/bin
     CONFIG_FILE=@LMHOME@/config/config.lmcompute.ini
     SITE_CONFIG_FILE=@LMHOME@/config/config.site.ini
-
-
+    
     # get the SCENARIO_PACKAGE value from config.site.ini or config.lmserver.ini file
-    echo "Looking for climate data $SCEN_PKG"   | tee -a $LOG  
-    SCEN_PKG=`grep SCENARIO_PACKAGE $SITE_CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+    echo "Find scenario package"   >> $LOG  
+    SCEN_PKG=`grep ^SCENARIO_PACKAGE $SITE_CONFIG_FILE | awk '{print $2}'`
     if [ ! "$SCEN_PKG" ] ; then 
-        SCEN_PKG=`grep SCENARIO_PACKAGE $CONFIG_FILE | grep -v ';' | awk '{print $2}'`
+        SCEN_PKG=`grep ^SCENARIO_PACKAGE $CONFIG_FILE | awk '{print $2}'`
     fi
-
     if [ ! "$SCEN_PKG" ] ; then
-        echo "SCENARIO_PACKAGE not set in $SITE_CONFIG_FILE or $CONFIG_FILE" | tee -a $LOG
+        echo "SCENARIO_PACKAGE not set in $SITE_CONFIG_FILE or $CONFIG_FILE" >> $LOG
         exit 1
     fi
-
-    LOG=@LMSCRATCHDISK@/log/$THISNAME.log
-    rm -f $LOG
-    touch $LOG
 }
 
+
+cmd_opt_python () {
+    cmd=$1
+    echo "-- $1 opt-python" >> $LOG
+    module $1 opt-python
+    @PYBIN@ --version >> $LOG
+}
+
+
 # update permissions on config files
-updatePerms () {
+update_perms () {
     echo "-- set permissions on config files" >> $LOG
     GID=`grep lmwriter: /etc/group`
     if [ "$GID" != "" ] ; then
@@ -49,44 +65,37 @@ updatePerms () {
     fi
 }
 
+
 # update linker paths
-runLdconfig () {
+run_ldconfig () {
     echo "-- run ldconfig" >> $LOG
     /sbin/ldconfig
 }
 
+
 # update config/config.lmcompute.ini
-updateConfig () {
-    echo "-- update IP in config file" >> $LOG
-    $BIN/updateIP-lmcompute
+update_config () {
+    echo "-- update machine info in config file" >> $LOG
+    $BIN/updateCfg-lmcompute
 }
 
+
 # install cron jobs for daily execution
-installCronJobs () {
+install_cron_jobs () {
     echo "-- install cron jobs" >> $LOG
     $BIN/installComputeCronJobs
 }
 
-# source Lifemapper env
-setEnv () {
-    echo "-- set environment" >> $LOG
-    PROF=/etc/profile.d/lmcompute.sh
-    if [ -f $PROF ] ; then
-	 . $PROF 
-    else
-    	echo "ERROR: file $PROF not found" 
-    	exit
-    fi
-}
 
 # transform data on frontend
-transformLayers () {
+transform_layers () {
     hn=`/bin/hostname`
     idx=`expr index "$hn" .`
     shortname=${hn:0:idx-1}
     membership=`/opt/rocks/bin/rocks list host $shortname | grep -v MEMBERSHIP | awk '{print $1}'`
     if [ $membership = Frontend ]; then
        echo "-- transform environmental layers (FE only)" >> $LOG
+       cmd_opt_python load
        $BIN/transformData $SCEN_PKG
     fi
 }
@@ -96,7 +105,8 @@ TimeStamp () {
     echo $1 `/bin/date` >> $LOG
 }
 
-#### Main #####
+
+####### Main #######
 if [ $# -ne 0 ]; then
     usage
     exit 0
@@ -104,10 +114,11 @@ fi
 
 set_defaults
 TimeStamp "# Start"
-setEnv
-runLdconfig
-updateConfig 
-installCronJobs
-transformLayers
-updatePerms
+
+run_ldconfig
+update_config 
+install_cron_jobs
+transform_layers
+update_perms
+
 TimeStamp "# End"

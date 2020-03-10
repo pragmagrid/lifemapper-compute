@@ -29,7 +29,7 @@ if [ -f $infile ]; then
     fi
     
     echo $MLINE >> /etc/auto.share
-    /etc/init.d/autofs restart
+    systemctl restart autofs
     for l in $layers; do
         if [ -d /share/$MPOINT/$l ]; then
             ln -s  /share/$MPOINT/$l $basedir/$l
@@ -39,7 +39,7 @@ if [ -f $infile ]; then
     done
 
     /opt/rocks/bin/rocks sync users
-    /opt/rocks/bin/rocks run host compute "service autofs restart"
+    /opt/rocks/bin/rocks run host compute "systemctl restart autofs"
 
 else
     echo "ERROR: File $infile does not exist"

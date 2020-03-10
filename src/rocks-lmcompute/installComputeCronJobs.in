@@ -12,10 +12,9 @@ usage ()
 
 ### define varibles
 setDefaults () {
-    THISNAME=`/bin/basename $0`
     CRON_DAILY_PATH=/etc/cron.daily/
     CRON_MONTHLY_PATH=/etc/cron.monthly/
-    LOG=@LMSCRATCHDISK@/log/$THISNAME.log
+    LOG=@LMSCRATCHDISK@/log/`/bin/basename $0`.log
     rm -f $LOG
     touch $LOG
 }
@@ -29,9 +28,7 @@ removeOldTasks () {
     # only on frontend
     name1=`hostname`
     name2=`/opt/rocks/bin/rocks list host attr localhost | grep Kickstart_PublicHostname | awk '{print $3}'`
-    if [ "$name1" == "$name2" ] ; then
-        rm -vf  ${CRON_DAILY_PATH}/lm_*
-        rm -vf  ${CRON_MONTHLY_PATH}/lm_*
+    if [[ $name2 = *$name1* ]] ; then
         rm -vf  ${CRON_DAILY_PATH}/lmcompute_*
         rm -vf  ${CRON_MONTHLY_PATH}/lmcompute_*
         echo "Removed old tasks in ${CRON_DAILY_PATH} and ${CRON_MONTHLY_PATH} on frontend ..." | tee -a $LOG
@@ -41,9 +38,14 @@ removeOldTasks () {
 # install cron jobs
 installDailyTasks () {
     # install only on frontend, no need for compute nodes
+    
+    # hostname = FQDN
     name1=`hostname`
+    # Kickstart_PublicHostname = shortname
     name2=`/opt/rocks/bin/rocks list host attr localhost | grep Kickstart_PublicHostname | awk '{print $3}'`
-    if [ "$name1" == "$name2" ] ; then
+    
+    # Equivalent test: $name1 =~ $name2
+    if [[ $name1 == *"$name2"* ]] ; then
         install @LMHOME@/rocks/etc/lmcompute_aggregate_logs  ${CRON_DAILY_PATH}
         install @LMHOME@/rocks/etc/lmcompute_cleanup_jobs  ${CRON_DAILY_PATH}
         install @LMHOME@/rocks/etc/lmcompute_free_memory  ${CRON_DAILY_PATH}

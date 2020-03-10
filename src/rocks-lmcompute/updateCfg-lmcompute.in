@@ -1,0 +1,41 @@
+#!/bin/bash 
+#
+# Update @LMHOME@/config/config.lmcompute.ini file with machine info  
+#
+usage () 
+{
+    echo "Usage: $0"
+    echo "This script updates Machine info in @LMHOME@/LmCompute/config/config.lmcompute.ini"
+}
+
+readLMEnvironment () {
+    # Source profile for environment
+    . /etc/profile.d/lmcompute.sh
+    # load opt-python
+    source /usr/share/Modules/init/bash
+    module load opt-python
+
+}
+
+updateAddress () {
+    @LMHOME@/rocks/bin/confSysvals 
+}
+
+# update permissions on config files
+updatePerms () {
+    GID=`grep lmwriter: /etc/group`
+    if [ "$GID" != "" ] ; then
+        chgrp lmwriter /opt/lifemapper/config/config*.ini*
+        chmod 664 /opt/lifemapper/config/config*.ini*
+    fi
+}
+
+####### Main #######
+if [ $# -ne 0 ]; then
+    usage
+    exit 0
+fi 
+
+readLMEnvironment
+updateAddress
+updatePerms

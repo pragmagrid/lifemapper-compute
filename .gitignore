@@ -37,6 +37,7 @@ Rolls.mk
 # ignore src files
 src/lmcompute/components/
 src/lmcompute/*.tar.gz
+src/cctools/cctools-*.tar.gz*
 
 # ignore subversion
 .subversion/

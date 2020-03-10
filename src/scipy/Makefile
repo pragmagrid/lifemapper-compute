@@ -60,12 +60,7 @@ REDHAT.ROOT = $(CURDIR)/../../
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
 
-version.mk:
-	cat ../version.mk version.mk.in > version.mk
-
 PY.PATH = /opt/python/bin/$(PYTHONVER)
-
-SOURCE = $(ARCHIVENAME)-$(VERSION)
 
 COMPILERLIB = /usr/lib64
 COMMENTMKL =
@@ -73,36 +68,45 @@ CPPCOMP = g++
 COMPILE_FLAGS = -O2 -shared -fPIC
 SETUPOPTS = --compiler=unix --fcompiler=gnu95
 
-alllibs:
-	make version.mk
-	tar zxf lapack-$(LAPACKVER).tgz
-	cp patch-files/make.inc lapack-$(LAPACKVER)
-	(\
-	    cd lapack-$(LAPACKVER); \
-	    make blaslib; \
-	    make lapacklib; \
-	)
 
-build: alllibs
-	tar zxf $(SOURCE).tar.gz
-	/bin/cp patch-files/site.cfg $(SOURCE)
+SEDSPEC += \
+        -e 's%@ARCHIVENAME@%$(ARCHIVENAME)%g'  \
+        -e 's%@VERSION@%$(VERSION)%g'  \
+        -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g'
+
+prepSrc.sh: prepSrc.sh.in
+	$(SED) $(SEDSPEC) $^ > $@
+	chmod 755 $@
+
+prep: prepSrc.sh
+	rm -rf version.mk
+	make version.mk
+	make prepSrc.sh
+	./prepSrc.sh
+
+version.mk:
+	cat ../version.mk version.mk.in > version.mk
+
+build: version.mk
+	tar zxf $(ARCHIVENAME)-$(VERSION).tar.gz
+	/bin/cp patch-files/site.cfg $(ARCHIVENAME)-$(VERSION)
 	(\
-	    export BLAS=$(PWD)/lapack-$(LAPACKVER)/BLAS/SRC/librefblas.a; \
-	    export LAPACK=$(PWD)/lapack-$(LAPACKVER)/liblapack.a; \
-	    cd $(SOURCE);   \
-	    $(PY.PATH) setup.py config --noisy $(SETUPOPTS) \
+		module load opt-python;			\
+	    cd $(ARCHIVENAME)-$(VERSION);   \
+	    $(PY.PATH) setup.py config \
+	        --noisy $(SETUPOPTS) \
 			build_clib  -g $(SETUPOPTS) \
 			build_ext $(SETUPOPTS); \
+		module unload opt-python;			\
 	)
 
 install::
 	(\
-	    export BLAS=$(PWD)/lapack-$(LAPACKVER)/BLAS/SRC/librefblas.a; \
-	    export LAPACK=$(PWD)/lapack-$(LAPACKVER)/liblapack.a; \
-	    cd $(SOURCE);   \
+		module load opt-python;			\
+	    cd $(ARCHIVENAME)-$(VERSION);   \
 	    $(PY.PATH) setup.py $@ --root=$(ROOT)/; \
+		module unload opt-python;			\
 	)
 
 clean::
-	rm -rf $(SOURCE) version.mk
-	rm -rf lapack-$(LAPACKVER)
+	rm -rf $(ARCHIVENAME)-$(VERSION) version.mk prepSrc.sh

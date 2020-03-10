@@ -18,36 +18,63 @@
 	$Log$
 	</changelog>
 
-	<package>lifemapper-cctools</package>
-	<package>lifemapper-proj</package>
-	<package>lifemapper-geos</package>
-	<package>lifemapper-gdal</package>
-	<package>lifemapper-tiff</package>
-	<package>lifemapper-openmodeller</package>
-	<package>lifemapper-lmcompute</package>
-	<package>lifemapper-spatialindex</package>
+    <!-- java for nodes -->
+    <package>libxslt</package>
+    <package>python-lxml</package>
+    <package>python-javapackages</package>
+    <package>javapackages-tools</package>
+    <package>lksctp-tools</package>
+    <package>pcsc-lite-libs</package>
+    <package>tzdata-java</package>
+    <package>copy-jdk-configs</package>
+    <package>java-1.8.0-openjdk-headless</package>
+    
+    <package>python2-subprocess32</package>
 
-	<package>gsl</package>
-	<package>gsl-devel</package>
-	<package>hdf4</package>
-	<package>hdf4-devel</package>
+	<!-- gdal prerequisites -->
+	<package>libaec</package>
+	<package>libaec-devel</package>
 	<package>hdf5</package>
 	<package>hdf5-devel</package>
-	<package>sqlite-devel</package>
+	<!-- scipy prerequisites -->
+	<package>blas</package>
+	<package>blas-devel</package>
+	<package>atlas</package>
+	<package>atlas-devel</package>
+	<package>lapack</package>
+	<package>lapack-devel</package>
+	<!-- openmodeller prerequisites -->
+	<package>gsl</package>
+	<package>gsl-devel</package>
+
+	<!-- lifemapper dependencies built from source -->
+	<package>lifemapper-cctools</package>
+	<package>lifemapper-gdal</package>
+	<package>lifemapper-geos</package>
+	<package>lifemapper-lmcompute</package>
+	<package>lifemapper-openmodeller</package>
+	<package>lifemapper-proj</package>
+	<package>rocks-lmcompute</package>
+	<package>lifemapper-tiff</package>
 
 	<!-- python prerequisites -->
-	<package>opt-lifemapper-pysal</package>
-	<package>opt-lifemapper-rtree</package>
-	<package>opt-lifemapper-scipy</package>
-	<package>opt-lifemapper-egenix-mx-base</package>
-	<package>opt-lifemapper-dateutil</package>
-	<package>opt-lifemapper-pyparsing</package>
-	<package>opt-lifemapper-matplotlib</package>
-	<package>opt-lifemapper-futures</package>
-	<package>opt-lifemapper-requests</package>
+	<package>opt-lifemapper-biotaphypy</package>
+	<package>opt-lifemapper-cython</package>
 	<package>opt-lifemapper-dendropy</package>
+	<package>opt-lifemapper-egenix-mx-base</package>
+    <package>opt-lifemapper-lmpy</package>
+    <package>opt-lifemapper-scipy</package>
+    <package>opt-lifemapper-unicodecsv</package>
+    <!-- python2-futures included in /usr/lib/python2.7 so build in /opt/python  -->
+    <package>opt-lifemapper-futures</package>
+	<!-- # for requests -->
+	<!-- <package>python-ipaddress</package> -->
+	<package>opt-lifemapper-certifi</package>
+	<package>opt-lifemapper-chardet</package>
+	<package>opt-lifemapper-idna</package>
+	<package>opt-lifemapper-urllib3</package>
+	<package>opt-lifemapper-requests</package>
 
-	<package>rocks-lmcompute</package>
 <post>
 
 /sbin/ldconfig

@@ -70,14 +70,14 @@ SEDSPEC += \
 	-e 's%@PKGROOT@%$(PKGROOT)%g' \
 	-e 's%@LMHOME@%$(LMHOME)%g' \
 	-e 's%@LMDISK@%$(LMDISK)%g' \
-   -e 's%@LMSCRATCHDISK@%$(LMSCRATCHDISK)%g' \
+	-e 's%@LMSCRATCHDISK@%$(LMSCRATCHDISK)%g' \
 	-e 's%@PYBIN@%$(PY.PATH)%g' \
 	-e 's%@VERSION@%$(VERSION)%g' \
-   -e 's%@DATADIR_SHARED@%$(DATADIR_SHARED)%g' \
-   -e 's%@ENV_DATA_DIR@%$(ENV_DATA_DIR)%g' \
-   -e 's%@INPUT_LAYER_DB@%$(INPUT_LAYER_DB)%g' \
-   -e 's%@LMURL@%$(LMURL)%g' \
-   -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g'
+	-e 's%@DATADIR_SHARED@%$(DATADIR_SHARED)%g' \
+	-e 's%@ENV_DATA_DIR@%$(ENV_DATA_DIR)%g' \
+	-e 's%@INPUT_LAYER_DB@%$(INPUT_LAYER_DB)%g' \
+	-e 's%@LMURL@%$(LMURL)%g' \
+	-e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g'
 
 
 PROFILES = \
@@ -89,9 +89,11 @@ SCRIPTS = \
 
 PROGS = \
 	initLMcompute \
-	updateIP-lmcompute \
+	clean-lm-compute-roll.sh \
+	updateCfg-lmcompute \
 	confSysvals \
 	transformData \
+	fixNodePermissions \
 	installComputeCronJobs
 
 CRONS = \
@@ -110,11 +112,10 @@ install::
 
 	mkdir -p $(ROOT)/etc/profile.d
 	install -m 755 $(PROFILES) $(ROOT)/etc/profile.d
-	. $(ROOT)/etc/profile.d/lmcompute.sh
 
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks/bin
 	install -m 755 $(PROGS) $(ROOT)/$(PKGROOT)/rocks/bin
-	install -m 755 addMount addVine $(ROOT)/$(PKGROOT)/rocks/bin
+	install -m 755 addMount $(ROOT)/$(PKGROOT)/rocks/bin
 
 	mkdir -p $(ROOT)/$(PKGROOT)/rocks/etc
 	install -m 644 mountinfo $(ROOT)/$(PKGROOT)/rocks/etc

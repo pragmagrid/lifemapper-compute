@@ -19,14 +19,14 @@ during the roll build.
 
 #. RPMs from standard yum repos:
 
-   :base:     cmake, screen, subversion, gsl, gsl-devel, sqlite-devel
-   :rpmforge: hdf4, hdf4-devel, hdf5, hdf5-devel 
+   :base:     atlas, atlas_devel, blas, blas_devel, 
+   :rpmforge: hdf5, hdf5-devel, proj
 
 
 #. Source distributions:
 
-   :binaries: proj, tiff, openmodeller, gdal, spatialindex
-   :python modules: setuptools, scipy, numpy, pysal, rtree
+   :non-python: cctools, gdal, geos, openmodeller, proj, tiff
+   :python modules: dendropy, egenix, pyparsing, requests, scipy
 
 Downloads
 ~~~~~~~~~
@@ -119,9 +119,9 @@ Install the resulting RPM with: ::
 
    # rpm -el lifemapper
    # rpm -i  path-to-new-lifemapper.rpm
-   # /opt/lifemapper/rocks/bin/updateIP-lmcompute
+   # /opt/lifemapper/rocks/bin/updateCfg-lmcompute
 
-The ``updateIP-lmcompute`` is needed for this specfic RPM because  a newly 
+The ``updateCfg-lmcompute`` is needed for this specfic RPM because  a newly 
 installed config.lmcompute.ini file needs template IP addressees updated. 
 
 

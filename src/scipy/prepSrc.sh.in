@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Purpose: Fetch scipy source
+
+DL_URL=https://github.com/@ARCHIVENAME@/@ARCHIVENAME@/archive
+DL_PKG=v@VERSION@.@TARBALL_POSTFIX@
+OUTFILE=@ARCHIVENAME@-@VERSION@.@TARBALL_POSTFIX@
+
+get_source_files () {
+  echo "Fetch scipy source code"
+  wget --output-document=$OUTFILE "$DL_URL/$DL_PKG"
+}
+
+### main ###
+get_source_files

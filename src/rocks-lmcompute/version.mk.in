@@ -1,5 +1,10 @@
 NAME    = rocks-lmcompute
-VERSION = $(CODEVERSION)
-RELEASE = 0
+VERSION = $(LMCODE_VERSION)
+RELEASE = 2
 
 TARBALL_POSTFIX   = tar.gz
+
+RPM.FILES = \
+    $(PKGROOT)/rocks/*  \n\
+    /etc/ld.so.conf.d/lifemapper.conf  \n\
+    /etc/profile.d/lmcompute.*

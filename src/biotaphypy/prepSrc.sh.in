@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Purpose: download release of lmpy, lm python objects, from Github repository 
+
+URL=https://github.com/biotaphy/@ARCHIVENAME@/archive
+FNAME=v@VERSION@.@TARBALL_POSTFIX@
+
+
+# download release from lifemapper github
+download_source () {
+  echo "Starting download from $URL"
+  wget "$URL/$FNAME" 
+}
+
+### main ###
+download_source

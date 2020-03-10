@@ -28,22 +28,27 @@ if [ $# -ne 1 ]; then
 fi 
 
 set_defaults() {
+    SCEN_PKG=$1
+
     /bin/egrep -i "^lmwriter" /etc/passwd
     if [ $? -ne 0 ]; then
         echo "Error: user lmwriter does not exist" | tee -a $LOG
         exit 1
     fi
-    SCEN_PKG=$1
 
-    THISNAME=`/bin/basename $0`
+    LOG=@LMSCRATCHDISK@/log/`/bin/basename $0`.log
+    touch $LOG
+
+    echo "-- load opt-python and environment"  | tee -a $LOG
+    source /usr/share/Modules/init/bash
+	module load opt-python
+	. /etc/profile.d/lmcompute.sh
+
     LMURL=@LMURL@
-    PYBIN=/opt/python/bin/@PYTHONVER@
     TRANSFORMPY=@LMHOME@/LmBackend/tools/convert_layers_in_package.py
     
     CLIMATE_DIR=@DATADIR_SHARED@/@ENV_DATA_DIR@
-
-    LOG=@LMSCRATCHDISK@/log/$THISNAME.log
-    touch $LOG
+    NEW_CLIMATE_DIR=$CLIMATE_DIR/$SCEN_PKG
 }
 
 ### Retrieve climate data named in SCENARIO_PACKAGE **iff** metadata not present
@@ -62,20 +67,11 @@ get_climate_data () {
             echo "Failed to retrieve $SCEN_PKG ..." | tee -a $LOG
         fi
     fi
-
-    # find top directory from tar listing
-    if [ -f $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ ] ; then
-        TOPDIR=`tar tvf $CLIMATE_DIR/$SCEN_PKG.@TARBALL_POSTFIX@ | grep "^d" | awk '{print $6}' | sed -n '1 p'`
-        NEW_CLIMATE_DIR=$CLIMATE_DIR/${TOPDIR%?}
-    else
-        NEW_CLIMATE_DIR=$CLIMATE_DIR
-    fi
 }
 
 ### Make lmwriter-group writeable
 fix_file_permissions () {
-    # This script is run by root, so set group write permission on parent dir
-    # (do not know top SCEN_PKG dir name)
+    # This script is run by root, so set group write permission on new scen dir
     echo "Change group and set write permission on $CLIMATE_DIR, subdirs"   | tee -a $LOG
     /bin/chgrp -R lmwriter $NEW_CLIMATE_DIR
     /bin/chmod -R g+ws $NEW_CLIMATE_DIR
@@ -84,13 +80,21 @@ fix_file_permissions () {
 
 ### Create ASCII and MXE layers from TIFFs
 transform_layers () {
-    if [ -f $TRANSFORMPY ] ; then        
+    if [ -f $TRANSFORMPY ] ; then
+    	module load opt-python
         echo "Convert layers for $SCEN_PKG to ascii and mxe ..." | tee -a $LOG
-        $PYBIN $TRANSFORMPY $NEW_CLIMATE_DIR 2>&1 | tee -a $LOG
+        @PYBIN@ $TRANSFORMPY $NEW_CLIMATE_DIR 2>&1 | tee -a $LOG
     else
         echo "Error: Missing file $TRANSFORMPY" | tee -a $LOG
         exit 1
     fi
+}
+
+instruct_user () {
+    echo ""   | tee -a $LOG
+    echo "*****************"   | tee -a $LOG
+    echo "This script transformed data in $SCEN_PKG for any user"   | tee -a $LOG
+    echo "*****************"   | tee -a $LOG
 }
 
 TimeStamp () {
@@ -104,5 +108,6 @@ TimeStamp "# Start"
 get_climate_data
 fix_file_permissions
 transform_layers
+instruct_user
 
 TimeStamp "# End"
