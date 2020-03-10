@@ -42,7 +42,7 @@ TimeStamp () {
 
 ### make ready-to-bake rpms 
 MakeSimpleRpms () {
-    declare -a easyrpms=("cctools" "egenix" "gdal" "geos" 
+    declare -a easyrpms=("cctools" "gdal" "geos" 
           "openmodeller" "proj" "pyparsing" "requests" 
           "rocks-lmcompute" "scipy" "tiff" "usersguide")
 

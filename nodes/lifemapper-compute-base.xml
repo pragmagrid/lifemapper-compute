@@ -61,12 +61,8 @@
 	<package>opt-lifemapper-biotaphypy</package>
 	<package>opt-lifemapper-cython</package>
 	<package>opt-lifemapper-dendropy</package>
-	<package>opt-lifemapper-egenix-mx-base</package>
     <package>opt-lifemapper-lmpy</package>
     <package>opt-lifemapper-scipy</package>
-    <package>opt-lifemapper-unicodecsv</package>
-    <!-- python2-futures included in /usr/lib/python2.7 so build in /opt/python  -->
-    <package>opt-lifemapper-futures</package>
 	<!-- # for requests -->
 	<!-- <package>python-ipaddress</package> -->
 	<package>opt-lifemapper-certifi</package>

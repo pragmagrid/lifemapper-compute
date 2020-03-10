@@ -26,7 +26,7 @@ during the roll build.
 #. Source distributions:
 
    :non-python: cctools, gdal, geos, openmodeller, proj, tiff
-   :python modules: dendropy, egenix, pyparsing, requests, scipy
+   :python modules: dendropy, pyparsing, requests, scipy
 
 Downloads
 ~~~~~~~~~
