@@ -95,6 +95,14 @@ compile cython
 module unload opt-python
 install opt-lifemapper-cython
 
+cd src/numpy
+make prep
+cd ../..
+module load opt-python
+compile numpy
+module unload opt-python
+install opt-lifemapper-numpy
+
 cd src/scipy
 make prep
 cd ../..
@@ -106,10 +114,3 @@ install opt-lifemapper-scipy
 # Leave with opt-python loaded
 module load opt-python
 
-echo "You will need to download source code, data and dependencies."
-echo "    lmcompute"
-echo "    lmdata-env"
-echo "    cctools"
-echo "    dendropy"
-echo "Go to each of the packages and execute:"
-echo "    make prep "
