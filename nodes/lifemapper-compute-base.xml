@@ -44,15 +44,17 @@
 	<package>lapack</package>
 	<package>lapack-devel</package>
 	<!-- openmodeller prerequisites -->
-	<package>gsl</package>
-	<package>gsl-devel</package>
+	<!-- <package>gsl</package>
+	<package>gsl-devel</package> -->
+    <package>libopenmodeller</package>
+    <package>libopenmodeller-devel</package>
 
 	<!-- lifemapper dependencies built from source -->
 	<package>lifemapper-cctools</package>
 	<package>lifemapper-gdal</package>
 	<package>lifemapper-geos</package>
 	<package>lifemapper-lmcompute</package>
-	<package>lifemapper-openmodeller</package>
+	<!-- <package>lifemapper-openmodeller</package> -->
 	<package>lifemapper-proj</package>
 	<package>rocks-lmcompute</package>
 	<package>lifemapper-tiff</package>

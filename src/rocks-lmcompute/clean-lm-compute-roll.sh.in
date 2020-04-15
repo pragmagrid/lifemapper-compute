@@ -86,10 +86,11 @@ del-shared-user-group () {
 
 del-lifemapper() {
    echo "Removing lifemapper prerequisite RPMS" >> $LOG
-   $RM gsl gsl-devel
+   # $RM gsl gsl-devel
+   $RM libopenmodeller libopenmodeller-devel
    echo "Removing lifemapper-*, opt-lifemapper-* RPMS" >> $LOG
    $RM lifemapper-lmcompute
-   $RM lifemapper-openmodeller
+   # $RM lifemapper-openmodeller
    $RM opt-lifemapper-scipy
    $RM rocks-lmcompute
    $RM roll-lifemapper-usersguide
