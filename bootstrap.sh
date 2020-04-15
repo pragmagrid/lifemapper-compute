@@ -30,12 +30,16 @@
 echo "/opt/lifemapper/lib" > /etc/ld.so.conf.d/lifemapper.conf
 /sbin/ldconfig
 
-# for admin
 # No opt-python for yum
 module unload opt-python
 yum install src/RPMS/screen-4.1.0-0.25.20120314git3c2946.el7.x86_64.rpm
 module unload opt-python
 yum install cmake
+
+# pip for numpy and scipy
+module load opt-python
+python3.6 -m ensurepip --default-pip
+module unload opt-python
 
 # for scipy
 rpm -i src/RPMS/blas-3.4.2-8.el7.x86_64.rpm
@@ -95,18 +99,22 @@ compile cython
 module unload opt-python
 install opt-lifemapper-cython
 
+
 cd src/numpy
 make prep
-cd ../..
 module load opt-python
+python3.6 -m ensurepip --default-pip
+python3.6 -m pip install *.whl
+cd ../..
 compile numpy
 module unload opt-python
-install opt-lifemapper-numpy
 
 cd src/scipy
 make prep
-cd ../..
 module load opt-python
+python3.6 -m ensurepip --default-pip
+python3.6 -m pip install *.whl
+cd ../..
 compile scipy
 module unload opt-python
 install opt-lifemapper-scipy

@@ -72,6 +72,18 @@ run_ldconfig () {
     /sbin/ldconfig
 }
 
+# Install all python wheel files with pip
+finish_wheel_installs () {
+    # install all wheel files
+    echo "-- complete python wheel installs" >> $LOG
+    FILES=@PKGROOT@/rocks/etc/*whl
+    for f in $FILES
+        do
+            echo "Install $f file..."
+            @PYBIN@ -m pip install $f
+        done
+}
+
 
 # update config/config.lmcompute.ini
 update_config () {
@@ -115,6 +127,7 @@ fi
 set_defaults
 TimeStamp "# Start"
 
+finish_wheel_installs
 run_ldconfig
 update_config 
 install_cron_jobs

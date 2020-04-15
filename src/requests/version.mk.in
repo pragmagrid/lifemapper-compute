@@ -1,7 +1,9 @@
 NAME = opt-lifemapper-requests
 ARCHIVENAME = requests
 VERSION = 2.22.0
-RELEASE = 0
+RELEASE = 1
 TARBALL_POSTFIX	= tar.gz
 
-RPM.FILES   = /opt/python/lib/$(PYTHONVER)/site-packages/*
+RPM.FILES   = $(PYTHON36_PACKAGES)/*
+
+# TODO: update
