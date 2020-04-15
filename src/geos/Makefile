@@ -94,4 +94,4 @@ install::
 	)
 
 clean::
-	rm -rf $(ARCHIVENAME)-$(VERSION) version.mk
+	rm -rf $(ARCHIVENAME)-$(VERSION) version.mk  prepSrc.sh
