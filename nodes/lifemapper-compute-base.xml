@@ -44,8 +44,8 @@
 	<package>lapack</package>
 	<package>lapack-devel</package>
 	<!-- openmodeller prerequisites -->
-	<!-- <package>gsl</package>
-	<package>gsl-devel</package> -->
+	<package>gsl</package>
+	<package>gsl-devel</package>
     <package>libopenmodeller</package>
     <package>libopenmodeller-devel</package>
 
