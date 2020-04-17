@@ -3,7 +3,7 @@
 # Used to add [machine] section to the lmcompute's configuration file
 # Run by the roll install process on all compute nodes
 
-import ConfigParser
+import configparser
 import os
 import sys
 import subprocess
@@ -14,23 +14,23 @@ class AddConfig():
         if len(argv) == 1:
             config = os.getenv('LIFEMAPPER_COMPUTE_CONFIG_FILE') 
             if config is None or len(config) == 0:
-                raise Exception, "No configuration file found.  Set LIFEMAPPER_COMPUTE_CONFIG_FILE environment variable"
+                raise Exception("No configuration file found.  Set LIFEMAPPER_COMPUTE_CONFIG_FILE environment variable")
             self.fn = config
         else:
             self.fn = argv[1]
 
-        self.config = ConfigParser.ConfigParser()
+        self.config = configparser.SafeConfigParser()
         self.config.read(self.fn)
 
     def getNodename(self):
-	cmd = "/opt/rocks/bin/rocks list host attr localhost | grep Kickstart_PublicHostname | grep -v _old"
+        cmd = "/opt/rocks/bin/rocks list host attr localhost | grep Kickstart_PublicHostname | grep -v _old"
         info, err = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
         if err:
-            print "Error in executing rocks command\n"
+            print("Error in executing rocks command\n")
             sys.exit()
-	nodename, line = info.split(":")
+        nodename, line = info.split(b":")
         frontend = line.split()[1]
-	if frontend.find(nodename) == 0:
+        if frontend.find(nodename) == 0:
             self.nodename=frontend
         else:
             self.nodename="%s-%s" % (frontend, nodename)
@@ -53,25 +53,25 @@ class AddConfig():
             try:
                 meminfo = OrderedDict()
                 with open('/proc/meminfo') as f2:
-                   for line in f2:
-                      meminfo[line.split(':')[0]] = line.split(':')[1].strip()
+                    for line in f2:
+                        meminfo[line.split(':')[0]] = line.split(':')[1].strip()
                 f.write('Total Memory: {0}\n'.format(meminfo['MemTotal']))
 
                 x = 0
                 f.write("CPU Info: \n")
                 with open('/proc/cpuinfo') as f2:
-                   for line in f2:
-                      if line.strip():
-                         if line.rstrip('\n').startswith('model name'):
-                            f.write("  {0} -{1}\n".format(x, line.rstrip('\n').split(':')[1]))
-                            x += 1
+                    for line in f2:
+                        if line.strip():
+                            if line.rstrip('\n').startswith('model name'):
+                                f.write("  {0} -{1}\n".format(x, line.rstrip('\n').split(':')[1]))
+                                x += 1
             except:
                 pass
 
             f.write("Python Version: {0}\n".format(platform.python_version()))
             f.write("Linux Version: {0}\n".format(' '.join( platform.linux_distribution())))
           
-        self.config = ConfigParser.SafeConfigParser()
+        self.config = configparser.SafeConfigParser()
         self.config.read(self.fn)
        
     def run(self):
