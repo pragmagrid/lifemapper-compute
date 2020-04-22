@@ -74,6 +74,7 @@ run_ldconfig () {
 
 # Install all python wheel files with pip
 finish_wheel_installs () {
+    @PYBIN@ -m ensurepip --default-pip
     # install all wheel files
     echo "-- complete python wheel installs" >> $LOG
     FILES=@PKGROOT@/rocks/etc/*whl

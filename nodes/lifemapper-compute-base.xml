@@ -64,6 +64,7 @@
 	<package>opt-lifemapper-cython</package>
 	<package>opt-lifemapper-dendropy</package>
     <package>opt-lifemapper-lmpy</package>
+    <package>opt-lifemapper-numpy</package>
     <package>opt-lifemapper-scipy</package>
 	<!-- # for requests -->
 	<!-- <package>python-ipaddress</package> -->
