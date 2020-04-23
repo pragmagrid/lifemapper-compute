@@ -98,7 +98,6 @@ PROGS = \
 
 CRONS = \
 	lmcompute_aggregate_logs \
-	lmcompute_cleanup_jobs \
 	lmcompute_free_memory
 	
 %: %.in
