@@ -28,4 +28,4 @@ JOB_SUBMITTER_TYPE	= cluster
 JOB_CAPACITY		= 20
 
 # Code version
-LMCODE_VERSION		= 3.4.1.p3
+LMCODE_VERSION		= 3.4.2.p3
