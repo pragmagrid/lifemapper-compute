@@ -2,13 +2,13 @@
 #
 # @Copyright@
 # 
-# 				Rocks(r)
-# 		         www.rocksclusters.org
-# 		         version 5.6 (Emerald Boa)
-# 		         version 6.1 (Emerald Boa)
+#               Rocks(r)
+#                www.rocksclusters.org
+#                version 5.6 (Emerald Boa)
+#                version 6.1 (Emerald Boa)
 # 
 # Copyright (c) 2000 - 2013 The Regents of the University of California.
-# All rights reserved.	
+# All rights reserved.  
 # 
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -25,9 +25,9 @@
 # 3. All advertising and press materials, printed or electronic, mentioning
 # features or use of this software must display the following acknowledgement: 
 # 
-# 	"This product includes software developed by the Rocks(r)
-# 	Cluster Group at the San Diego Supercomputer Center at the
-# 	University of California, San Diego and its contributors."
+#   "This product includes software developed by the Rocks(r)
+#   Cluster Group at the San Diego Supercomputer Center at the
+#   University of California, San Diego and its contributors."
 # 
 # 4. Except as permitted for the purposes of acknowledgment in paragraph 3,
 # neither the name or logo of this software nor the names of its
@@ -56,12 +56,14 @@
 #
 # $Log$
 
+# NOTE: Building GDAL from source for python3.6 bindings (python2.7 for 
+# pre-built rpms).  Installed base libraries from CentOS repository to satisfy 
+# mapserver dependencies.  Mapserver could not find built-from-source libraries 
+# even with path specified in config script.
+
 REDHAT.ROOT = $(CURDIR)/../../
 -include $(ROCKSROOT)/etc/Rules.mk
 include Rules.mk
-
-version.mk:
-	cat ../version.mk version.mk.in > version.mk
 
 PY.PATH = /opt/python/bin/$(PYTHONVER)
 
@@ -69,6 +71,9 @@ SEDSPEC += \
         -e 's%@ARCHIVENAME@%$(ARCHIVENAME)%g'  \
         -e 's%@VERSION@%$(VERSION)%g'  \
         -e 's%@TARBALL_POSTFIX@%$(TARBALL_POSTFIX)%g'
+
+version.mk:
+	cat ../version.mk version.mk.in > version.mk
 
 prepSrc.sh: prepSrc.sh.in
 	$(SED) $(SEDSPEC) $^ > $@
@@ -82,30 +87,31 @@ prep: prepSrc.sh
 
 build:
 	$(TAR) -xzvf $(ARCHIVENAME)-$(VERSION).$(TARBALL_POSTFIX)
-	( 							\
-		cd $(ARCHIVENAME)-$(VERSION);			\
-		module load opt-python;				\
-		export PATH=$(PKGROOT)/bin:$(PATH);		\
-		./configure --with-python=$(PY.PATH) --with-ogr --with-geos --prefix=$(PKGROOT);	\
-		$(MAKE);					\
-		cd swig/python;					\
-		module load opt-python;				\
-		$(PY.PATH) setup.py build; 			\
-		module unload opt-python;			\
-	)
-	
+	(                           \
+                cd $(ARCHIVENAME)-$(VERSION);           \
+                module load opt-python;             \
+                export PATH=$(PKGROOT)/bin:$(PATH);     \
+                ./configure --with-python=$(PY.PATH) --with-ogr --with-geos --prefix=$(PKGROOT);    \
+                $(MAKE);                    \
+                cd swig/python;                 \
+                module load opt-python;             \
+                $(PY.PATH) setup.py build;          \
+                module unload opt-python;           \
+        )
+    
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
-	(								\
-		cd $(ARCHIVENAME)-$(VERSION);				\
-		module load opt-python;					\
-		export PATH=$(PKGROOT)/bin:$(PATH);			\
-		$(MAKE) prefix=$(ROOT)/$(PKGROOT) ROOT=$(ROOT)/ install; \
-		cd swig/python;						\
-		module load opt-python;					\
-		$(PY.PATH) setup.py $@ --root=$(ROOT)/;			\
-		module unload opt-python;				\
-	)
+	(                               \
+                cd $(ARCHIVENAME)-$(VERSION);               \
+                module load opt-python;                 \
+                export PATH=$(PKGROOT)/bin:$(PATH);         \
+                $(MAKE) prefix=$(ROOT)/$(PKGROOT) ROOT=$(ROOT)/ install; \
+                cd swig/python;                     \
+                module load opt-python;                 \
+                $(PY.PATH) setup.py $@ --root=$(ROOT)/;         \
+                module unload opt-python;               \
+        )
 
 clean::
-	rm -rf $(ARCHIVENAME)-$(VERSION) version.mk  prepSrc.sh
+	rm -rf $(ARCHIVENAME)-$(VERSION) version.mk prepSrc.sh
+        
