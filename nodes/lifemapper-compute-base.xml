@@ -56,7 +56,6 @@
 
 	<!-- lifemapper dependencies built from source -->
 	<package>lifemapper-cctools</package>
-	<package>lifemapper-gdal</package>
 	<package>lifemapper-lmcompute</package>
 	<!-- <package>lifemapper-openmodeller</package> -->
 	<package>lifemapper-proj</package>
@@ -66,6 +65,7 @@
 	<package>opt-lifemapper-biotaphypy</package>
 	<package>opt-lifemapper-cython</package>
 	<package>opt-lifemapper-dendropy</package>
+    <package>opt-lifemapper-gdal</package>
     <package>opt-lifemapper-lmpy</package>
     <package>opt-lifemapper-numpy</package>
     <package>opt-lifemapper-scipy</package>
