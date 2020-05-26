@@ -13,6 +13,9 @@
 #yumdownloader --resolve --enablerepo base blas.x86_64 blas-devel.x86_64
 #yumdownloader --resolve --enablerepo base lapack.x86_64 lapack-devel.x86_64
 #
+# yumdownloader --resolve --enablerepo=pgdg94 geos
+# yumdownloader --resolve --enablerepo=pgdg94 geos-devel
+#
 #yumdownloader --resolve --enablerepo epel libaec.x86_64  libaec-devel.x86_64
 #yumdownloader --resolve --enablerepo epel hdf5.x86_64 hdf5-devel.x86_64
 #yumdownloader --resolve --enablerepo epel proj.x86_64
@@ -33,8 +36,9 @@ echo "/opt/lifemapper/lib" > /etc/ld.so.conf.d/lifemapper.conf
 # No opt-python for yum
 module unload opt-python
 yum install src/RPMS/screen-4.1.0-0.25.20120314git3c2946.el7.x86_64.rpm
+yum install src/RPMS/pgdg-centos96-9.6-3.noarch.rpm 
+yum install src/RPMS/epel-release-latest-7.noarch.rpm
 module unload opt-python
-yum install cmake
 
 # pip for numpy and scipy
 module load opt-python
@@ -54,12 +58,17 @@ rpm -i src/RPMS/libaec-1.0.4-1.el7.x86_64.rpm
 rpm -i src/RPMS/libaec-devel-1.0.4-1.el7.x86_64.rpm
 rpm -i src/RPMS/hdf5-1.8.12-10.el7.x86_64.rpm
 rpm -i src/RPMS/hdf5-devel-1.8.12-10.el7.x86_64.rpm
+rpm -i src/RPMS/libgeotiff-1.4.0-1.rhel7.x86_64.rpm
+rpm -i src/RPMS/libgeotiff-devel-1.4.0-1.rhel7.x86_64.rpm
+rpm -i src/RPMS/libtiff-devel-4.0.3-27.el7_3.x86_64.rpm
+rpm -i src/RPMS/geos-3.5.0-1.rhel7.x86_64.rpm
+rpm -i src/RPMS/geos-devel-3.5.0-1.rhel7.x86_64.rpm
 
 # for openmodeller
 rpm -i src/RPMS/gsl-1.15-13.el7.x86_64.rpm
 rpm -i src/RPMS/gsl-devel-1.15-13.el7.x86_64.rpm
 
-# install proj, tiff, geos for gdal
+# install proj for gdal
 cd src/proj
 make prep
 cd ../..
@@ -67,30 +76,7 @@ compile proj
 install lifemapper-proj
 /sbin/ldconfig
 
-cd src/tiff
-make prep
-cd ../..
-compile tiff
-install lifemapper-tiff
-/sbin/ldconfig
-
-cd src/geos
-make prep
-cd ../..
-compile geos
-install lifemapper-geos
-/sbin/ldconfig
-
-cd src/gdal
-make prep
-cd ../..
-module load opt-python
-compile gdal
-module unload opt-python
-install lifemapper-gdal
-/sbin/ldconfig
-
-# cython > 0.23.4 for scipy 
+# cython > 0.23.4, numpy for scipy 
 cd src/cython
 make prep
 cd ../..
@@ -98,7 +84,6 @@ module load opt-python
 compile cython
 module unload opt-python
 install opt-lifemapper-cython
-
 
 cd src/numpy
 make prep
@@ -108,16 +93,6 @@ python3.6 -m pip install *.whl
 cd ../..
 compile numpy
 module unload opt-python
-
-cd src/scipy
-make prep
-module load opt-python
-python3.6 -m ensurepip --default-pip
-python3.6 -m pip install *.whl
-cd ../..
-compile scipy
-module unload opt-python
-install opt-lifemapper-scipy
 
 # Leave with opt-python loaded
 module load opt-python

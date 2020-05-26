@@ -36,6 +36,11 @@
 	<package>libaec-devel</package>
 	<package>hdf5</package>
 	<package>hdf5-devel</package>
+    <package>libgeotiff</package>
+    <package>libgeotiff-devel</package>
+    <package>libtiff-devel</package>
+    <package>geos</package>
+    <package>geos-devel</package>
 	<!-- scipy prerequisites -->
 	<package>blas</package>
 	<package>blas-devel</package>
@@ -52,12 +57,10 @@
 	<!-- lifemapper dependencies built from source -->
 	<package>lifemapper-cctools</package>
 	<package>lifemapper-gdal</package>
-	<package>lifemapper-geos</package>
 	<package>lifemapper-lmcompute</package>
 	<!-- <package>lifemapper-openmodeller</package> -->
 	<package>lifemapper-proj</package>
 	<package>rocks-lmcompute</package>
-	<package>lifemapper-tiff</package>
 
 	<!-- python prerequisites -->
 	<package>opt-lifemapper-biotaphypy</package>
