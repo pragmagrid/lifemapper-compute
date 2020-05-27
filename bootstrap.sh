@@ -68,6 +68,20 @@ rpm -i src/RPMS/geos-devel-3.5.0-1.rhel7.x86_64.rpm
 rpm -i src/RPMS/gsl-1.15-13.el7.x86_64.rpm
 rpm -i src/RPMS/gsl-devel-1.15-13.el7.x86_64.rpm
 
+# # for matplotlib (for biotaphypy)
+# cd src/matplotlib
+# make prep
+# cd ../..
+# compile matplotlib
+# install opt-lifemapper-matplotlib
+# echo "-- complete matplotlib and dependency wheel installs" >> $LOG
+# FILES=/opt/lifemapper/rocks/etc/*whl
+# for f in $FILES
+#     do
+#         echo "Install $f file..."
+#         $(PY.PATH) -m pip install $f
+#     done
+
 # install proj for gdal
 cd src/proj
 make prep

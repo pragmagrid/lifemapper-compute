@@ -62,7 +62,8 @@
 	<package>rocks-lmcompute</package>
 
 	<!-- python prerequisites -->
-	<package>opt-lifemapper-biotaphypy</package>
+    <package>opt-lifemapper-matplotlib</package>
+    <package>opt-lifemapper-biotaphypy</package>
 	<package>opt-lifemapper-cython</package>
 	<package>opt-lifemapper-dendropy</package>
     <package>opt-lifemapper-gdal</package>
