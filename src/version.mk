@@ -20,6 +20,12 @@ SMTPSERVER		= localhost
 SMTPSENDER		= no-reply-lifemapper@@PUBLIC_FQDN@
 JAVABIN			= /etc/alternatives/java
 
+# matplotlib dependencies
+CYCLER_FILE_DEP     =   cycler-0.10.0-py2.py3-none-any.whl
+DATEUTIL_FILE_DEP   =   python_dateutil-2.8.1-py2.py3-none-any.whl
+KIWI_FILE_DEP       =   kiwisolver-1.2.0-cp36-cp36m-manylinux1_x86_64.whl
+PYPARSING_FILE_DEP  =   pyparsing-2.4.7-py2.py3-none-any.whl
+
 # This variable matches SCENARIO_PACKAGE in the lifemapper-server roll
 SCENARIO_PACKAGE	= 10min-past-present-future
 

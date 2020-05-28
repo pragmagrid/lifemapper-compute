@@ -75,14 +75,16 @@ run_ldconfig () {
 # Install all python wheel files with pip
 finish_wheel_installs () {
     @PYBIN@ -m ensurepip --default-pip
-    # install all wheel files
+    # install all wheel files, dependent packages first
     echo "-- complete python wheel installs" >> $LOG
-    FILES=@PKGROOT@/rocks/etc/*whl
-    for f in $FILES
-        do
-            echo "Install $f file..."
-            @PYBIN@ -m pip install $f
-        done
+    @PYBIN@ -m pip install wheel-0.34.2-py2.py3-none-any.whl
+    @PYBIN@ -m pip install python_dateutil-2.8.1-py2.py3-none-any.whl
+    @PYBIN@ -m pip install pyparsing-2.4.7-py2.py3-none-any.whl
+    @PYBIN@ -m pip install kiwisolver-1.2.0-cp36-cp36m-manylinux1_x86_64.whl
+    @PYBIN@ -m pip install cycler-0.10.0-py2.py3-none-any.whl
+    @PYBIN@ -m pip install numpy-1.18.2-cp36-cp36m-manylinux1_x86_64.whl
+    @PYBIN@ -m pip install scipy-1.4.1-cp36-cp36m-manylinux1_x86_64.whl
+    @PYBIN@ -m pip install matplotlib-3.2.1-cp36-cp36m-manylinux1_x86_64.whl
 }
 
 

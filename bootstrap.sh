@@ -68,20 +68,6 @@ rpm -i src/RPMS/geos-devel-3.5.0-1.rhel7.x86_64.rpm
 rpm -i src/RPMS/gsl-1.15-13.el7.x86_64.rpm
 rpm -i src/RPMS/gsl-devel-1.15-13.el7.x86_64.rpm
 
-# # for matplotlib (for biotaphypy)
-# cd src/matplotlib
-# make prep
-# cd ../..
-# compile matplotlib
-# install opt-lifemapper-matplotlib
-# echo "-- complete matplotlib and dependency wheel installs" >> $LOG
-# FILES=/opt/lifemapper/rocks/etc/*whl
-# for f in $FILES
-#     do
-#         echo "Install $f file..."
-#         $(PY.PATH) -m pip install $f
-#     done
-
 # install proj for gdal
 cd src/proj
 make prep
@@ -90,7 +76,7 @@ compile proj
 install lifemapper-proj
 /sbin/ldconfig
 
-# cython > 0.23.4, numpy for scipy 
+# cython > 0.23.4 for numpy 
 cd src/cython
 make prep
 cd ../..
@@ -99,6 +85,7 @@ compile cython
 module unload opt-python
 install opt-lifemapper-cython
 
+# numpy for scipy and matplotlib
 cd src/numpy
 make prep
 module load opt-python
@@ -106,6 +93,16 @@ python3.6 -m ensurepip --default-pip
 python3.6 -m pip install *.whl
 cd ../..
 compile numpy
+module unload opt-python
+
+# matplotlib and dependencies (for biotaphypy)
+# rpm only installs wheel files
+cd src/matplotlib
+make prep
+module load opt-python
+python3.6 -m ensurepip --default-pip
+python3.6 -m pip install *.whl
+cd ../..
 module unload opt-python
 
 # Leave with opt-python loaded

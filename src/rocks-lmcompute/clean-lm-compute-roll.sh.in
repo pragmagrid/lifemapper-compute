@@ -6,6 +6,7 @@
 #    group lmwriter
 
 RM="rpm -evl --quiet --nodeps"
+PYBIN=/opt/python/bin/python3.6
 PIP3=/opt/python/bin/pip3.6
 ROCKS_CMD=/opt/rocks/bin/rocks
 LMROLL_COUNT=`$ROCKS_CMD list roll | grep lifemapper | wc -l`
@@ -49,7 +50,9 @@ del-lifemapper-shared() {
    $RM opt-lifemapper-dendropy
    $RM opt-lifemapper-chardet
    $RM opt-lifemapper-certifi
+   $RM opt-lifemapper-gdal
    $RM opt-lifemapper-idna
+   $RM opt-lifemapper-matplotlib
    $RM opt-lifemapper-lmpy
    $RM opt-lifemapper-urllib3
    $RM opt-lifemapper-requests
@@ -57,9 +60,15 @@ del-lifemapper-shared() {
    echo "Removing SHARED opt-* RPMS with python wheels" >> $LOG
    $RM opt-lifemapper-numpy
    $RM opt-lifemapper-scipy
+   $RM opt-lifemapper-matplotlib
    module load opt-python
-   $PIP3 uninstall -y numpy
-   $PIP3 uninstall -y scipy
+   $PYBIN@ -m pip uninstall -y python-dateutil
+   $PYBIN@ -m pip uninstall -y pyparsing
+   $PYBIN@ -m pip uninstall -y kiwisolver
+   $PYBIN@ -m pip uninstall -y cycler
+   $PYBIN@ -m pip uninstall -y numpy
+   $PYBIN@ -m pip uninstall -y scipy
+   $PYBIN@ -m pip uninstall -y matplotlib
    module unload opt-python
 }
 
