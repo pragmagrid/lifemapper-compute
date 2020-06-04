@@ -61,7 +61,6 @@ REDHAT.ROOT = $(CURDIR)/../../
 include Rules.mk
 
 PY.PATH = /opt/python/bin/$(PYTHONVER)
-PIP.PATH = /opt/python/bin/pip3
 
 SEDSPEC += \
         -e 's%@ARCHIVENAME@%$(ARCHIVENAME)%g'  \
