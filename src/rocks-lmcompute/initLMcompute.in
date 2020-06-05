@@ -85,7 +85,7 @@ finish_wheel_installs () {
             @PYBIN@ -m pip install $wname
         done
 
-    INSTALLED_PKGS=`python3.6 -m pip list | grep -v Package | grep -v "^----" | awk '{print $1}'`
+    INSTALLED_PKGS=`@PYBIN@ -m pip list | /usr/bin/grep -v Package | /usr/bin/grep -v "^----" | /usr/bin/awk '{print $1}'`
     # install rest of wheel files, ignore previously installed files
     FILES=$WHL_DIR/*whl
     startidx=$((${#WHL_DIR} + 2))
