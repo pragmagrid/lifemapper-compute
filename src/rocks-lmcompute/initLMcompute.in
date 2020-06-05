@@ -74,29 +74,34 @@ run_ldconfig () {
 
 # Install all python wheel files with pip
 finish_wheel_installs () {
+    WHL_DIR=@PKGROOT@/rocks/etc
+    # these are filename prefixes
+    ORDERED_DEPS="numpy python_dateutil pyparsing kiwisolver cycler matplotlib"
     @PYBIN@ -m ensurepip --default-pip
-    numpy_wheel=@PKGROOT@/rocks/etc/numpy*whl
-    dateutil_wheel=@PKGROOT@/rocks/etc/python_dateutil*whl
-    pyparsing_wheel=@PKGROOT@/rocks/etc/pyparsing*.whl
-    kiwi_wheel=@PKGROOT@/rocks/etc/kiwisolver*.whl
-    cycler_wheel=@PKGROOT@/rocks/etc/cycler*.whl
-    matplotlib_wheel=@PKGROOT@/rocks/etc/matplotlib*.whl
-    ORDERED_WHEELS="$numpy_wheel $dateutil_wheel $pyparsing_wheel $kiwi_wheel $cycler_wheel $matplotlib_wheel"
-    # install order-sensitive wheel files
-    for f in $ORDERED_WHEELS
+    for dep in $ORDERED_DEPS
         do
-            echo "Install $f wheel ..." >> $LOG
-            @PYBIN@ -m pip install $f
+            echo "Install $dep wheel ..." >> $LOG
+            wname=$WHL_DIR/$dep*whl
+            @PYBIN@ -m pip install $wname
         done
-    # install rest of wheel files, ignores previously installed files
-    FILES=@PKGROOT@/rocks/etc/*whl
+
+    INSTALLED_PKGS=`python3.6 -m pip list | grep -v Package | grep -v "^----" | awk '{print $1}'`
+    # install rest of wheel files, ignore previously installed files
+    FILES=$WHL_DIR/*whl
+    startidx=$((${#WHL_DIR} + 2))
     for f in $FILES
         do
-            echo "Install $f file..."
-            @PYBIN@ -m pip install $f
+            filelen=${#f}
+            # filename prefix sometimes differs from package name
+            pkgname=$(echo $f | cut -c$startidx-$filelen | cut -d'-' -f1)
+            if [[ ${INSTALLED_PKGS[*]} =~ $pkgname ]]; then
+                echo "$pkgname installed already ..."
+            else
+                echo "Install $pkgname from $f file..."
+                @PYBIN@ -m pip install $wname
+            fi
         done
 }
-
 
 # update config/config.lmcompute.ini
 update_config () {
