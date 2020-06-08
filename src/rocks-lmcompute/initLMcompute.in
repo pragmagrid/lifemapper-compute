@@ -17,6 +17,10 @@ set_defaults() {
     LOG=@LMSCRATCHDISK@/log/`/bin/basename $0`.log
     rm -f $LOG
     touch $LOG
+    hn=`/bin/hostname`
+    idx=`expr index "$hn" .`
+    shortname=${hn:0:idx-1}
+    MEMBERSHIP=`/opt/rocks/bin/rocks list host $shortname | grep -v MEMBERSHIP | awk '{print $1}'`
 
     echo "-- enable modules"  >>  $LOG
     source /usr/share/Modules/init/bash
@@ -55,13 +59,21 @@ cmd_opt_python () {
 }
 
 
-# update permissions on config files
+# update permissions on config files and node lmscratch directory
 update_perms () {
-    echo "-- set permissions on config files" >> $LOG
+    echo "-- set permissions on config files and node @LMSCRATCHDISK@" >> $LOG
     GID=`grep lmwriter: /etc/group`
     if [ "$GID" != "" ] ; then
         chgrp lmwriter @PKGROOT@/config/config*.ini*
         chmod 664 @PKGROOT@/config/config*.ini*
+        if [ $MEMBERSHIP = Compute ]; then
+            echo "change group write permission on node $shortname @LMSCRATCHDISK@"   | tee -a $LOG
+            /bin/chgrp -R lmwriter @LMSCRATCHDISK@
+            /bin/chmod -R g+ws @LMSCRATCHDISK@
+            
+            echo "new permissions on node $shortname @LMSCRATCHDISK@"   | tee -a $LOG
+            (hostname; ls -lahtr @LMSCRATCHDISK@)   | tee -a $LOG
+        fi
     fi
 }
 
@@ -74,6 +86,7 @@ run_ldconfig () {
 
 # Install all python wheel files with pip
 finish_wheel_installs () {
+    echo "-- install wheels" >> $LOG
     WHL_DIR=@PKGROOT@/rocks/etc
     # these are filename prefixes
     ORDERED_DEPS="numpy python_dateutil pyparsing kiwisolver cycler matplotlib"
@@ -119,11 +132,7 @@ install_cron_jobs () {
 
 # transform data on frontend
 transform_layers () {
-    hn=`/bin/hostname`
-    idx=`expr index "$hn" .`
-    shortname=${hn:0:idx-1}
-    membership=`/opt/rocks/bin/rocks list host $shortname | grep -v MEMBERSHIP | awk '{print $1}'`
-    if [ $membership = Frontend ]; then
+    if [ $MEMBERSHIP = Frontend ]; then
        echo "-- transform environmental layers (FE only)" >> $LOG
        cmd_opt_python load
        $BIN/transformData $SCEN_PKG
