@@ -63,6 +63,7 @@ rpm -i src/RPMS/libgeotiff-devel-1.4.0-1.rhel7.x86_64.rpm
 rpm -i src/RPMS/libtiff-devel-4.0.3-27.el7_3.x86_64.rpm
 rpm -i src/RPMS/geos-3.5.0-1.rhel7.x86_64.rpm
 rpm -i src/RPMS/geos-devel-3.5.0-1.rhel7.x86_64.rpm
+rpm -i src/RPMS/proj-4.8.0-4.el7.x86_64.rpm 
 
 # for openmodeller
 rpm -i src/RPMS/gsl-1.15-13.el7.x86_64.rpm

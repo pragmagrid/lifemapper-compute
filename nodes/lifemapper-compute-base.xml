@@ -41,6 +41,7 @@
     <package>libtiff-devel</package>
     <package>geos</package>
     <package>geos-devel</package>
+    <package>proj</package> 
 	<!-- scipy prerequisites -->
 	<package>blas</package>
 	<package>blas-devel</package>
