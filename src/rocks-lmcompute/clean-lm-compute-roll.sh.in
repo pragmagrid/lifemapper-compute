@@ -27,40 +27,58 @@ set_defaults() {
 
 
 del-lifemapper-shared() {
-   echo "Removing shared geos, proj, tiff, and gdal dependencies RPMS" >> $LOG
+   echo "Removing shared lifemapper dependency RPMs" >> $LOG
+   # gdal-libs + deps
+   $RM gdal-libs
+   $RM CharLS 
+   $RM SuperLU 
+   $RM armadillo
+   $RM arpack
    $RM atlas atlas-devel
-   $RM blas blas-devel
+   $RM blas  blas-devel
+   $RM cfitsio 
+   $RM freexl 
+   $RM geos geos-devel
+   $RM hdf5 hdf5-devel
    $RM lapack lapack-devel
    $RM libaec libaec-devel
-   $RM hdf5 hdf5-devel
+   $RM libdap 
+   $RM libgeotiff libgeotiff-devel
+   $RM libgta
+   $RM libtiff-devel
+   $RM netcdf 
+   $RM ogdi 
+   $RM openblas-openmp 
+   $RM openjpeg2 
+   $RM postgresql-libs
+   $RM proj 
+   $RM unixODBC 
+   $RM xerces-c 
+   # gdal deps
+   $RM gpsbabel
+   $RM libusb
+   $RM shapelib
    
-   echo "Removing SHARED lifemapper-* and prerequisite RPMS" >> $LOG	
-   $RM lifemapper-cctools
-   $RM lifemapper-gdal
-   $RM lifemapper-geos
-   $RM lifemapper-proj
-   $RM lifemapper-tiff
-   
-   echo "Removing SHARED data RPMS" >> $LOG
-   $RM lifemapper-env-data
-   
-   echo "Removing SHARED opt-* RPMS" >> $LOG
+   echo "Removing SHARED lifemapper-* and opt-lifemapper-* RPMS" >> $LOG	
    $RM opt-lifemapper-biotaphypy
+   $RM     lifemapper-cctools
+   $RM opt-lifemapper-certifi
+   $RM opt-lifemapper-chardet
    $RM opt-lifemapper-cython
    $RM opt-lifemapper-dendropy
-   $RM opt-lifemapper-chardet
-   $RM opt-lifemapper-certifi
+   $RM     lifemapper-env-data
    $RM opt-lifemapper-gdal
    $RM opt-lifemapper-idna
-   $RM opt-lifemapper-matplotlib
    $RM opt-lifemapper-lmpy
-   $RM opt-lifemapper-urllib3
-   $RM opt-lifemapper-requests
-
-   echo "Removing SHARED opt-* RPMS with python wheels" >> $LOG
    $RM opt-lifemapper-numpy
-   $RM opt-lifemapper-scipy
    $RM opt-lifemapper-matplotlib
+   $RM     lifemapper-proj
+   $RM opt-lifemapper-requests
+   $RM opt-lifemapper-scipy
+   $RM     lifemapper-tiff
+   $RM opt-lifemapper-urllib3
+
+   echo "Removing python wheels from opt-lifemapper-* RPMs" >> $LOG
    module load opt-python
    $PYBIN@ -m pip uninstall -y python-dateutil
    $PYBIN@ -m pip uninstall -y pyparsing

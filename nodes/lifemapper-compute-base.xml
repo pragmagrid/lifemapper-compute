@@ -31,24 +31,44 @@
     
     <package>python2-subprocess32</package>
 
-	<!-- gdal prerequisites -->
-	<package>libaec</package>
-	<package>libaec-devel</package>
-	<package>hdf5</package>
-	<package>hdf5-devel</package>
-    <package>libgeotiff</package>
-    <package>libgeotiff-devel</package>
-    <package>libtiff-devel</package>
+    <!-- gdal-libs + deps -->
+    <package>gdal-libs</package>
+    <package>CharLS</package> 
+    <package>SuperLU</package> 
+    <package>armadillo</package>
+    <package>arpack</package>
+    <package>atlas</package>
+    <package>atlas-devel</package>
+    <package>blas</package> 
+    <package>blas-devel</package>
+    <package>cfitsio</package> 
+    <package>freexl</package> 
     <package>geos</package>
     <package>geos-devel</package>
+    <package>hdf5</package>
+    <package>hdf5-devel</package>
+    <package>lapack</package>
+    <package>lapack-devel</package>
+    <package>libaec</package>
+    <package>libaec-devel</package>
+    <package>libdap</package> 
+    <package>libgeotiff</package>
+    <package>libgeotiff-devel</package>
+    <package>libgta</package>
+    <package>libtiff-devel</package>
+    <package>netcdf</package> 
+    <package>ogdi</package> 
+    <package>openblas-openmp</package> 
+    <package>openjpeg2</package> 
+    <package>postgresql-libs</package>
     <package>proj</package> 
-	<!-- scipy prerequisites -->
-	<package>blas</package>
-	<package>blas-devel</package>
-	<package>atlas</package>
-	<package>atlas-devel</package>
-	<package>lapack</package>
-	<package>lapack-devel</package>
+    <package>unixODBC</package> 
+    <package>xerces-c</package> 
+    <!-- gdal prerequisites (+ gdal-libs) -->
+    <package>gpsbabel</package>
+    <package>libusb</package>
+    <package>shapelib</package>
+
 	<!-- openmodeller prerequisites -->
 	<package>gsl</package>
 	<package>gsl-devel</package>
