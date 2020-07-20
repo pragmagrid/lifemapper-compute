@@ -19,7 +19,6 @@
 	</changelog>
 
     <!-- java for nodes -->
-    <package>libxslt</package>
     <package>python-lxml</package>
     <package>python-javapackages</package>
     <package>javapackages-tools</package>

@@ -114,12 +114,20 @@ del-shared-user-group () {
 
 del-lifemapper() {
    echo "Removing lifemapper prerequisite RPMS" >> $LOG
-   # $RM gsl gsl-devel
+   $RM python-lxml
+   $RM python-javapackages
+   $RM javapackages-tools
+   $RM lksctp-tools
+   $RM pcsc-lite-libs
+   $RM tzdata-java
+   $RM copy-jdk-configs
+   $RM java-1.8.0-openjdk-headless
+   $RM gsl gsl-devel
    $RM libopenmodeller libopenmodeller-devel
+   $RM python2-subprocess32
+
    echo "Removing lifemapper-*, opt-lifemapper-* RPMS" >> $LOG
    $RM lifemapper-lmcompute
-   # $RM lifemapper-openmodeller
-   $RM opt-lifemapper-scipy
    $RM rocks-lmcompute
    $RM roll-lifemapper-usersguide
    $RM roll-lifemapper-compute-kickstart
