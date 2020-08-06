@@ -9,8 +9,10 @@ RM="rpm -evl --quiet --nodeps"
 PYBIN=/opt/python/bin/python3.6
 PIP3=/opt/python/bin/pip3.6
 ROCKS_CMD=/opt/rocks/bin/rocks
-LMROLL_COUNT=`$ROCKS_CMD list roll | grep lifemapper | wc -l`
 LMUSER_COUNT=`/bin/egrep -i "^lmwriter" /etc/passwd | wc -l`
+LMROLL_COUNT=`$ROCKS_CMD list roll | grep lifemapper | wc -l`
+LMLAB_ROLL_COUNT=`$ROCKS_CMD list roll | grep lifemapper-lab |  wc -l`
+LMSERVER_ROLL_COUNT=`$ROCKS_CMD list roll | grep lifemapper-server |  wc -l`
 
 TimeStamp () {
     echo $1 `/bin/date` >> $LOG
@@ -27,104 +29,119 @@ set_defaults() {
 
 
 del-lifemapper-shared() {
-   echo "Removing shared lifemapper dependency RPMs" >> $LOG
-   # gdal-libs + deps
-   $RM gdal-libs
-   $RM CharLS 
-   $RM SuperLU 
-   $RM armadillo
-   $RM arpack
-   $RM atlas atlas-devel
-   $RM blas  blas-devel
-   $RM cfitsio 
-   $RM freexl 
-   $RM geos geos-devel
-   $RM hdf5 hdf5-devel
-   $RM lapack lapack-devel
-   $RM libaec libaec-devel
-   $RM libdap 
-   $RM libgeotiff libgeotiff-devel
-   $RM libgta
-   $RM libtiff-devel
-   $RM netcdf 
-   $RM ogdi 
-   $RM openblas-openmp 
-   $RM openjpeg2 
-   $RM postgresql-libs
-   $RM proj 
-   $RM unixODBC 
-   $RM xerces-c 
-   # gdal deps
-   $RM gpsbabel
-   $RM libusb
-   $RM shapelib
-   
-   echo "Removing SHARED lifemapper-* and opt-lifemapper-* RPMS" >> $LOG	
-   $RM opt-lifemapper-biotaphypy
-   $RM     lifemapper-cctools
-   $RM opt-lifemapper-certifi
-   $RM opt-lifemapper-chardet
-   $RM opt-lifemapper-cython
-   $RM opt-lifemapper-dendropy
-   $RM     lifemapper-env-data
-   $RM opt-lifemapper-gdal
-   $RM opt-lifemapper-idna
-   $RM opt-lifemapper-lmpy
-   $RM opt-lifemapper-numpy
-   $RM opt-lifemapper-matplotlib
-   $RM     lifemapper-proj
-   $RM opt-lifemapper-requests
-   $RM opt-lifemapper-scipy
-   $RM     lifemapper-tiff
-   $RM opt-lifemapper-urllib3
+    if [[ $LMROLL_COUNT <= 1 ]] ; then
+        echo "Removing lifemapper RPMs shared" >> $LOG
+        # for requests on all lm rolls
+        $RM opt-lifemapper-certifi
+        $RM opt-lifemapper-chardet
+        $RM opt-lifemapper-idna
+        $RM opt-lifemapper-requests
+        $RM opt-lifemapper-wheel
+        $RM opt-lifemapper-urllib3
+    
+        module load opt-python
+        $PYBIN@ -m pip uninstall -y wheel
+        $PYBIN@ -m pip uninstall -y urllib3
+        module unload opt-python
+    fi 
 
-   echo "Removing python wheels from opt-lifemapper-* RPMs" >> $LOG
-   module load opt-python
-   $PYBIN@ -m pip uninstall -y python-dateutil
-   $PYBIN@ -m pip uninstall -y pyparsing
-   $PYBIN@ -m pip uninstall -y kiwisolver
-   $PYBIN@ -m pip uninstall -y cycler
-   $PYBIN@ -m pip uninstall -y numpy
-   $PYBIN@ -m pip uninstall -y scipy
-   $PYBIN@ -m pip uninstall -y matplotlib
-   module unload opt-python
+    if [[ $LMLAB_ROLL_COUNT = 0 ]] ; then
+        echo "Removing lmcompute/lmlab RPMs shared" >> $LOG
+        # java deps
+        $RM copy-jdk-configs
+        $RM java-1.8.0-openjdk-headless
+        $RM javapackages-tools
+        $RM lksctp-tools
+        $RM pcsc-lite-libs
+        $RM python-lxml
+        $RM python-javapackages
+        $RM tzdata-java
+    fi
+
+    if [[ $LMSERVER_ROLL_COUNT = 0 ]] ; then
+        echo "Removing lmcompute/lmserver RPMs shared" >> $LOG
+        # gdal-libs + deps
+        $RM gdal-libs
+        $RM CharLS 
+        $RM SuperLU 
+        $RM armadillo
+        $RM arpack
+        $RM atlas atlas-devel
+        $RM blas  blas-devel
+        $RM cfitsio 
+        $RM freexl 
+        $RM geos geos-devel
+        $RM hdf5 hdf5-devel
+        $RM lapack lapack-devel
+        $RM libaec libaec-devel
+        $RM libdap 
+        $RM libgeotiff libgeotiff-devel
+        $RM libgta
+        $RM libtiff-devel
+        $RM netcdf 
+        $RM ogdi 
+        $RM openblas-openmp 
+        $RM openjpeg2 
+        $RM postgresql-libs
+        $RM proj 
+        $RM unixODBC 
+        $RM xerces-c 
+        # gdal deps
+        $RM gpsbabel
+        $RM libusb
+        $RM shapelib
+        
+        echo "Removing lmcompute/lmserver shared lifemapper-* and opt-lifemapper-* RPMS" >> $LOG	
+        $RM opt-lifemapper-biotaphypy
+        $RM     lifemapper-cctools
+        $RM opt-lifemapper-cython
+        $RM opt-lifemapper-dendropy
+        $RM     lifemapper-env-data
+        $RM opt-lifemapper-gdal
+        $RM opt-lifemapper-lmpy
+        $RM opt-lifemapper-numpy
+        $RM opt-lifemapper-matplotlib
+        $RM     lifemapper-proj
+        $RM opt-lifemapper-scipy
+        $RM     lifemapper-tiff
+        
+        echo "Removing lmcompute/lmserver shared python wheels from opt-lifemapper-* RPMs" >> $LOG
+        module load opt-python
+        $PYBIN@ -m pip uninstall -y python-dateutil
+        $PYBIN@ -m pip uninstall -y pyparsing
+        $PYBIN@ -m pip uninstall -y kiwisolver
+        $PYBIN@ -m pip uninstall -y cycler
+        $PYBIN@ -m pip uninstall -y numpy
+        $PYBIN@ -m pip uninstall -y scipy
+        $PYBIN@ -m pip uninstall -y matplotlib
+        module unload opt-python
+    fi
 }
 
 del-shared-directories() {
    echo "Removing lifemapper installation directory" >> $LOG
    rm -rf @LMHOME@
    echo "Removing shared lifemapper temp and data directories" >> $LOG
-   rm -rf /state/partition1/lmscratch
-   rm -rf /state/partition1/lm
+   rm -rf @LMSCRATCHDISK@
+   rm -rf @LMDISK@
    echo "Removing shared lifemapper PID directory" >> $LOG
    rm -rf /var/run/lifemapper
 }
 
 del-shared-user-group () {
-   if [ $LMUSER_COUNT = 1 ] ; then
-       echo "Remove lmwriter user/group/dirs" >> $LOG
-       userdel lmwriter
-       groupdel lmwriter
-       /bin/rm -f /var/spool/mail/lmwriter
-       /bin/rm -rf /export/home/lmwriter
-       echo "Syncing users info" >> $LOG
-       $ROCKS_CMD sync users
-   fi
+    echo "Remove lmwriter user/group/dirs" >> $LOG
+    userdel lmwriter
+    groupdel lmwriter
+    /bin/rm -f /var/spool/mail/lmwriter
+    /bin/rm -rf /export/home/lmwriter
+    echo "Syncing users info" >> $LOG
+    $ROCKS_CMD sync users
 }
 
 del-lifemapper() {
    echo "Removing lifemapper prerequisite RPMS" >> $LOG
-   $RM python-lxml
-   $RM python-javapackages
-   $RM javapackages-tools
-   $RM lksctp-tools
-   $RM pcsc-lite-libs
-   $RM tzdata-java
-   $RM copy-jdk-configs
-   $RM java-1.8.0-openjdk-headless
    $RM gsl gsl-devel
    $RM libopenmodeller libopenmodeller-devel
-   $RM python2-subprocess32
 
    echo "Removing lifemapper-*, opt-lifemapper-* RPMS" >> $LOG
    $RM lifemapper-lmcompute
@@ -162,9 +179,9 @@ del-automount-entry () {
 
 del-roll () {
     echo
-    echo "Removing roll lifemapper-compute"
+    echo "Removing roll lifemapper-compute" >> $LOG
     $ROCKS_CMD remove roll lifemapper-compute
-    echo "Rebuilding the distro"
+    echo "Rebuilding the distro" >> $LOG
     module unload opt-python
     (cd /export/rocks/install; $ROCKS_CMD create distro; yum clean all)
     echo
@@ -191,6 +208,8 @@ del-cron-jobs
 del-automount-entry
 
 if [ $LMROLL_COUNT = 1 ]; then
+    echo "Removing the last lifemapper roll"  >> $LOG
+else
 	del-lifemapper-shared
 	del-shared-directories
 	del-shared-user-group

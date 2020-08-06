@@ -40,7 +40,7 @@ yum install src/RPMS/pgdg-centos96-9.6-3.noarch.rpm
 yum install src/RPMS/epel-release-latest-7.noarch.rpm
 module unload opt-python
 
-# pip for numpy and scipy
+# pip for python installs
 module load opt-python
 python3.6 -m ensurepip --default-pip
 module unload opt-python
